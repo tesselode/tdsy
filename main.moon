@@ -7,6 +7,7 @@ love.load =  ->
   bump      = require 'lib.bump'
   vector    = require 'lib.vector'
 
+  require 'class.level'
   require 'class.map'
   require 'class.map-object'
   require 'class.physical.physical'

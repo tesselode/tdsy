@@ -1,0 +1,21 @@
+<level width="256" height="224" SilverTime="12" GoldTime="10" DiamondTime="8">
+  <Entities>
+    <Fish id="0" x="32" y="112" />
+    <Jellyfish id="1" x="80" y="80" angle="3.141593" />
+    <Jellyfish id="2" x="96" y="80" angle="3.141593" />
+    <Jellyfish id="3" x="112" y="80" angle="3.141593" />
+    <Jellyfish id="8" x="176" y="80" angle="3.141593" />
+    <Jellyfish id="9" x="192" y="80" angle="3.141593" />
+    <Jellyfish id="10" x="80" y="160" angle="0" />
+    <Jellyfish id="11" x="96" y="160" angle="0" />
+    <Jellyfish id="12" x="112" y="160" angle="0" />
+    <Jellyfish id="13" x="128" y="160" angle="0" />
+    <Jellyfish id="14" x="144" y="160" angle="0" />
+    <Jellyfish id="15" x="160" y="160" angle="0" />
+    <Jellyfish id="16" x="176" y="160" angle="0" />
+    <Jellyfish id="17" x="192" y="160" angle="0" />
+    <Jellyfish id="5" x="144" y="80" angle="3.141593" />
+    <Jellyfish id="4" x="128" y="80" angle="3.141593" />
+    <Jellyfish id="6" x="160" y="80" angle="3.141593" />
+  </Entities>
+</level>
