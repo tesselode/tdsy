@@ -5,7 +5,8 @@ export class MapObject
 
   create: =>
 
+  update: (dt) =>
+
   draw: =>
-    with love.graphics
-      .setColor 255, 255, 255, 255
-      .print 'hello world'
+
+  drawDebug: =>
