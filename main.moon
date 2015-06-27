@@ -11,6 +11,7 @@ love.load =  ->
   require 'class.map'
   require 'class.map-object'
   require 'class.physical.physical'
+  require 'class.physical.jellyfish'
 
   require 'state.game'
 
