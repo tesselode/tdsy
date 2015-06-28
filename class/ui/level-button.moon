@@ -1,5 +1,5 @@
 export class LevelButton
-  new: (@x, @y, @w, @h) =>
+  new: (@level, @x, @y, @w, @h) =>
 
   draw: =>
     with love.graphics

@@ -24,12 +24,12 @@ love.graphics.printAligned = (text, font, x, y, hAlign, vAlign) ->
 
 math.wrap = (number, min, max) ->
   if number < min
-    number += max - min
+    number += max - min + 1
     if number < min
       math.wrap number, min, max
 
   if number > max
-    number -= max - min
+    number -= max - min + 1
     if number > max
       math.wrap number, min, max
 
