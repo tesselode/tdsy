@@ -1,8 +1,7 @@
 export game
 
 game =
-  enter: =>
-    @level = level[1]
+  enter: (previous, @level) =>
     @map = Map @level
     @playerInput = PlayerInput @map.fish
 

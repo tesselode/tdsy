@@ -31,6 +31,9 @@ levelSelect =
       @selected += 4
     @selected = math.wrap @selected, 1, 16
 
+    if input\pressed 'primary'
+      gamestate.switch game, @levelButton[@selected].level
+
     --selection cursor
     with @cursor
       .goalX = @levelButton[@selected].x
@@ -50,7 +53,7 @@ levelSelect =
         with love.graphics
           .setColor 226, 215, 71, 255
           .setLineWidth 2
-          .rectangle 'line', @cursor.x, @cursor.y, 49, 30
+          .rectangle 'line', lume.round(@cursor.x), lume.round(@cursor.y), 49, 30
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
