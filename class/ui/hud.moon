@@ -45,15 +45,19 @@ export class Hud
       .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY
 
       if @endSlate
+        --fade to black
         .setColor 0, 0, 0, @endSlate.blackAlpha
         .rectangle 'fill', 0, 0, WIDTH, HEIGHT
 
+        --moves the y position of the text
         .push!
         .translate 0, @endSlate.y
 
+        --draw the time
         .setColor color.rank[@endSlate.timeRank]
         .printAligned string.format('%0.2f', @endSlate.time), font.timeBig, WIDTH / 2, 60, 'center', 'middle'
 
+        --draw the best time (or "new best time!" message)
         if @endSlate.newBest
           .setColor 255, 255, 255, 255
           .printAligned 'New best time!', font.time, WIDTH / 2, 100, 'center', 'middle'
@@ -63,6 +67,7 @@ export class Hud
           .setColor color.rank[@endSlate.bestRank]
           .printAligned string.format('%0.2f', @endSlate.best), font.timeBig, WIDTH - 20, 100, 'right', 'middle'
 
+        --draw the next time (or the "rank achieved!" messages)
         if @endSlate.bestRank == 1
           .setColor color.rank[1]
           .printAligned 'Diamond rank achieved!', font.time, WIDTH / 2, 140, 'center', 'middle'
