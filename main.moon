@@ -12,6 +12,7 @@ love.load =  ->
   lume      = require 'lib.lume'
   beholder  = require 'lib.beholder'
   input     = require 'lib.tactile'
+  require 'extra'
 
   with input
     --keyboard input
@@ -54,6 +55,20 @@ love.load =  ->
     if file\find '.png'
       image[file\match('(.-).png')] = love.graphics.newImage 'image/'..file
 
+  --load fonts
+  font = {}
+  with love.graphics
+  	font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
+  	font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
+
+	--reusable colors
+  color = {}
+  color.rank = {}
+  color.rank[1] = {129, 213, 240, 255}
+  color.rank[2] = {222, 215, 123, 255}
+  color.rank[3] = {201, 201, 201, 255}
+  color.rank[4] = {150, 150, 150, 255}
+
   --load classes
   require 'class.level'
   require 'class.map'
@@ -65,6 +80,7 @@ love.load =  ->
   require 'class.physical.border'
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
+  require 'class.ui.hud'
   require 'class.player-input'
 
   require 'state.game'
