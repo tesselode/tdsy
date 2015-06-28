@@ -11,28 +11,40 @@ export class Map
     table.insert(self.objects, newObject)
     newObject
 
-  loadLevel: (levelInstance) =>
+  loadLevel: (level) =>
     --create outside borders
-    with levelInstance
+    with level
       @addObject Border, vector(0, 0), vector(.width, 1)
       @addObject Border, vector(0, .height - 8), vector(.width, 8)
       @addObject Border, vector(0, 0), vector(1, .height)
       @addObject Border, vector(.width, 0), vector(1, .height)
 
     --spawn fish
-    with levelInstance.fish
+    with level.fish
       @fish = @addObject Fish, vector .x, .y
+      @camera = Camera @fish, level.width, level.height
 
     --spawn jellyfish
-    for jellyfish in *levelInstance.jellyfish
+    for jellyfish in *level.jellyfish
       with jellyfish
         @addObject Jellyfish, vector(.x, .y), .angle
 
   update: (dt) =>
+    --update all objects
     for object in *@objects do
       object\update dt
 
+    @camera\update dt
+
   draw: =>
+    --attach camera
+    with love.graphics
+      .push!
+      .translate -@camera.position.x, -@camera.position.y
+
+    --draw all objects
     for object in *@objects do
       object\draw!
       object\drawDebug! if DEBUG
+
+    love.graphics.pop!
