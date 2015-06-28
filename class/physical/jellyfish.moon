@@ -6,6 +6,8 @@ export class Jellyfish extends Physical
     @angle = angle or 0
 
     @bounced = false
+    @sprite = Sprite image.jellyfish
+    @sprite.rotation = @angle
     @floatSpeed = love.math.random(1, 6)
     @floating = true
 
@@ -14,10 +16,14 @@ export class Jellyfish extends Physical
   bounce: =>
     if not @bounced
       @bounced = true
+      @sprite = Sprite image.jellyfishBounced
+      @sprite.rotation = @angle
       beholder.trigger 'jellyfish bounced'
 
       --bounce animation
       @floating = false
+      @tween\to(@sprite.offset, .1, {y: -2})\ease('quadout')
+      @tween\to(@sprite.offset, .1, {y: 8})\ease('quadin')\delay(.1)
       @timer.add .2, ->
         --restart floating animation
         @uptime = 0
@@ -28,3 +34,10 @@ export class Jellyfish extends Physical
 
     --floating effect
     @uptime += dt
+    if @floating
+      @sprite.offset.y = 8 + math.sin(@uptime * @floatSpeed)
+
+  draw: =>
+    x, y = @getCenter!\unpack!
+    x, y = lume.round(x), lume.round(y)
+    @sprite\draw x, y

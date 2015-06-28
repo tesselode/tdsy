@@ -7,6 +7,7 @@ love.load =  ->
   flux      = require 'lib.flux'
   bump      = require 'lib.bump'
   vector    = require 'lib.vector'
+  lume      = require 'lib.lume'
 
   --load images
   image = {}
@@ -18,6 +19,7 @@ love.load =  ->
   require 'class.level'
   require 'class.map'
   require 'class.map-object'
+  require 'class.cosmetic.sprite'
   require 'class.physical.physical'
   require 'class.physical.jellyfish'
 
