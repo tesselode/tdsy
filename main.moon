@@ -12,6 +12,7 @@ love.load =  ->
   lume      = require 'lib.lume'
   beholder  = require 'lib.beholder'
   input     = require 'lib.tactile'
+  serialize = require 'lib.ser'
   require 'extra'
 
   with input
@@ -83,6 +84,7 @@ love.load =  ->
   require 'class.ui.hud'
   require 'class.ui.level-button'
   require 'class.player-input'
+  require 'class.save-manager'
 
   require 'state.game'
   require 'state.level-select'
@@ -91,7 +93,10 @@ love.load =  ->
   --load levels
   level = {}
   for i = 1, 16
-    level[i] = Level 'level'..i
+    level[i] = Level i, 'level'..i
+
+  --load save data
+  saveManager = SaveManager!
 
   with gamestate
     .switch levelSelect

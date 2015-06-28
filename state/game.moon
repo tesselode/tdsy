@@ -25,6 +25,13 @@ game =
     @levelComplete = true
     @playerInput.enabled = false
 
+    --save data
+    best = saveManager.data.level[@level.levelNum].best
+    if not best or @time < best
+      saveManager.data.level[@level.levelNum].best = @time
+      saveManager\write!
+    beholder.trigger 'show endslate'
+
   update: (dt) =>
     @playerInput\update dt
     @map\update dt

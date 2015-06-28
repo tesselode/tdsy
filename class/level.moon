@@ -1,5 +1,5 @@
 export class Level
-  new: (levelName) =>
+  new: (@levelNum, levelName) =>
     @time = {}
     @fish = {}
     @jellyfish = {}
