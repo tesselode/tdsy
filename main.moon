@@ -1,4 +1,6 @@
 love.load =  ->
+  love.graphics.setDefaultFilter 'nearest', 'nearest'
+
   export *
 
   --load libraries
