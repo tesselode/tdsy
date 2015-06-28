@@ -25,6 +25,7 @@ love.load =  ->
   require 'class.map-object'
   require 'class.cosmetic.sprite'
   require 'class.physical.physical'
+  require 'class.physical.border'
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
 

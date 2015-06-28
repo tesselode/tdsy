@@ -12,6 +12,13 @@ export class Map
     newObject
 
   loadLevel: (levelInstance) =>
+    --create outside borders
+    with levelInstance
+      @addObject Border, vector(0, 0), vector(.width, 1)
+      @addObject Border, vector(0, .height - 8), vector(.width, 8)
+      @addObject Border, vector(0, 0), vector(1, .height)
+      @addObject Border, vector(.width, 0), vector(1, .height)
+
     --spawn fish
     with levelInstance.fish
       @addObject Fish, vector .x, .y

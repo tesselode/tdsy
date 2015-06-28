@@ -137,11 +137,11 @@ export class Fish extends Physical
       --set velocity
       @velocity = relativeVelocity\rotated col.other.angle
 
-    --if col.other.__class == Border
-    --  if col.normal.x ~= 0 then
-    --    @velocity.x = 0
-    --  if col.normal.y ~= 0 then
-    --    @velocity.y = 0
+    if col.other.__class == Border
+      if col.normal.x ~= 0 then
+        @velocity.x = 0
+      if col.normal.y ~= 0 then
+        @velocity.y = 0
 
   draw: =>
     --draw bubble trail
