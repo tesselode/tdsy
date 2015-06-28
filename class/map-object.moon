@@ -6,6 +6,8 @@ export class MapObject
   create: =>
 
   update: (dt) =>
+    @timer.update dt
+    @tween\update dt
 
   draw: =>
 
