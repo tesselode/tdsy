@@ -63,6 +63,7 @@ love.load =  ->
   require 'class.physical.border'
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
+  require 'class.player-input'
 
   require 'state.game'
 
@@ -74,6 +75,9 @@ love.load =  ->
   with gamestate
     .switch game
     .registerEvents!
+
+love.update = (dt) ->
+  input\update!
 
 love.keypressed = (key) ->
   if key == 'escape' then

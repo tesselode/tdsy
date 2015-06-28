@@ -21,7 +21,7 @@ export class Map
 
     --spawn fish
     with levelInstance.fish
-      @addObject Fish, vector .x, .y
+      @fish = @addObject Fish, vector .x, .y
 
     --spawn jellyfish
     for jellyfish in *levelInstance.jellyfish

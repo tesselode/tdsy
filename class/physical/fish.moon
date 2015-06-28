@@ -31,8 +31,6 @@ export class Fish extends Physical
       \setParticleLifetime 5, 5
       \setSpread 6
 
-    @activate!
-
   filter: (other) =>
     if other.__class == Jellyfish or other.__class == Border then
       return 'slide'
