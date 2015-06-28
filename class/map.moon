@@ -1,8 +1,5 @@
 export class Map
   new: =>
-    @world = bump.newWorld!
-    @objects = {}
-
     @loadLevel level[1]
 
   addObject: (object, ...) =>
@@ -12,6 +9,9 @@ export class Map
     newObject
 
   loadLevel: (level) =>
+    @world = bump.newWorld!
+    @objects = {}
+
     --create outside borders
     with level
       @addObject Border, vector(0, 0), vector(.width, 1)
@@ -29,6 +29,9 @@ export class Map
       with jellyfish
         @addObject Jellyfish, vector(.x, .y), .angle
 
+    --background
+    @background = Background level.width, level.height
+
   update: (dt) =>
     --update all objects
     for object in *@objects do
@@ -37,10 +40,16 @@ export class Map
     @camera\update dt
 
   draw: =>
+    --draw background
+    @background\draw!
+
     --attach camera
     with love.graphics
       .push!
       .translate -@camera.position.x, -@camera.position.y
+
+    --draw scrolling parts of background
+    @background\drawScrolling!
 
     --draw all objects
     for object in *@objects do
