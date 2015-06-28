@@ -19,3 +19,18 @@ love.graphics.printAligned = (text, font, x, y, hAlign, vAlign) ->
     y = y - font\getHeight(text) / 2
 
   love.graphics.print text, x, y
+
+
+
+math.wrap = (number, min, max) ->
+  if number < min
+    number += max - min
+    if number < min
+      math.wrap number, min, max
+
+  if number > max
+    number -= max - min
+    if number > max
+      math.wrap number, min, max
+
+  number
