@@ -10,6 +10,7 @@ love.load =  ->
   bump      = require 'lib.bump'
   vector    = require 'lib.vector'
   lume      = require 'lib.lume'
+  beholder  = require 'lib.beholder'
 
   --load images
   image = {}
@@ -25,6 +26,7 @@ love.load =  ->
   require 'class.cosmetic.sprite'
   require 'class.physical.physical'
   require 'class.physical.jellyfish'
+  require 'class.physical.fish'
 
   require 'state.game'
 

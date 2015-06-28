@@ -12,6 +12,10 @@ export class Map
     newObject
 
   loadLevel: (levelInstance) =>
+    --spawn fish
+    with levelInstance.fish
+      @addObject Fish, vector .x, .y
+
     --spawn jellyfish
     for jellyfish in *levelInstance.jellyfish
       with jellyfish
