@@ -27,3 +27,23 @@ export class Level
           .y     = tonumber line\match 'y="(.-)"'
           .angle = tonumber line\match 'angle="(.-)"'
         table.insert @jellyfish, jellyfish
+
+  getRank: (time) =>
+    if time < @time.diamond
+      return 1
+    elseif time < @time.gold
+      return 2
+    elseif time < @time.silver
+      return 3
+    else
+      return 4
+
+  getNext: (time) =>
+    if time < @time.diamond
+      return false
+    elseif time < @time.gold
+      return @time.diamond
+    elseif time < @time.silver
+      return @time.gold
+    else
+      return @time.silver

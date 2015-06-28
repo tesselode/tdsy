@@ -30,7 +30,9 @@ game =
     if not best or @time < best
       saveManager.data.level[@level.levelNum].best = @time
       saveManager\write!
-    beholder.trigger 'show endslate'
+      beholder.trigger 'show endslate', true
+    else
+      beholder.trigger 'show endslate', false
 
   update: (dt) =>
     @playerInput\update dt
@@ -42,11 +44,14 @@ game =
       if @jellyfishBounced == #@level.jellyfish
         @endLevel!
 
+    @hud\update dt
+
     --pause menu
     if input\pressed 'pause'
       gamestate.push pause
 
   leave: =>
+    @hud\destroy!
     beholder.stopObserving self
 
   draw: =>
