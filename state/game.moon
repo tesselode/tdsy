@@ -35,6 +35,10 @@ game =
       if @jellyfishBounced == #@level.jellyfish
         @endLevel!
 
+    --pause menu
+    if input\pressed 'pause'
+      gamestate.push pause
+
   leave: =>
     beholder.stopObserving self
 

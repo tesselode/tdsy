@@ -86,6 +86,7 @@ love.load =  ->
 
   require 'state.game'
   require 'state.level-select'
+  require 'state.pause'
 
   --load levels
   level = {}
@@ -98,7 +99,3 @@ love.load =  ->
 
 love.update = (dt) ->
   input\update!
-
-love.keypressed = (key) ->
-  if key == 'escape' then
-    love.event.quit!
