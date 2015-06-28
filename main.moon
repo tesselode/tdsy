@@ -15,6 +15,7 @@ love.load =  ->
     if file\find '.png'
       image[file\match('(.-).png')] = love.graphics.newImage 'image/'..file
 
+
   --load classes
   require 'class.level'
   require 'class.map'
@@ -24,6 +25,11 @@ love.load =  ->
   require 'class.physical.jellyfish'
 
   require 'state.game'
+
+  --load levels
+  level = {}
+  for i = 1, 16
+    level[i] = Level 'level'..i
 
   with gamestate
     .switch game

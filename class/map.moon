@@ -3,7 +3,7 @@ export class Map
     @world = bump.newWorld!
     @objects = {}
 
-    @loadLevel 'level1'
+    @loadLevel level[1]
 
   addObject: (object, ...) =>
     newObject = object @world
@@ -11,11 +11,9 @@ export class Map
     table.insert(self.objects, newObject)
     newObject
 
-  loadLevel: (levelName) =>
-    level = Level levelName
-
+  loadLevel: (levelInstance) =>
     --spawn jellyfish
-    for jellyfish in *level.jellyfish
+    for jellyfish in *levelInstance.jellyfish
       with jellyfish
         @addObject Jellyfish, vector(.x, .y), .angle
 

@@ -27,10 +27,3 @@ export class Level
           .y     = tonumber line\match 'y="(.-)"'
           .angle = tonumber line\match 'angle="(.-)"'
         table.insert @jellyfish, jellyfish
-
-    --check to make sure everything is right (take me out later)
-    print @width, @height, @time.silver, @time.gold, @time.diamond
-    print @fish.x, @fish.y
-    for jellyfish in *@jellyfish
-      with jellyfish
-        print .x, .y, .angle
