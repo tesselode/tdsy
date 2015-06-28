@@ -2,23 +2,42 @@ export game
 
 game =
   enter: =>
-    @map = Map!
+    @level = level[1]
+    @map = Map @level
     @playerInput = PlayerInput @map.fish
 
     --game flow
+    @levelStarted = false
+    @levelComplete = false
+    @jellyfishBounced = 0
     @time = 0
+
+    beholder.group self, ->
+      beholder.observe 'level start', -> @levelStarted = true
+      beholder.observe 'jellyfish bounced', -> @jellyfishBounced += 1
 
     --cosmetic
     @hud = Hud self
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
+  endLevel: =>
+    beholder.trigger 'level complete'
+    @levelComplete = true
+    @playerInput.enabled = false
+
   update: (dt) =>
     @playerInput\update dt
     @map\update dt
 
     --game flow
-    @time += dt
+    if @levelStarted and not @levelComplete
+      @time += dt
+      if @jellyfishBounced == #@level.jellyfish
+        @endLevel!
+
+  leave: =>
+    beholder.stopObserving self
 
   draw: =>
     with @canvas

@@ -1,6 +1,6 @@
 export class Map
-  new: =>
-    @loadLevel level[1]
+  new: (level) =>
+    @loadLevel level
 
   addObject: (object, ...) =>
     newObject = object @world
