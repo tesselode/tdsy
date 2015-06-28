@@ -81,9 +81,11 @@ love.load =  ->
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
   require 'class.ui.hud'
+  require 'class.ui.level-button'
   require 'class.player-input'
 
   require 'state.game'
+  require 'state.level-select'
 
   --load levels
   level = {}
@@ -91,7 +93,7 @@ love.load =  ->
     level[i] = Level 'level'..i
 
   with gamestate
-    .switch game
+    .switch levelSelect
     .registerEvents!
 
 love.update = (dt) ->
