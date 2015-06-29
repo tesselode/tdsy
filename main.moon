@@ -83,6 +83,7 @@ love.load =  ->
   require 'class.physical.fish'
   require 'class.ui.hud'
   require 'class.ui.level-button'
+  require 'class.ui.menu'
   require 'class.player-input'
   require 'class.save-manager'
 
