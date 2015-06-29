@@ -2,6 +2,9 @@ export levelSelect
 
 levelSelect =
   enter: =>
+    @timer = timer.new!
+    @tween = flux.group!
+
     @levelButton = {}
     levelNum = 0
     for i = 0, 3 do
@@ -11,24 +14,36 @@ levelSelect =
 
     @selected = 1
 
+    --cosmetic
     @cursor =
       x: 0
       y: 0
       goalX: 0
       goalY: 0
-
+    @timesY = 0
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
+  timesBounceAnimation: =>
+    @timesY = -4
+    @tween\to(self, .1, {timesY: 0})\ease 'linear'
+
   update: (dt) =>
+    @timer.update dt
+    @tween\update dt
+
     --controls
     if input\pressed 'left'
       @selected -= 1
+      @timesBounceAnimation!
     if input\pressed 'right'
       @selected += 1
+      @timesBounceAnimation!
     if input\pressed 'up'
       @selected -= 4
+      @timesBounceAnimation!
     if input\pressed 'down'
       @selected += 4
+      @timesBounceAnimation!
     @selected = math.wrap @selected, 1, 16
 
     if input\pressed 'primary'
@@ -67,6 +82,9 @@ levelSelect =
           else
             next = level[@selected].time.silver
 
+          .push!
+          .translate 0, -@timesY
+
           --print best time
           .printAligned 'Best: ', font.time, 75, 150, 'center'
           local bestText, bestColor
@@ -89,6 +107,8 @@ levelSelect =
             nextText = string.format '%0.1f', next
             .setColor color.rank[bestRank - 1]
           .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
+
+          .pop!
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
