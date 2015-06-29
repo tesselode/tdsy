@@ -7,7 +7,7 @@ levelSelect =
     for i = 0, 3 do
       for j = 0, 3 do
         levelNum += 1
-        table.insert @levelButton, LevelButton level[levelNum], 15 + 59 * j, 10 + 40 * i, 49, 30
+        table.insert @levelButton, LevelButton level[levelNum], 56 + 37 * j, 5 + 37 * i
 
     @selected = 1
 
@@ -51,9 +51,12 @@ levelSelect =
 
         --draw selection cursor
         with love.graphics
-          .setColor 226, 215, 71, 255
-          .setLineWidth 2
-          .rectangle 'line', lume.round(@cursor.x), lume.round(@cursor.y), 49, 30
+          --.setColor 226, 215, 71, 255
+          --.setLineWidth 2
+          --.rectangle 'line', lume.round(@cursor.x), lume.round(@cursor.y), 49, 30
+
+          .setColor 255, 255, 255, 255
+          .draw image.buttonCursor, lume.round(@cursor.x), lume.round(@cursor.y)
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
