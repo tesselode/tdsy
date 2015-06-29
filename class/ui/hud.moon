@@ -18,7 +18,7 @@ export class Hud
 
         --menu
         @timer.add 1, ->
-          @menu = Menu font.time, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
+          @menu = Menu font.mini, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
           with @menu
             \addOption 'Restart', -> gamestate.switch game, game.level
             \addOption 'Back to menu', -> gamestate.switch levelSelect
@@ -73,23 +73,23 @@ export class Hud
         --draw the best time (or "new best time!" message)
         if @endSlate.newBest
           .setColor 255, 255, 255, 255
-          .printAligned 'New best time!', font.time, WIDTH / 2, 80, 'center', 'middle'
+          .printAligned 'New best time!', font.mini, WIDTH / 2, 80, 'center', 'middle'
         else
           .setColor 255, 255, 255, 255
-          .printAligned 'Best: ', font.time, 20, 80, 'left', 'middle'
+          .printAligned 'Best', font.big, 20, 80, 'left', 'middle'
           .setColor color.rank[@endSlate.bestRank]
           .printAligned string.format('%0.2f', @endSlate.best), font.timeBig, WIDTH - 20, 80, 'right', 'middle'
 
         --draw the next time (or the "rank achieved!" messages)
         if @endSlate.bestRank == 1
           .setColor color.rank[1]
-          .printAligned 'Diamond rank achieved!', font.time, WIDTH / 2, 120, 'center', 'middle'
+          .printAligned 'Diamond rank achieved!', font.mini, WIDTH / 2, 120, 'center', 'middle'
         elseif @endSlate.bestRank == 2
           .setColor color.rank[2]
-          .printAligned 'Gold rank achieved!', font.time, WIDTH / 2, 120, 'center', 'middle'
+          .printAligned 'Gold rank achieved!', font.mini, WIDTH / 2, 120, 'center', 'middle'
         else
           .setColor 255, 255, 255, 255
-          .printAligned 'Goal: ', font.time, 20, 120, 'left', 'middle'
+          .printAligned 'Goal', font.big, 20, 120, 'left', 'middle'
           .setColor color.rank[@endSlate.bestRank - 1]
           .printAligned string.format('%0.1f', @endSlate.next), font.timeBig, WIDTH - 20, 120, 'right', 'middle'
 

@@ -86,7 +86,7 @@ levelSelect =
           .translate 0, -@timesY
 
           --print best time
-          .printAligned 'Best: ', font.time, 75, 150, 'center'
+          .printAligned 'Best', font.mini, 75, 150, 'center'
           local bestText, bestColor
           if best
             bestText = string.format '%0.2f', best
@@ -98,7 +98,7 @@ levelSelect =
 
           --print next time
           .setColor 255, 255, 255, 255
-          .printAligned 'Goal: ', font.time, WIDTH - 75, 150, 'center'
+          .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
           local nextText
           if bestRank < 3
             nextText = '--'
@@ -114,4 +114,3 @@ levelSelect =
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255
       .draw @canvas, 0, 0, 0, scaleFactor, scaleFactor
-      .print @selected

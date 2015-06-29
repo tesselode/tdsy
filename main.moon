@@ -59,7 +59,8 @@ love.load =  ->
   --load fonts
   font = {}
   with love.graphics
-    font.mini    = .newFont 'font/kenpixel_mini.ttf', 16
+    font.mini    = .newFont 'font/kenpixel_mini_square.ttf', 16
+    font.big     = .newFont 'font/kenpixel_mini_square.ttf', 32
     font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
     font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
 
