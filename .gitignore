@@ -44,3 +44,4 @@ Temporary Items
 
 *.lua
 !/lib/*.lua
+.atom-build.json
