@@ -16,6 +16,13 @@ export class Hud
           @tween\to @endSlate, 0.4, {blackAlpha: 100}
           @tween\to @endSlate, 0.5, {y: 0}
 
+        --menu
+        @timer.add 1, ->
+          @menu = Menu font.time, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
+          with @menu
+            \addOption 'Restart', -> gamestate.switch game, game.level
+            \addOption 'Back to menu', -> gamestate.switch levelSelect
+
   createEndslate: (newBest) =>
     @endSlate = {}
     with @endSlate
@@ -36,6 +43,12 @@ export class Hud
     @timer.update dt
     @tween\update dt
 
+    if @menu
+      with @menu
+        \previous! if input\pressed 'up'
+        \next! if input\pressed 'down'
+        \select! if input\pressed 'primary'
+
   destroy: =>
     beholder.stopObserving self
 
@@ -55,29 +68,32 @@ export class Hud
 
         --draw the time
         .setColor color.rank[@endSlate.timeRank]
-        .printAligned string.format('%0.2f', @endSlate.time), font.timeBig, WIDTH / 2, 60, 'center', 'middle'
+        .printAligned string.format('%0.2f', @endSlate.time), font.timeBig, WIDTH / 2, 40, 'center', 'middle'
 
         --draw the best time (or "new best time!" message)
         if @endSlate.newBest
           .setColor 255, 255, 255, 255
-          .printAligned 'New best time!', font.time, WIDTH / 2, 100, 'center', 'middle'
+          .printAligned 'New best time!', font.time, WIDTH / 2, 80, 'center', 'middle'
         else
           .setColor 255, 255, 255, 255
-          .printAligned 'Best: ', font.time, 20, 100, 'left', 'middle'
+          .printAligned 'Best: ', font.time, 20, 80, 'left', 'middle'
           .setColor color.rank[@endSlate.bestRank]
-          .printAligned string.format('%0.2f', @endSlate.best), font.timeBig, WIDTH - 20, 100, 'right', 'middle'
+          .printAligned string.format('%0.2f', @endSlate.best), font.timeBig, WIDTH - 20, 80, 'right', 'middle'
 
         --draw the next time (or the "rank achieved!" messages)
         if @endSlate.bestRank == 1
           .setColor color.rank[1]
-          .printAligned 'Diamond rank achieved!', font.time, WIDTH / 2, 140, 'center', 'middle'
+          .printAligned 'Diamond rank achieved!', font.time, WIDTH / 2, 120, 'center', 'middle'
         elseif @endSlate.bestRank == 2
           .setColor color.rank[2]
-          .printAligned 'Gold rank achieved!', font.time, WIDTH / 2, 140, 'center', 'middle'
+          .printAligned 'Gold rank achieved!', font.time, WIDTH / 2, 120, 'center', 'middle'
         else
           .setColor 255, 255, 255, 255
-          .printAligned 'Next: ', font.time, 20, 140, 'left', 'middle'
+          .printAligned 'Next: ', font.time, 20, 120, 'left', 'middle'
           .setColor color.rank[@endSlate.bestRank - 1]
-          .printAligned string.format('%0.2f', @endSlate.next), font.timeBig, WIDTH - 20, 140, 'right', 'middle'
+          .printAligned string.format('%0.2f', @endSlate.next), font.timeBig, WIDTH - 20, 120, 'right', 'middle'
 
         .pop!
+
+        --draw menu
+        @menu\draw! if @menu

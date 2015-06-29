@@ -18,11 +18,10 @@ pause =
     with @menu
       \previous! if input\pressed 'up'
       \next! if input\pressed 'down'
+      \select! if input\pressed 'primary'
 
     if input\pressed 'pause'
       gamestate.pop!
-    if input\pressed 'primary'
-      @menu\select!
 
   draw: =>
     with @canvas
