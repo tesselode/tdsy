@@ -49,14 +49,46 @@ levelSelect =
         for levelButton in *@levelButton
           levelButton\draw!
 
-        --draw selection cursor
         with love.graphics
-          --.setColor 226, 215, 71, 255
-          --.setLineWidth 2
-          --.rectangle 'line', lume.round(@cursor.x), lume.round(@cursor.y), 49, 30
-
-          .setColor 255, 255, 255, 255
+          --draw selection cursor
+          .setColor color.white
           .draw image.buttonCursor, lume.round(@cursor.x), lume.round(@cursor.y)
+
+          --level info
+          best = saveManager.data.level[@selected].best
+          local bestRank
+          if best
+            bestRank = level[@selected]\getRank best
+          else
+            bestRank = 4
+          local next
+          if best
+            next = level[@selected]\getNext best
+          else
+            next = level[@selected].time.silver
+
+          --print best time
+          .printAligned 'Best: ', font.time, 75, 150, 'center'
+          local bestText, bestColor
+          if best
+            bestText = string.format '%0.2f', best
+            .setColor color.rank[bestRank]
+          else
+            bestText = '--'
+            .setColor color.rank[4]
+          .printAligned bestText, font.time, 75, 170, 'center'
+
+          --print next time
+          .setColor 255, 255, 255, 255
+          .printAligned 'Goal: ', font.time, WIDTH - 75, 150, 'center'
+          local nextText
+          if bestRank < 3
+            nextText = '--'
+            .setColor color.rank[4]
+          else
+            nextText = string.format '%0.1f', next
+            .setColor color.rank[bestRank - 1]
+          .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT

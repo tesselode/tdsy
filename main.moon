@@ -59,11 +59,13 @@ love.load =  ->
   --load fonts
   font = {}
   with love.graphics
-  	font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
-  	font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
+    font.mini    = .newFont 'font/kenpixel_mini.ttf', 16
+    font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
+    font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
 
 	--reusable colors
   color = {}
+  color.white = {252, 255, 254, 255}
   color.rank = {}
   color.rank[1] = {129, 213, 240, 255}
   color.rank[2] = {222, 215, 123, 255}

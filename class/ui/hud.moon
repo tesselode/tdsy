@@ -89,9 +89,9 @@ export class Hud
           .printAligned 'Gold rank achieved!', font.time, WIDTH / 2, 120, 'center', 'middle'
         else
           .setColor 255, 255, 255, 255
-          .printAligned 'Next: ', font.time, 20, 120, 'left', 'middle'
+          .printAligned 'Goal: ', font.time, 20, 120, 'left', 'middle'
           .setColor color.rank[@endSlate.bestRank - 1]
-          .printAligned string.format('%0.2f', @endSlate.next), font.timeBig, WIDTH - 20, 120, 'right', 'middle'
+          .printAligned string.format('%0.1f', @endSlate.next), font.timeBig, WIDTH - 20, 120, 'right', 'middle'
 
         .pop!
 
