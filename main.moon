@@ -15,6 +15,59 @@ love.load =  ->
   serialize = require 'lib.ser'
   require 'extra'
 
+  --load classes
+  require 'class.cosmetic.sprite'
+  require 'class.cosmetic.camera'
+  require 'class.cosmetic.background'
+  require 'class.map-object'
+  require 'class.physical.physical'
+  require 'class.physical.border'
+  require 'class.physical.jellyfish'
+  require 'class.physical.fish'
+  require 'class.level'
+  require 'class.ui.hud'
+  require 'class.ui.level-button'
+  require 'class.ui.menu'
+  require 'class.map'
+  require 'class.player-input'
+  require 'class.save-manager'
+
+  --load states
+  require 'state.game'
+  require 'state.level-select'
+  require 'state.pause'
+
+  --load images
+  image = {}
+  for file in *love.filesystem.getDirectoryItems 'image'
+    if file\find '.png'
+      image[file\match('(.-).png')] = love.graphics.newImage 'image/'..file
+
+  --load fonts
+  font = {}
+  with love.graphics
+    font.mini    = .newFont 'font/Ernest.ttf', 20
+    font.big     = .newFont 'font/Ernest.ttf', 40
+    font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
+    font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
+
+	--reusable colors
+  color = {}
+  color.white = {252, 255, 254, 255}
+  color.rank = {}
+  color.rank[1] = {129, 213, 240, 255}
+  color.rank[2] = {222, 215, 123, 255}
+  color.rank[3] = {201, 201, 201, 255}
+  color.rank[4] = {150, 150, 150, 255}
+
+  --load levels
+  level = {}
+  for i = 1, 16
+    level[i] = Level i, 'level'..i
+
+  --load save data
+  saveManager = SaveManager!
+
   with input
     --keyboard input
     \addKeyboardButtonDetector 'keyboardLeft', 'left'
@@ -49,58 +102,6 @@ love.load =  ->
     \addButton 'pause', {'keyboardEscape', 'gamepadStart'}
     \addAxis 'horizontal', {'keyboardXAxis', 'gamepadLeftX'}
     \addAxis 'vertical', {'keyboardYAxis', 'gamepadLeftY'}
-
-  --load images
-  image = {}
-  for file in *love.filesystem.getDirectoryItems 'image'
-    if file\find '.png'
-      image[file\match('(.-).png')] = love.graphics.newImage 'image/'..file
-
-  --load fonts
-  font = {}
-  with love.graphics
-    font.mini    = .newFont 'font/Ernest.ttf', 20
-    font.big     = .newFont 'font/Ernest.ttf', 40
-    font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
-    font.timeBig = .newFont 'font/kenpixel_blocks.ttf', 32
-
-	--reusable colors
-  color = {}
-  color.white = {252, 255, 254, 255}
-  color.rank = {}
-  color.rank[1] = {129, 213, 240, 255}
-  color.rank[2] = {222, 215, 123, 255}
-  color.rank[3] = {201, 201, 201, 255}
-  color.rank[4] = {150, 150, 150, 255}
-
-  --load classes
-  require 'class.level'
-  require 'class.map'
-  require 'class.map-object'
-  require 'class.cosmetic.sprite'
-  require 'class.cosmetic.camera'
-  require 'class.cosmetic.background'
-  require 'class.physical.physical'
-  require 'class.physical.border'
-  require 'class.physical.jellyfish'
-  require 'class.physical.fish'
-  require 'class.ui.hud'
-  require 'class.ui.level-button'
-  require 'class.ui.menu'
-  require 'class.player-input'
-  require 'class.save-manager'
-
-  require 'state.game'
-  require 'state.level-select'
-  require 'state.pause'
-
-  --load levels
-  level = {}
-  for i = 1, 16
-    level[i] = Level i, 'level'..i
-
-  --load save data
-  saveManager = SaveManager!
 
   with gamestate
     .switch levelSelect

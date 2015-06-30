@@ -1,5 +1,6 @@
 export class Level
   new: (@levelNum, levelName) =>
+    @unlocked = false
     @time = {}
     @fish = {}
     @jellyfish = {}
