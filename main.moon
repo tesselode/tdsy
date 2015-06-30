@@ -67,6 +67,7 @@ love.load =  ->
 
   --load save data
   saveManager = SaveManager!
+  saveManager\unlockLevels!
 
   with input
     --keyboard input

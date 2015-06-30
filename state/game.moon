@@ -28,8 +28,10 @@ game =
     --save data
     best = saveManager.data.level[@level.levelNum].best
     if not best or @time < best
-      saveManager.data.level[@level.levelNum].best = @time
-      saveManager\write!
+      with saveManager
+        .data.level[@level.levelNum].best = @time
+        \unlockLevels!
+        \write!
       beholder.trigger 'show endslate', true
     else
       beholder.trigger 'show endslate', false
