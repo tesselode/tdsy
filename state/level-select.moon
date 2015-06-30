@@ -22,6 +22,9 @@ levelSelect =
       goalY: 0
     @timesY = 0
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+    @background =
+      x: 0
+      y: 0
 
   timesBounceAnimation: =>
     @timesY = -4
@@ -56,10 +59,31 @@ levelSelect =
       .x = lume.lerp .x, .goalX, 20 * dt
       .y = lume.lerp .y, .goalY, 20 * dt
 
+    --cosmetic
+    with @background
+      .x -= 16 * dt
+      .y -= 16 * dt
+      if .x < -32
+        .x += 32
+      if .y < -32
+        .y += 32
+
   draw: =>
     with @canvas
       \clear 0, 0, 0, 255
       \renderTo ->
+        --draw background
+        with love.graphics
+          .push!
+          .translate lume.round(@background.x), lume.round(@background.y)
+
+          .setColor 255, 255, 255, 255
+          for i = 0, 9
+            for j = 0, 9
+              .draw image.checkerboard, 64 * i, 64 * j
+
+          .pop!
+
         --draw level buttons
         for levelButton in *@levelButton
           levelButton\draw!
@@ -109,7 +133,7 @@ levelSelect =
           .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
 
           .pop!
-          
+
           --print locked message
           if not saveManager.data.level[@selected].unlocked
             .setColor 0, 0, 0, 100
