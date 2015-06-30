@@ -55,9 +55,9 @@ love.load =  ->
   color = {}
   color.white = {252, 255, 254, 255}
   color.rank = {}
-  color.rank[1] = {129, 213, 240, 255}
-  color.rank[2] = {222, 215, 123, 255}
-  color.rank[3] = {201, 201, 201, 255}
+  color.rank[1] = {132, 219, 252, 255}
+  color.rank[2] = {242, 222, 112, 255}
+  color.rank[3] = {200, 107, 54, 255}
   color.rank[4] = {150, 150, 150, 255}
 
   --load levels
