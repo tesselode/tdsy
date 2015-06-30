@@ -121,45 +121,46 @@ levelSelect =
           .draw image.buttonCursor, lume.round(@cursor.x), lume.round(@cursor.y)
 
           --level info
-          best = saveManager.data.level[@selected].best
-          local bestRank
-          if best
-            bestRank = level[@selected]\getRank best
-          else
-            bestRank = 4
-          local next
-          if best
-            next = level[@selected]\getNext best
-          else
-            next = level[@selected].time.silver
+          if saveManager.data.level[@selected].unlocked
+            best = saveManager.data.level[@selected].best
+            local bestRank
+            if best
+              bestRank = level[@selected]\getRank best
+            else
+              bestRank = 4
+            local next
+            if best
+              next = level[@selected]\getNext best
+            else
+              next = level[@selected].time.silver
 
-          .push!
-          .translate 0, -@timesY
+            .push!
+            .translate 0, -@timesY
 
-          --print best time
-          .printAligned 'Best', font.mini, 75, 150, 'center'
-          local bestText, bestColor
-          if best
-            bestText = string.format '%0.2f', best
-            .setColor color.rank[bestRank]
-          else
-            bestText = '--'
-            .setColor color.rank[4]
-          .printAligned bestText, font.time, 75, 170, 'center'
+            --print best time
+            .printAligned 'Best', font.mini, 75, 150, 'center'
+            local bestText, bestColor
+            if best
+              bestText = string.format '%0.2f', best
+              .setColor color.rank[bestRank]
+            else
+              bestText = '--'
+              .setColor color.rank[4]
+            .printAligned bestText, font.time, 75, 170, 'center'
 
-          --print next time
-          .setColor color.white
-          .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
-          local nextText
-          if bestRank < 3
-            nextText = '--'
-            .setColor color.rank[4]
-          else
-            nextText = string.format '%0.1f', next
-            .setColor color.rank[bestRank - 1]
-          .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
+            --print next time
+            .setColor color.white
+            .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
+            local nextText
+            if bestRank < 3
+              nextText = '--'
+              .setColor color.rank[4]
+            else
+              nextText = string.format '%0.1f', next
+              .setColor color.rank[bestRank - 1]
+            .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
 
-          .pop!
+            .pop!
 
           --print locked message
           if not saveManager.data.level[@selected].unlocked
@@ -168,7 +169,7 @@ levelSelect =
             .setColor color.white
             .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
             .setFont font.mini
-            .printf 'Get silver ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
+            .printf 'Get bronze ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
 
           --draw completion bar
           .setColor 8, 0, 8, 255
