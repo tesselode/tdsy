@@ -5,6 +5,8 @@ export class Hud
 
     --cosmetic stuff
     @timerY = 0
+    @fadeAlpha = 255
+    @tween\to self, .15, {fadeAlpha: 0}
 
     beholder.group self, ->
       beholder.observe 'show endslate', (newBest) ->
@@ -20,8 +22,13 @@ export class Hud
         @timer.add 1, ->
           @menu = Menu font.mini, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
           with @menu
-            \addOption 'Restart', -> gamestate.switch game, game.level
-            \addOption 'Back to menu', -> gamestate.switch levelSelect
+            \addOption 'Restart', ->
+              gamestate.switch game, game.level
+            \addOption 'Back to menu', ->
+              @menu.takeInput = false
+              @tween\to self, .15, {fadeAlpha: 255}
+              @timer.add .15, ->
+                gamestate.switch levelSelect
 
   createEndslate: (newBest) =>
     @endSlate = {}
@@ -97,3 +104,7 @@ export class Hud
 
         --draw menu
         @menu\draw! if @menu
+
+      --draw fade out
+      .setColor 0, 0, 0, @fadeAlpha
+      .rectangle 'fill', 0, 0, WIDTH, HEIGHT

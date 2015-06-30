@@ -2,6 +2,9 @@ export pause
 
 pause =
   enter: =>
+    @timer = timer.new!
+    @tween = flux.group!
+
     --menu options
     @menu = Menu font.mini, WIDTH / 2, HEIGHT / 2, {150, 150, 150, 255}, {255, 255, 255, 255}
     with @menu
@@ -9,12 +12,21 @@ pause =
         gamestate.pop!
         gamestate.switch game, game.level
       \addOption 'Back to menu', ->
-        gamestate.pop!
-        gamestate.switch levelSelect
+        @menu.takeInput = false
+        @tween\to self, .15, {fadeAlpha: 255}
+        @timer.add .15, ->
+          gamestate.pop!
+          gamestate.switch levelSelect
+
+    --cosmetic
+    @fadeAlpha = 0
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   update: (dt) =>
+    @timer.update dt
+    @tween\update dt
+
     with @menu
       \previous! if input\pressed 'up'
       \next! if input\pressed 'down'
@@ -37,6 +49,10 @@ pause =
           .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT / 2, 'center', 'bottom'
 
           @menu\draw!
+
+          --draw fade out
+          .setColor 0, 0, 0, @fadeAlpha
+          .rectangle 'fill', 0, 0, WIDTH, HEIGHT
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT

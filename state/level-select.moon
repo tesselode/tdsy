@@ -1,7 +1,7 @@
 export levelSelect
 
 levelSelect =
-  enter: =>
+  enter: (previous) =>
     @timer = timer.new!
     @tween = flux.group!
 
@@ -13,6 +13,7 @@ levelSelect =
         table.insert @levelButton, LevelButton level[levelNum], 56 + 37 * j, 5 + 37 * i
 
     @selected = 1
+    @takeInput = true
 
     --cosmetic
     @cursor =
@@ -26,6 +27,12 @@ levelSelect =
       x: 0
       y: 0
 
+    if previous == game
+      @fadeAlpha = 255
+      @tween\to self, .15, {fadeAlpha: 0}
+    else
+      @fadeAlpha = 0
+
   timesBounceAnimation: =>
     @timesY = -4
     @tween\to(self, .1, {timesY: 0})\ease 'linear'
@@ -35,22 +42,26 @@ levelSelect =
     @tween\update dt
 
     --controls
-    if input\pressed 'left'
-      @selected -= 1
-      @timesBounceAnimation!
-    if input\pressed 'right'
-      @selected += 1
-      @timesBounceAnimation!
-    if input\pressed 'up'
-      @selected -= 4
-      @timesBounceAnimation!
-    if input\pressed 'down'
-      @selected += 4
-      @timesBounceAnimation!
-    @selected = math.wrap @selected, 1, 16
+    if @takeInput
+      if input\pressed 'left'
+        @selected -= 1
+        @timesBounceAnimation!
+      if input\pressed 'right'
+        @selected += 1
+        @timesBounceAnimation!
+      if input\pressed 'up'
+        @selected -= 4
+        @timesBounceAnimation!
+      if input\pressed 'down'
+        @selected += 4
+        @timesBounceAnimation!
+      @selected = math.wrap @selected, 1, 16
 
-    if input\pressed('primary') and saveManager.data.level[@selected].unlocked
-      gamestate.switch game, @levelButton[@selected].level
+      if input\pressed('primary') and saveManager.data.level[@selected].unlocked
+        @takeInput = false
+        @tween\to self, .15, {fadeAlpha: 255}
+        @timer.add .15, ->
+          gamestate.switch game, @levelButton[@selected].level
 
     --selection cursor
     with @cursor
@@ -142,6 +153,10 @@ levelSelect =
             .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
             .setFont font.mini
             .printf 'Get silver ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
+
+          --draw fade out
+          .setColor 0, 0, 0, @fadeAlpha
+          .rectangle 'fill', 0, 0, WIDTH, HEIGHT
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT

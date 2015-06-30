@@ -4,20 +4,24 @@ export class Menu
     @spacing = @font\getHeight 'test'
 
     @selected = 1
+    @takeInput = true
 
   addOption: (text, onSelect) =>
     table.insert @options, {text: text, onSelect: onSelect}
 
   previous: =>
-    @selected -= 1
-    @selected = math.wrap @selected, 1, #@options
+    if @takeInput
+      @selected -= 1
+      @selected = math.wrap @selected, 1, #@options
 
   next: =>
-    @selected += 1
-    @selected = math.wrap @selected, 1, #@options
+    if @takeInput
+      @selected += 1
+      @selected = math.wrap @selected, 1, #@options
 
   select: =>
-    @options[@selected].onSelect!
+    if @takeInput
+      @options[@selected].onSelect!
 
   draw: =>
     with love.graphics
