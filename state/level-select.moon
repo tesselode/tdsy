@@ -5,6 +5,21 @@ levelSelect =
     @timer = timer.new!
     @tween = flux.group!
 
+    --get completion percentage
+    completionPoints = 0
+    for k, v in pairs level
+      best = saveManager.data.level[k].best
+      if best
+        rank = v\getRank best
+        if rank == 1
+          completionPoints += 3
+        elseif rank == 2
+          completionPoints += 2
+        elseif rank == 1
+          completionPoints += 1
+    @completionPercentage = (completionPoints / 48) * 100
+
+    --create level buttons
     @levelButton = {}
     levelNum = 0
     for i = 0, 3 do
@@ -12,6 +27,7 @@ levelSelect =
         levelNum += 1
         table.insert @levelButton, LevelButton level[levelNum], 56 + 37 * j, 5 + 37 * i
 
+    --controls
     @selected = 1
     @takeInput = true
 
@@ -153,6 +169,14 @@ levelSelect =
             .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
             .setFont font.mini
             .printf 'Get silver ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
+
+          --draw completion bar
+          .setColor 8, 0, 8, 255
+          .rectangle 'fill', 20, HEIGHT * .9, WIDTH - 40, 20
+          .setColor 68, 80, 140, 255
+          .rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
+          .setColor color.white
+          .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
 
           --draw fade out
           .setColor 0, 0, 0, @fadeAlpha
