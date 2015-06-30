@@ -46,7 +46,7 @@ levelSelect =
       @timesBounceAnimation!
     @selected = math.wrap @selected, 1, 16
 
-    if input\pressed 'primary'
+    if input\pressed('primary') and saveManager.data.level[@selected].unlocked
       gamestate.switch game, @levelButton[@selected].level
 
     --selection cursor
@@ -97,7 +97,7 @@ levelSelect =
           .printAligned bestText, font.time, 75, 170, 'center'
 
           --print next time
-          .setColor 255, 255, 255, 255
+          .setColor color.white
           .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
           local nextText
           if bestRank < 3
@@ -109,6 +109,15 @@ levelSelect =
           .printAligned nextText, font.time, WIDTH - 75, 170, 'center'
 
           .pop!
+          
+          --print locked message
+          if not saveManager.data.level[@selected].unlocked
+            .setColor 0, 0, 0, 100
+            .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
+            .setColor color.white
+            .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
+            .setFont font.mini
+            .printf 'Get silver ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT

@@ -18,5 +18,9 @@ export class LevelButton
       else
         .draw image.button, @x, @y
 
-      .setColor color.white
-      .printAligned @level.levelNum, font.mini, @x + 17, @y + 16, 'center', 'middle'
+      if saveManager.data.level[@level.levelNum].unlocked then
+        .setColor color.white
+        .printAligned @level.levelNum, font.mini, @x + 17, @y + 16, 'center', 'middle'
+      else
+        .setColor 255, 255, 255, 255
+        .draw image.lock, @x + 8, @y + 8
