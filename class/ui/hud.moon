@@ -22,6 +22,26 @@ export class Hud
           @tween\to @endSlate, 0.4, {blackAlpha: 100}
           @tween\to @endSlate, 0.5, {y: 0}
 
+        --menu
+        @timer.add 1, ->
+          @menu = Menu font.mini, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
+          with @menu
+            \addOption 'Restart', ->
+              gamestate.switch game, game.levelData
+
+            if @state.levelData.levelNum < 16 and @state.levelData\getBestRank! < 4
+              \addOption 'Next level', ->
+                @menu.takeInput = false
+                @tween\to self, .15, {fadeAlpha: 255}
+                @timer.add .15, ->
+                  gamestate.switch game, levelData[game.levelData.levelNum + 1]
+
+            \addOption 'Back to menu', ->
+              @menu.takeInput = false
+              @tween\to self, .15, {fadeAlpha: 255}
+              @timer.add .15, ->
+                gamestate.switch levelSelect
+
   update: (dt) =>
     @timer.update dt
     @tween\update dt

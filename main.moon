@@ -35,6 +35,7 @@ love.load =  ->
   --load states
   require 'state.game'
   require 'state.level-select'
+  require 'state.pause'
 
   --load images
   image = {}

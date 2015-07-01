@@ -43,6 +43,10 @@ game =
 
     @hud\update dt
 
+    --pause menu
+    if not @levelComplete and input\pressed 'pause'
+      gamestate.push pause
+
   leave: =>
     @hud\destroy!
     beholder.stopObserving self
