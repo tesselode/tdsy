@@ -24,6 +24,7 @@ love.load =  ->
   require 'class.physical.border'
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
+  require 'class.ui.hud'
   require 'class.ui.level-button'
   require 'class.ui.menu'
   require 'class.level-data'

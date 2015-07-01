@@ -33,3 +33,24 @@ export class LevelData
   addTime: (time) =>
     if not @best or time < @best
       @best = time
+      return true
+    else
+      return false
+
+  getRank: (time) =>
+    for i = 1, 3
+      if time < @goalTime[i]
+        return i
+    return 4
+
+  getBestRank: =>
+    if @best
+      return @getRank @best
+    else
+      return false
+
+  getNext: =>
+    if @getBestRank! > 1
+      return @goalTime[@getBestRank! - 1]
+    else
+      return false

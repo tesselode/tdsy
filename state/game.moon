@@ -15,6 +15,9 @@ game =
       beholder.observe 'level start', -> @levelStarted = true
       beholder.observe 'jellyfish bounced', -> @jellyfishBounced += 1
 
+    --cosmetic
+    @hud = Hud self
+
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   endLevel: =>
@@ -23,8 +26,9 @@ game =
     @playerInput.enabled = false
 
     --save data
-    @levelData\addTime @time
+    newBest = @levelData\addTime @time
     saveManager\save!
+    beholder.trigger 'show endslate', newBest
 
   update: (dt) =>
     @playerInput\update dt
@@ -36,8 +40,10 @@ game =
       if @jellyfishBounced == #@levelData.map.jellyfish
         @endLevel!
 
+    @hud\update dt
+
   leave: =>
-    --@hud\destroy!
+    @hud\destroy!
     beholder.stopObserving self
 
   draw: =>
@@ -45,12 +51,9 @@ game =
       \clear 0, 0, 0, 255
       \renderTo ->
         @map\draw!
-        --@hud\draw!
+        @hud\draw!
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255
       .draw @canvas, 0, 0, 0, scaleFactor, scaleFactor
-
-      if @levelData.best
-        .print @levelData.best
