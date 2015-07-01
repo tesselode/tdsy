@@ -1,6 +1,8 @@
 export levelSelect
 
 levelSelect =
+  selected: 1
+
   enter: (previous) =>
     @timer = timer.new!
     @tween = flux.group!
@@ -28,15 +30,14 @@ levelSelect =
         table.insert @levelButton, LevelButton level[levelNum], 56 + 37 * j, 5 + 37 * i
 
     --controls
-    @selected = 1
     @takeInput = true
 
     --cosmetic
     @cursor =
-      x: 0
-      y: 0
-      goalX: 0
-      goalY: 0
+      x: @levelButton[@selected].x
+      y: @levelButton[@selected].y
+      goalX: @levelButton[@selected].x
+      goalY: @levelButton[@selected].y
     @timesY = 0
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     @background =
