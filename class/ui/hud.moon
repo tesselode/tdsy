@@ -4,11 +4,16 @@ export class Hud
     @tween = flux.group!
 
     --cosmetic stuff
-    @timerY = 0
+    @goalDisplayY = 10
+    @timerY = -50
     @fadeAlpha = 255
     @tween\to self, .15, {fadeAlpha: 0}
 
     beholder.group self, ->
+      beholder.observe 'level start', ->
+        @tween\to(self, .35, {goalDisplayY: -50})\ease 'linear'
+        @tween\to(self, .35, {timerY: 10})\ease 'linear'
+
       beholder.observe 'show endslate', (newBest) ->
         --create endslate
         @endSlate =
@@ -58,9 +63,16 @@ export class Hud
 
   draw: =>
     with love.graphics
+      --draw goal time
+      if @state.levelData\getBestRank! > 2
+        .setColor color.white
+        .printAligned 'Goal: ', font.mini, WIDTH / 2, @goalDisplayY, 'right', 'middle'
+        --.setColor color.rank[@state.levelData\getBestRank! - 1]
+        .printAligned string.format('%0.1f', @state.levelData\getNext!), font.time, WIDTH / 2, @goalDisplayY, 'left', 'middle'
+
       --draw time
       .setColor 255, 255, 255, 255
-      .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY
+      .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY, 'center', 'middle'
 
       --level end slate
       if @endSlate
