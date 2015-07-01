@@ -29,3 +29,7 @@ export class LevelData
           .y     = tonumber line\match 'y="(.-)"'
           .angle = tonumber line\match 'angle="(.-)"'
         table.insert @map.jellyfish, jellyfish
+
+  addTime: (time) =>
+    if not @best or time < @best
+      @best = time

@@ -27,6 +27,7 @@ love.load =  ->
   require 'class.ui.level-button'
   require 'class.ui.menu'
   require 'class.level-data'
+  require 'class.save-manager'
   require 'class.map'
   require 'class.player-input'
 
@@ -55,6 +56,13 @@ love.load =  ->
   color.rank[2] = {242, 222, 112, 255}
   color.rank[3] = {200, 107, 54, 255}
   color.rank[4] = {150, 150, 150, 255}
+
+  --load levels
+  levelData = {}
+  for i = 1, 16
+    levelData[i] = LevelData i, 'level'..i
+
+  saveManager = SaveManager!
 
   with input
     --keyboard input
@@ -92,7 +100,7 @@ love.load =  ->
     \addAxis 'vertical', {'keyboardYAxis', 'gamepadLeftY'}
 
   with gamestate
-    .switch game
+    .switch game, levelData[1]
     .registerEvents!
 
 love.update = (dt) ->
