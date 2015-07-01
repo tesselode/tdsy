@@ -22,8 +22,19 @@ export class Hud
         @timer.add 1, ->
           @menu = Menu font.mini, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
           with @menu
+            best = saveManager.data.level[@state.level.levelNum].best
+            bestRank = @state.level\getRank best
+
             \addOption 'Restart', ->
               gamestate.switch game, game.level
+
+            if @state.level.levelNum < 16 and bestRank < 4
+              \addOption 'Next level', ->
+                @menu.takeInput = false
+                @tween\to self, .15, {fadeAlpha: 255}
+                @timer.add .15, ->
+                  gamestate.switch game, level[game.level.levelNum + 1]
+
             \addOption 'Back to menu', ->
               @menu.takeInput = false
               @tween\to self, .15, {fadeAlpha: 255}
