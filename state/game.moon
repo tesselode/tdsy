@@ -28,6 +28,7 @@ game =
     --save data
     newBest = @levelData\addTime @time
     saveManager\save!
+    saveManager\unlockLevels!
     beholder.trigger 'show endslate', newBest
 
   update: (dt) =>

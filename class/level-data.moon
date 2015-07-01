@@ -47,7 +47,7 @@ export class LevelData
     if @best
       return @getRank @best
     else
-      return false
+      return 4
 
   getNext: =>
     if @getBestRank! > 1

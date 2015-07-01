@@ -3,22 +3,17 @@ export class LevelButton
 
   draw: =>
     with love.graphics
-      best = saveManager.data.level[@level.levelNum].best
-      local rank
-      if best
-        rank = @level\getRank best
-
       .setColor 255, 255, 255, 255
-      if rank == 1 then
+      if @level\getBestRank! == 1 then
         .draw image.buttonDiamond, @x, @y
-      elseif rank == 2 then
+      elseif @level\getBestRank! == 2 then
         .draw image.buttonGold, @x, @y
-      elseif rank == 3 then
+      elseif @level\getBestRank! == 3 then
         .draw image.buttonBronze, @x, @y
       else
         .draw image.button, @x, @y
 
-      if saveManager.data.level[@level.levelNum].unlocked then
+      if @level.unlocked then
         .setColor color.white
         .printAligned @level.levelNum, font.mini, @x + 17, @y + 16, 'center', 'middle'
       else

@@ -34,6 +34,7 @@ love.load =  ->
 
   --load states
   require 'state.game'
+  require 'state.level-select'
 
   --load images
   image = {}
@@ -101,7 +102,7 @@ love.load =  ->
     \addAxis 'vertical', {'keyboardYAxis', 'gamepadLeftY'}
 
   with gamestate
-    .switch game, levelData[1]
+    .switch levelSelect
     .registerEvents!
 
 love.update = (dt) ->
