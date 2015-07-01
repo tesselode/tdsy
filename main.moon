@@ -26,6 +26,7 @@ love.load =  ->
   require 'class.physical.fish'
   require 'class.ui.level-button'
   require 'class.ui.menu'
+  require 'class.level-data'
   require 'class.map'
   require 'class.player-input'
 
