@@ -8,6 +8,8 @@ pause =
     --menu options
     @menu = Menu font.mini, WIDTH / 2, HEIGHT / 2, {150, 150, 150, 255}, {255, 255, 255, 255}
     with @menu
+      \addOption 'Resume', ->
+        gamestate.pop!
       \addOption 'Restart', ->
         gamestate.pop!
         gamestate.switch game, game.level
@@ -46,7 +48,7 @@ pause =
             .draw game.canvas
 
           .setColor 255, 255, 255, 255
-          .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT / 2, 'center', 'bottom'
+          .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT * .4, 'center', 'bottom'
 
           @menu\draw!
 
