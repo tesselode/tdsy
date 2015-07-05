@@ -57,21 +57,21 @@ levelSelect =
 
     --controls
     if @takeInput
-      if input\pressed 'left'
+      if control.left.pressed
         @selected -= 1
         @timesBounceAnimation!
-      if input\pressed 'right'
+      if control.right.pressed
         @selected += 1
         @timesBounceAnimation!
-      if input\pressed 'up'
+      if control.up.pressed
         @selected -= 4
         @timesBounceAnimation!
-      if input\pressed 'down'
+      if control.down.pressed
         @selected += 4
         @timesBounceAnimation!
       @selected = math.wrap @selected, 1, 16
 
-      if input\pressed('primary') and levelData[@selected].unlocked
+      if control.primary.pressed and levelData[@selected].unlocked
         @takeInput = false
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->

@@ -8,17 +8,13 @@ export class PlayerInput
 
     if @enabled and not @firstFrame
       --analog movement
-      inputVector.x = input\getAxis 'horizontal'
-      inputVector.y = input\getAxis 'vertical'
-
-      --limit vector to a circle
-      if inputVector\len! > 1
-        inputVector\normalize_inplace!
+      inputVector.x = control.movement.x
+      inputVector.y = control.movement.y
 
     @fish.inputVector = inputVector
 
     --darting
-    if @enabled and not @firstFrame and input\pressed('primary')
+    if @enabled and not @firstFrame and control.primary.pressed
       @fish\dart!
 
     if @firstFrame

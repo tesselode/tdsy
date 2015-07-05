@@ -30,11 +30,11 @@ pause =
     @tween\update dt
 
     with @menu
-      \previous! if input\pressed 'up'
-      \next! if input\pressed 'down'
-      \select! if input\pressed 'primary'
+      \previous! if control.up.pressed
+      \next! if control.down.pressed
+      \select! if control.primary.pressed
 
-    if input\pressed 'pause'
+    if control.pause.pressed
       gamestate.pop!
 
   draw: =>

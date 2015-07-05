@@ -67,44 +67,45 @@ love.load =  ->
 
   saveManager = SaveManager!
 
-  with input
+  control = {}
+  with control
     --keyboard input
-    \addKeyboardButtonDetector 'keyboardLeft', 'left'
-    \addKeyboardButtonDetector 'keyboardRight', 'right'
-    \addKeyboardButtonDetector 'keyboardUp', 'up'
-    \addKeyboardButtonDetector 'keyboardDown', 'down'
-    \addKeyboardButtonDetector 'keyboardX', 'x'
-    \addKeyboardButtonDetector 'keyboardZ', 'z'
-    \addKeyboardButtonDetector 'keyboardReturn', 'return'
-    \addKeyboardButtonDetector 'keyboardEscape', 'escape'
-    \addBinaryAxisDetector 'keyboardXAxis', 'keyboardLeft', 'keyboardRight'
-    \addBinaryAxisDetector 'keyboardYAxis', 'keyboardUp', 'keyboardDown'
+    .keyboardLeft   = input.addKeyboardButtonDetector 'left'
+    .keyboardRight  = input.addKeyboardButtonDetector 'right'
+    .keyboardUp     = input.addKeyboardButtonDetector 'up'
+    .keyboardDown   = input.addKeyboardButtonDetector 'down'
+    .keyboardX      = input.addKeyboardButtonDetector 'x'
+    .keyboardZ      = input.addKeyboardButtonDetector 'z'
+    .keyboardEscape = input.addKeyboardButtonDetector 'escape'
+    .keyboardXAxis  = input.addBinaryAxisDetector .keyboardLeft, .keyboardRight
+    .keyboardYAxis  = input.addBinaryAxisDetector .keyboardUp, .keyboardDown
 
     --gamepad input
-    \addGamepadButtonDetector 'gamepadA', 'a', 1
-    \addGamepadButtonDetector 'gamepadB', 'b', 1
-    \addGamepadButtonDetector 'gamepadStart', 'start', 1
-    \addAxisButtonDetector 'gamepadLeft', 'leftx', -.5, 1
-    \addAxisButtonDetector 'gamepadRight', 'leftx', .5, 1
-    \addAxisButtonDetector 'gamepadDown', 'lefty', .5, 1
-    \addAxisButtonDetector 'gamepadUp', 'lefty', -.5, 1
-    \addAnalogAxisDetector 'gamepadLeftX', 'leftx', 1
-    \addAnalogAxisDetector 'gamepadLeftY', 'lefty', 1
+    .gamepadA       = input.addGamepadButtonDetector 'a', 1
+    .gamepadB       = input.addGamepadButtonDetector 'b', 1
+    .gamepadStart   = input.addGamepadButtonDetector 'start', 1
+    .gamepadLeft    = input.addAxisButtonDetector 'leftx', -.5, 1
+    .gamepadRight   = input.addAxisButtonDetector 'leftx', .5, 1
+    .gamepadDown    = input.addAxisButtonDetector 'lefty', .5, 1
+    .gamepadUp      = input.addAxisButtonDetector 'lefty', -.5, 1
+    .gamepadLeftX   = input.addAnalogAxisDetector 'leftx', 1
+    .gamepadLeftY   = input.addAnalogAxisDetector 'lefty', 1
 
     --controls
-    \addButton 'left', {'keyboardLeft', 'gamepadLeft'}
-    \addButton 'right', {'keyboardRight', 'gamepadRight'}
-    \addButton 'down', {'keyboardDown', 'gamepadDown'}
-    \addButton 'up', {'keyboardUp', 'gamepadUp'}
-    \addButton 'primary', {'keyboardX', 'gamepadA'}
-    \addButton 'secondary', {'keyboardZ', 'gamepadB'}
-    \addButton 'pause', {'keyboardEscape', 'gamepadStart'}
-    \addAxis 'horizontal', {'keyboardXAxis', 'gamepadLeftX'}
-    \addAxis 'vertical', {'keyboardYAxis', 'gamepadLeftY'}
+    .left           = input.addButton .keyboardLeft, .gamepadLeft
+    .right          = input.addButton .keyboardRight, .gamepadRight
+    .down           = input.addButton .keyboardDown, .gamepadDown
+    .up             = input.addButton .keyboardUp, .gamepadUp
+    .primary        = input.addButton .keyboardX, .gamepadA
+    .secondary      = input.addButton .keyboardZ, .gamepadB
+    .pause          = input.addButton .keyboardEscape, .gamepadStart
+    .horizontal     = input.addAxis .gamepadLeftX, .keyboardXAxis
+    .vertical       = input.addAxis .gamepadLeftY, .keyboardYAxis
+    .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
 
   with gamestate
     .switch levelSelect
     .registerEvents!
 
 love.update = (dt) ->
-  input\update!
+  input.update!

@@ -44,7 +44,7 @@ game =
     @hud\update dt
 
     --pause menu
-    if not @levelComplete and input\pressed 'pause'
+    if not @levelComplete and control.pause.pressed
       gamestate.push pause
 
   leave: =>
