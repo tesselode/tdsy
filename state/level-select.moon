@@ -123,7 +123,7 @@ levelSelect =
           --print best time
           .setColor color.white
           .printAligned 'Best', font.mini, 75, 150, 'center'
-          if levelData[@selected].best
+          if levelData[@selected] and levelData[@selected].best
             .setColor color.rank[levelData[@selected]\getBestRank!]
             .printAligned string.format('%0.2f', levelData[@selected].best), font.time, 75, 170, 'center'
           else
@@ -133,17 +133,17 @@ levelSelect =
           --print next time
           .setColor color.white
           .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
-          if levelData[@selected]\getBestRank! < 3
+          if levelData[@selected] and levelData[@selected]\getBestRank! < 3
             .setColor color.rank[4]
             .printAligned '--', font.time, WIDTH - 75, 170, 'center'
-          else
+          elseif levelData[@selected]
             .setColor color.rank[levelData[@selected]\getBestRank! - 1]
             .printAligned string.format('%0.1f', levelData[@selected]\getNext!), font.time, WIDTH - 75, 170, 'center'
 
           .pop!
 
           --print locked message
-          if not levelData[@selected].unlocked
+          if levelData[@selected] and not levelData[@selected].unlocked
             .setColor 0, 0, 0, 100
             .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
             .setColor color.white

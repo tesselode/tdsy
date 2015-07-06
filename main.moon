@@ -62,8 +62,10 @@ love.load =  ->
 
   --load levels
   levelData = {}
-  for i = 1, 15
-    levelData[i] = LevelData i, 'level'..i
+  for i = 1, NUMLEVELS
+    if love.filesystem.exists 'level/level'..i..'.oel'
+      print i
+      levelData[i] = LevelData i, 'level'..i
 
   saveManager = SaveManager!
 
