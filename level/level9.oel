@@ -1,0 +1,11 @@
+<level width="256" height="224" SilverTime="12" GoldTime="6" DiamondTime="2.9">
+  <Entities>
+    <Fish id="0" x="240" y="208" />
+    <Jellyfish id="3" x="48" y="176" angle="-1.570796" />
+    <Jellyfish id="4" x="48" y="128" angle="-1.570796" />
+    <Jellyfish id="5" x="48" y="48" angle="0" />
+    <Jellyfish id="6" x="96" y="48" angle="0" />
+    <Jellyfish id="7" x="208" y="48" angle="1.570796" />
+    <Jellyfish id="8" x="208" y="96" angle="1.570796" />
+  </Entities>
+</level>
