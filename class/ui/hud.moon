@@ -34,7 +34,7 @@ export class Hud
             \addOption 'Restart', ->
               gamestate.switch game, game.levelData
 
-            if @state.levelData.levelNum < 16 and @state.levelData\getBestRank! < 4
+            if @state.levelData.levelNum < 15 and @state.levelData\getBestRank! < 4
               \addOption 'Next level', ->
                 @menu.takeInput = false
                 @tween\to self, .15, {fadeAlpha: 255}

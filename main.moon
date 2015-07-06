@@ -62,7 +62,7 @@ love.load =  ->
 
   --load levels
   levelData = {}
-  for i = 1, 16
+  for i = 1, 15
     levelData[i] = LevelData i, 'level'..i
 
   saveManager = SaveManager!

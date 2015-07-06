@@ -21,10 +21,10 @@ levelSelect =
     --create level buttons
     @levelButton = {}
     levelNum = 0
-    for i = 0, 3 do
-      for j = 0, 3 do
+    for i = 0, 2 do
+      for j = 0, 4 do
         levelNum += 1
-        table.insert @levelButton, LevelButton levelData[levelNum], 56 + 37 * j, 5 + 37 * i
+        table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
 
     --controls
     @takeInput = true
@@ -64,12 +64,12 @@ levelSelect =
         @selected += 1
         @timesBounceAnimation!
       if control.up.pressed
-        @selected -= 4
+        @selected -= 5
         @timesBounceAnimation!
       if control.down.pressed
-        @selected += 4
+        @selected += 5
         @timesBounceAnimation!
-      @selected = math.wrap @selected, 1, 16
+      @selected = math.wrap @selected, 1, 15
 
       if control.primary.pressed and levelData[@selected].unlocked
         @takeInput = false
