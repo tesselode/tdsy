@@ -67,5 +67,3 @@ export class Map
       object\drawDebug! if DEBUG
 
     love.graphics.pop!
-
-    love.graphics.print #@objects
