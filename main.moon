@@ -17,10 +17,11 @@ love.load =  ->
   require 'extra'
 
   --load classes
+  require 'class.map-object'
   require 'class.cosmetic.sprite'
   require 'class.cosmetic.camera'
   require 'class.cosmetic.background'
-  require 'class.map-object'
+  require 'class.cosmetic.tiny-fish'
   require 'class.physical.physical'
   require 'class.physical.border'
   require 'class.physical.jellyfish'

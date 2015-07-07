@@ -1,6 +1,7 @@
 export class Map
   new: (levelData) =>
     @loadLevel levelData
+    @tinyFishSpawner = TinyFishSpawner self, levelData
 
   loadLevel: (levelData) =>
     @world = bump.newWorld!
@@ -38,6 +39,9 @@ export class Map
       object\update dt
 
     @camera\update dt
+    
+    --spawn little fishies
+    @tinyFishSpawner\update dt
 
   draw: =>
     --draw background
