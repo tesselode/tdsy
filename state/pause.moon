@@ -34,7 +34,7 @@ pause =
       \next! if control.down.pressed
       \select! if control.primary.pressed
 
-    if control.pause.pressed
+    if control.pause.pressed and not control.primary.pressed
       gamestate.pop!
 
   draw: =>
