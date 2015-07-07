@@ -6,36 +6,27 @@ export class Jellyfish extends Physical
     @angle = angle or 0
 
     @bounced = false
-    @sprite = Sprite image.jellyfish
-    @sprite.rotation = @angle
-    @floatSpeed = love.math.random(1, 6)
-    @floating = true
-
-    @uptime = 0
+    
+    --cosmetic
+    g = anim8.newGrid 16, 17, image.jellyfish\getWidth!, image.jellyfish\getHeight!
+    @sprite = AnimatedSprite image.jellyfish, anim8.newAnimation g('1-5', 1), love.math.random! * .4 + .8
+    with @sprite
+      .rotation = @angle
+      .speed = love.math.random 1, 5
 
   bounce: =>
     if not @bounced
       @bounced = true
-      @sprite = Sprite image.jellyfishBounced
-      @sprite.rotation = @angle
+      @sprite.image = image.jellyfishBounced
       beholder.trigger 'jellyfish bounced'
 
       --bounce animation
-      @floating = false
       @tween\to(@sprite.offset, .1, {y: -2})\ease('quadout')
       @tween\to(@sprite.offset, .1, {y: 8})\ease('quadin')\delay(.1)
-      @timer.add .2, ->
-        --restart floating animation
-        @uptime = 0
-        @floating = true
 
   update: (dt) =>
     super dt
-
-    --floating effect
-    @uptime += dt
-    if @floating
-      @sprite.offset.y = 8 + math.sin(@uptime * @floatSpeed)
+    @sprite\update dt
 
   draw: =>
     x, y = @getCenter!\unpack!

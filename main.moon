@@ -13,6 +13,7 @@ love.load =  ->
   beholder  = require 'lib.beholder'
   input     = require 'lib.tactile'
   serialize = require 'lib.ser'
+  anim8     = require 'lib.anim8'
   require 'extra'
 
   --load classes
