@@ -37,6 +37,11 @@ export class Map
     --update all objects
     for object in *@objects do
       object\update dt
+      
+    --delete objects
+    for i = #@objects, 1, -1 do
+      if @objects[i].delete
+        table.remove @objects, i
 
     @camera\update dt
     
@@ -62,3 +67,5 @@ export class Map
       object\drawDebug! if DEBUG
 
     love.graphics.pop!
+
+    love.graphics.print #@objects

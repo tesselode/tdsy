@@ -1,5 +1,5 @@
 export class TinyFish extends MapObject
-  create: (@direction, @position) =>
+  create: (@direction, @width, @position) =>
     @speed = love.math.random(40, 60) * @direction
     @velocity = vector @speed, 0
     @sprite = Sprite image.tinyFish
@@ -17,6 +17,10 @@ export class TinyFish extends MapObject
     @velocity = vector(@speed, 0)\rotated(@angle)
     @sprite.rotation = @angle
     @position += @velocity * dt
+    
+    --delete when off screen
+    if (@direction == 1 and @position.x > @width + 100) or (@direction == -1 and @position.x < -100)
+      @delete = true
     
   draw: =>
     @sprite\draw lume.round(@position.x), lume.round(@position.y)
@@ -50,7 +54,7 @@ export class TinyFishSpawner
     y = love.math.random 50, HEIGHT - 50
     
     --add a fish
-    @map\addObject TinyFish, direction, vector x, y
+    @map\addObject TinyFish, direction, @levelData.map.width, vector x, y
   
   spawnSchool: (direction, randomX) =>
     --decide the position of the fish
@@ -67,7 +71,8 @@ export class TinyFishSpawner
     --add a bunch of fish
     @fish = {}
     for i = 1, love.math.random 5, 15
-       @map\addObject TinyFish, direction, vector(x, y) + vector love.math.random(-40, 40), love.math.random(-40, 40)
+      pos = vector(x, y) + vector love.math.random(-40, 40), love.math.random(-40, 40)
+      @map\addObject TinyFish, direction, @levelData.map.width, pos
     
   newTimer: =>
     --spawn single fish at random intervals

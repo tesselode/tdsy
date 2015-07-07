@@ -3,6 +3,7 @@ export class MapObject
     @timer = timer.new!
     @tween = flux.group!
     @drawDepth = 0
+    @delete = false
 
   create: =>
 
