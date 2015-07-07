@@ -8,8 +8,10 @@ export class TinyFish extends MapObject
     @uptime = 0
     @turnRadius = love.math.random(10, 30) / 100
     @turnSpeed = love.math.random(50, 100) / 100
+    @drawDepth = 100
     
   update: (dt) =>
+    --turn slightly
     @uptime += dt
     @angle = @turnRadius * math.sin @uptime * @turnSpeed
     @velocity = vector(@speed, 0)\rotated(@angle)
@@ -35,43 +37,49 @@ export class TinyFishSpawner
     @newTimer!
     @newSchoolTimer!
     
+  spawnFish: (direction, randomX) =>
+    --decide the position of the fish
+    local x, y
+    if randomX
+      x = love.math.random(0, @levelData.map.width)
+    else
+      if direction == 1
+        x = -16
+      elseif direction == -1
+        x = @levelData.map.width + 16
+    y = love.math.random 50, HEIGHT - 50
+    
+    --add a fish
+    @map\addObject TinyFish, direction, vector x, y
+  
+  spawnSchool: (direction, randomX) =>
+    --decide the position of the fish
+    local x, y
+    if randomX
+      x = love.math.random(0, @levelData.map.width)
+    else
+      if direction == 1
+        x = -16
+      elseif direction == -1
+        x = @levelData.map.width + 16
+    y = love.math.random 50, HEIGHT - 50
+    
+    --add a bunch of fish
+    @fish = {}
+    for i = 1, love.math.random 5, 15
+       @map\addObject TinyFish, direction, vector(x, y) + vector love.math.random(-40, 40), love.math.random(-40, 40)
+    
   newTimer: =>
+    --spawn single fish at random intervals
     @timer.add love.math.random(1, 3), ->
       @spawnFish lume.randomchoice({-1, 1}), false
       @newTimer!
     
   newSchoolTimer: =>
+    --spawn schools of fish at random intervals
     @timer.add love.math.random(5, 10), ->
       @spawnSchool lume.randomchoice({-1, 1}), false
       @newSchoolTimer!
     
   update: (dt) =>
     @timer.update dt
-  
-  spawnFish: (direction, randomX) =>
-    local x, y
-    if randomX
-      x = love.math.random(0, @levelData.map.width)
-    else
-      if direction == 1
-        x = -16
-      elseif direction == -1
-        x = @levelData.map.width + 16
-    y = love.math.random 50, HEIGHT - 50
-    
-    @map\addObject TinyFish, direction, vector x, y
-  
-  spawnSchool: (direction, randomX) =>
-    local x, y
-    if randomX
-      x = love.math.random(0, @levelData.map.width)
-    else
-      if direction == 1
-        x = -16
-      elseif direction == -1
-        x = @levelData.map.width + 16
-    y = love.math.random 50, HEIGHT - 50
-    
-    @fish = {}
-    for i = 1, love.math.random 5, 15
-       @map\addObject TinyFish, direction, vector(x, y) + vector love.math.random(-40, 40), love.math.random(-40, 40)

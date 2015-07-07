@@ -56,6 +56,7 @@ export class Map
     @background\drawScrolling!
 
     --draw all objects
+    table.sort @objects, (a, b) -> return a.drawDepth > b.drawDepth
     for object in *@objects do
       object\draw!
       object\drawDebug! if DEBUG
