@@ -29,14 +29,16 @@ love.load =  ->
   require 'class.ui.hud'
   require 'class.ui.level-button'
   require 'class.ui.menu'
+  require 'class.menu.level-select'
   require 'class.level-data'
   require 'class.save-manager'
   require 'class.map'
   require 'class.player-input'
 
   --load states
+  require 'state.menu'
   require 'state.title'
-  require 'state.level-select'
+  --require 'state.level-select'
   require 'state.game'
   require 'state.pause'
 
@@ -110,7 +112,7 @@ love.load =  ->
     .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
 
   with gamestate
-    .switch title
+    .switch menu
     .registerEvents!
 
 love.update = (dt) ->
