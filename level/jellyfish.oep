@@ -68,7 +68,7 @@
         <X>8</X>
         <Y>8</Y>
       </Origin>
-      <ImageDefinition DrawMode="Image" ImagePath="..\image\jellyfish.png" Tiled="false">
+      <ImageDefinition DrawMode="Image" ImagePath="..\assets\jellyfish still.png" Tiled="false">
         <RectColor A="255" R="255" G="0" B="0" />
       </ImageDefinition>
       <ValueDefinitions />
