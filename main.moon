@@ -57,6 +57,7 @@ love.load =  ->
 	--reusable colors
   color = {}
   color.white = {252, 255, 254, 255}
+  color.gray = {150, 150, 150, 255}
   color.rank = {}
   color.rank[1] = {132, 219, 252, 255}
   color.rank[2] = {242, 222, 112, 255}
