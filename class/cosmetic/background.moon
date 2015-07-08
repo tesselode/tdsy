@@ -35,8 +35,6 @@ export class Background
 
       .setColor 42, 52, 67, 255
       .rectangle 'fill', 0, stop4, WIDTH, HEIGHT - stop4
-      
-      .print #@fish
 
   drawScrolling: =>
     --draw fish
