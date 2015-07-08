@@ -37,9 +37,8 @@ levelSelect =
       goalY: @levelButton[@selected].y
     @timesY = 0
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
-    @background =
-      x: 0
-      y: 0
+    if not @background
+      @background = BackgroundMenu WIDTH, HEIGHT
 
     if previous == game
       @fadeAlpha = 255
@@ -85,28 +84,18 @@ levelSelect =
       .y = lume.lerp .y, .goalY, 20 * dt
 
     --cosmetic
-    with @background
-      .x -= 16 * dt
-      .y -= 16 * dt
-      if .x < -32
-        .x += 32
-      if .y < -32
-        .y += 32
+    @background\update dt
 
   draw: =>
     with @canvas
       \clear 0, 0, 0, 255
       \renderTo ->
-        --draw background
         with love.graphics
+          --draw background
+          @background\draw!
           .push!
-          .translate lume.round(@background.x), lume.round(@background.y)
-
-          .setColor 255, 255, 255, 255
-          for i = 0, 9
-            for j = 0, 9
-              .draw image.checkerboard, 64 * i, 64 * j
-
+          .translate 0, HEIGHT * .5
+          @background\drawScrolling!
           .pop!
 
           --draw level buttons
@@ -154,7 +143,7 @@ levelSelect =
           --draw completion bar
           .setColor 8, 0, 8, 255
           .rectangle 'fill', 20, HEIGHT * .9, WIDTH - 40, 20
-          .setColor 68, 80, 140, 255
+          .setColor 91, 153, 254, 255
           .rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
           .setColor color.white
           .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9

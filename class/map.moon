@@ -24,7 +24,7 @@ export class Map
         @addObject Jellyfish, vector(.x, .y), .angle
 
     --background
-    @background = Background levelData.map.width, levelData.map.height
+    @background = BackgroundGameplay levelData.map.width, levelData.map.height
 
   addObject: (object, ...) =>
     newObject = object @world

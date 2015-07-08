@@ -28,18 +28,19 @@ export class TinyFish
     
     
 export class TinyFishSpawner
-  new: (@background, @width) =>
+  new: (@background, @width, spawnSchools) =>
     @timer = timer.new!
     
-    --spawn initial fish
+    --fish spawning
     for i = 1, love.math.random(10)
       @spawnFish lume.randomchoice({-1, 1}), true
-    if love.math.random(1, 3) == 3
-      @spawnSchool lume.randomchoice({-1, 1}), true
-      
-    --timers for spawning additional fish
     @newTimer!
-    @newSchoolTimer!
+    
+    --fish school spawning
+    if spawnSchools
+      if love.math.random(1, 3) == 3
+        @spawnSchool lume.randomchoice({-1, 1}), true
+      @newSchoolTimer!
     
   spawnFish: (direction, randomX) =>
     --decide the position of the fish
