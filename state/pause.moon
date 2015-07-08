@@ -18,7 +18,7 @@ pause =
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->
           gamestate.pop!
-          gamestate.switch levelSelect
+          gamestate.switch menu
 
     --cosmetic
     @fadeAlpha = 0

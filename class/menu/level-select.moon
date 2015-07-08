@@ -34,20 +34,6 @@ export class LevelSelect
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
-
-    --fade transition
-    --if previous == game
-    --  @fadeAlpha = 255
-    --  @tween\to self, .15, {fadeAlpha: 0}
-    --else
-    --  @fadeAlpha = 0
-      
-    --slide transition
-    --if previous == title
-    --  @slideY = HEIGHT
-    --  @tween\to self, .5, {slideY: 0}
-    --else
-    --  @slideY = 0
     
   timesBounceAnimation: =>
     @timesY = -4
@@ -75,9 +61,7 @@ export class LevelSelect
 
       if control.primary.pressed and levelData[@selected].unlocked
         @takeInput = false
-        --@tween\to self, .15, {fadeAlpha: 255}
-        @timer.add .15, ->
-          gamestate.switch game, @levelButton[@selected].level
+        beholder.trigger 'go to game', @levelButton[@selected].level
             
       if control.secondary.pressed
         beholder.trigger 'go to title'
@@ -140,7 +124,3 @@ export class LevelSelect
       .rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
       .setColor color.white
       .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
-
-      --draw fade out
-      --.setColor 0, 0, 0, @fadeAlpha
-      --.rectangle 'fill', 0, 0, WIDTH, HEIGHT

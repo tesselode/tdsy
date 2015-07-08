@@ -1,7 +1,7 @@
 export menu
 
 menu =
-  enter: =>
+  enter: (previous) =>
     @timer = timer.new!
     @tween = flux.group!
     
@@ -10,8 +10,15 @@ menu =
     --menus
     @title           = Title!
     @levelSelect     = LevelSelect!
-    @focused         = @title
-    @translateVector = vector!
+    if previous == game
+      @focused = @levelSelect
+      @translateVector = vector -WIDTH, 0
+      @fadeAlpha = 255
+      @tween\to self, .15, {fadeAlpha: 0}
+    else
+      @focused = @title
+      @translateVector = vector!
+      @fadeAlpha = 0
     
     beholder.group self, ->
       beholder.observe 'go to level select', ->
@@ -20,6 +27,10 @@ menu =
       beholder.observe 'go to title', ->
         @focused = @title
         @tween\to(@translateVector, .5, {x: 0, y: 0})\ease('cubicout')
+      beholder.observe 'go to game', (level) ->
+        @tween\to self, .15, {fadeAlpha: 255}
+        @timer.add .15, ->
+          gamestate.switch game, level
     
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     
@@ -57,6 +68,10 @@ menu =
         .pop!
         
         .pop!
+        
+        --draw fade transition
+        .setColor 0, 0, 0, @fadeAlpha
+        .rectangle 'fill', 0, 0, WIDTH, HEIGHT
   
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255

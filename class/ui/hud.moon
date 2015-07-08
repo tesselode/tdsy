@@ -45,7 +45,7 @@ export class Hud
               @menu.takeInput = false
               @tween\to self, .15, {fadeAlpha: 255}
               @timer.add .15, ->
-                gamestate.switch levelSelect
+                gamestate.switch menu
 
   update: (dt) =>
     @timer.update dt

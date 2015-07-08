@@ -38,8 +38,6 @@ love.load =  ->
 
   --load states
   require 'state.menu'
-  --require 'state.title'
-  --require 'state.level-select'
   require 'state.game'
   require 'state.pause'
 
