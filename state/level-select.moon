@@ -36,8 +36,6 @@ levelSelect =
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
-    if not @background
-      @background = BackgroundMenu WIDTH, HEIGHT
     @mainCanvas = love.graphics.newCanvas WIDTH, HEIGHT
     @backgroundCanvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -85,7 +83,7 @@ levelSelect =
       .y = lume.lerp .y, .goalY, 20 * dt
 
     --cosmetic
-    @background\update dt
+    title.background\update dt
 
   draw: =>
     with @backgroundCanvas
@@ -93,10 +91,10 @@ levelSelect =
       \renderTo ->
         with love.graphics
           --draw background
-          @background\draw!
+          title.background\draw!
           .push!
           .translate 0, HEIGHT * .5
-          @background\drawScrolling!
+          title.background\drawScrolling!
           .pop!
     
     with @mainCanvas

@@ -35,8 +35,9 @@ love.load =  ->
   require 'class.player-input'
 
   --load states
-  require 'state.game'
+  require 'state.title'
   require 'state.level-select'
+  require 'state.game'
   require 'state.pause'
 
   --load images
@@ -108,7 +109,7 @@ love.load =  ->
     .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
 
   with gamestate
-    .switch levelSelect
+    .switch title
     .registerEvents!
 
 love.update = (dt) ->
