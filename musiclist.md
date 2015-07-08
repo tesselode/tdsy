@@ -24,3 +24,6 @@ Songs that could potentially work:
 - Electric Children
   - Spring Retrospective
     - Isn't quite pure chiptune, might not sound right
+- k9d
+  - Keeps Soft Secrets
+    - Really weird, not pure chiptune, might fit anyway :P

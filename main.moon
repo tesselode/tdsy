@@ -35,6 +35,7 @@ love.load =  ->
   require 'class.save-manager'
   require 'class.map'
   require 'class.player-input'
+  require 'class.music-manager'
 
   --load states
   require 'state.menu'
@@ -69,7 +70,6 @@ love.load =  ->
   levelData = {}
   for i = 1, NUMLEVELS
     if love.filesystem.exists 'level/level'..i..'.oel'
-      print i
       levelData[i] = LevelData i, 'level'..i
 
   saveManager = SaveManager!
@@ -109,6 +109,8 @@ love.load =  ->
     .horizontal     = input.addAxis .gamepadLeftX, .keyboardXAxis
     .vertical       = input.addAxis .gamepadLeftY, .keyboardYAxis
     .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
+
+  musicManager = MusicManager!
 
   with gamestate
     .switch menu

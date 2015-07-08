@@ -34,6 +34,8 @@ menu =
     
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     
+    musicManager\playSong 'title'
+    
   update: (dt) =>
     @timer.update dt
     @tween\update dt
