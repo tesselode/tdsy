@@ -54,7 +54,7 @@ export class BackgroundGameplay extends Background
     
     --background fish
     @fish = {}
-    @tinyFishSpawner = TinyFishSpawner self, @width, false
+    @tinyFishSpawner = TinyFishSpawner self, @width
     
     --scenery
     with love.graphics
@@ -106,4 +106,4 @@ export class BackgroundMenu extends Background
     
     --background fish
     @fish = {}
-    @tinyFishSpawner = TinyFishSpawner self, @width, true
+    @tinyFishSpawner = TinyFishSpawner self, @width, 5
