@@ -78,6 +78,9 @@ export class LevelSelect
         --@tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->
           gamestate.switch game, @levelButton[@selected].level
+            
+      if control.secondary.pressed
+        beholder.trigger 'go to title'
 
     --selection cursor
     with @cursor

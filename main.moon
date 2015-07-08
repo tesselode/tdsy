@@ -30,6 +30,7 @@ love.load =  ->
   require 'class.ui.level-button'
   require 'class.ui.menu'
   require 'class.menu.level-select'
+  require 'class.menu.title'
   require 'class.level-data'
   require 'class.save-manager'
   require 'class.map'
@@ -37,7 +38,7 @@ love.load =  ->
 
   --load states
   require 'state.menu'
-  require 'state.title'
+  --require 'state.title'
   --require 'state.level-select'
   require 'state.game'
   require 'state.pause'
