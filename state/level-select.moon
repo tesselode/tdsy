@@ -36,20 +36,34 @@ levelSelect =
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
-    @mainCanvas = love.graphics.newCanvas WIDTH, HEIGHT
-    @backgroundCanvas = love.graphics.newCanvas WIDTH, HEIGHT
 
+    --fade transition
     if previous == game
       @fadeAlpha = 255
       @tween\to self, .15, {fadeAlpha: 0}
     else
       @fadeAlpha = 0
+      
+    --slide transition
+    if previous == title
+      @slideY = HEIGHT
+      @tween\to self, .5, {slideY: 0}
+    else
+      @slideY = 0
+      
+    --canvases
+    @mainCanvas = love.graphics.newCanvas WIDTH, HEIGHT
+    @backgroundCanvas = love.graphics.newCanvas WIDTH, HEIGHT
+    @render!
+    @draw!
 
   timesBounceAnimation: =>
     @timesY = -4
     @tween\to(self, .1, {timesY: 0})\ease 'linear'
 
   update: (dt) =>
+    dt = dt * .01
+    
     @timer.update dt
     @tween\update dt
 
@@ -85,7 +99,7 @@ levelSelect =
     --cosmetic
     title.background\update dt
 
-  draw: =>
+  render: =>
     with @backgroundCanvas
       \clear 0, 0, 0, 255
       \renderTo ->
@@ -155,8 +169,18 @@ levelSelect =
           .setColor 0, 0, 0, @fadeAlpha
           .rectangle 'fill', 0, 0, WIDTH, HEIGHT
 
+  draw: =>
+    @render!
+    
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
+      
       .setColor 255, 255, 255, 255
       .draw @backgroundCanvas, 0, 0, 0, scaleFactor, scaleFactor
+      
+      .push!
+      .translate 0, @slideY * scaleFactor
+      .draw title.mainCanvas, 0, -HEIGHT * scaleFactor, 0, scaleFactor, scaleFactor
       .draw @mainCanvas, 0, 0, 0, scaleFactor, scaleFactor
+      
+      .pop!
