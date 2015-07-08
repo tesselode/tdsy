@@ -5,7 +5,7 @@ menu =
     @timer = timer.new!
     @tween = flux.group!
     
-    @background = BackgroundMenu WIDTH, HEIGHT
+    @background = BackgroundMenu WIDTH * 2, HEIGHT
     
     --menus
     @title           = Title!
@@ -52,7 +52,7 @@ menu =
         --draw background
         @background\draw!
         .push!
-        .translate 0, HEIGHT * .5
+        .translate @translateVector.x, HEIGHT * .5
         @background\drawScrolling!
         .pop!
         
