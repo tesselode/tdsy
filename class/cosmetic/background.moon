@@ -6,6 +6,10 @@ export class Background
     @tinyFishSpawner\update dt
     for fish in *@fish
       fish\update dt
+      
+    for i = #@fish, 1, -1
+      if @fish[i].delete
+        table.remove @fish, i
 
   draw: =>
     --draw water
@@ -31,6 +35,8 @@ export class Background
 
       .setColor 42, 52, 67, 255
       .rectangle 'fill', 0, stop4, WIDTH, HEIGHT - stop4
+      
+      .print #@fish
 
   drawScrolling: =>
     --draw fish
