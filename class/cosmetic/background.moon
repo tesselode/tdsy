@@ -3,6 +3,9 @@ export class Background
     --water
     @transition1 = 0
     @transition2 = HEIGHT - 48
+    
+    @fish = {}
+    @tinyFishSpawner = TinyFishSpawner self, @width
 
     --scenery
     with love.graphics
@@ -43,7 +46,13 @@ export class Background
         for i = 0, @width, image.sand\getWidth!
           .draw image.sand, i, HEIGHT - 8
 
+  update: (dt) =>
+    @tinyFishSpawner\update dt
+    for fish in *@fish
+      fish\update dt
+
   draw: =>
+    --draw water
     stop1 = @transition1
     stop2 = stop1 + image.waterBright\getHeight!
     stop3 = @transition2
@@ -68,6 +77,11 @@ export class Background
       .rectangle 'fill', 0, stop4, WIDTH, HEIGHT - stop4
 
   drawScrolling: =>
+    --draw fish
+    for fish in *@fish
+      fish\draw!
+    
+    --draw scenery
     with love.graphics
       .setColor 255, 255, 255, 255
       .draw @canvas

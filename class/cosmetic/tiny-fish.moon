@@ -1,5 +1,5 @@
-export class TinyFish extends MapObject
-  create: (@direction, @width, @position) =>
+export class TinyFish
+  new: (@direction, @width, @position) =>
     @speed = love.math.random(40, 60) * @direction
     @velocity = vector @speed, 0
     @sprite = Sprite image.tinyFish
@@ -28,7 +28,7 @@ export class TinyFish extends MapObject
     
     
 export class TinyFishSpawner
-  new: (@map, @levelData) =>
+  new: (@background, @width) =>
     @timer = timer.new!
     
     --spawn initial fish
@@ -45,34 +45,34 @@ export class TinyFishSpawner
     --decide the position of the fish
     local x, y
     if randomX
-      x = love.math.random(0, @levelData.map.width)
+      x = love.math.random(0, @width)
     else
       if direction == 1
         x = -16
       elseif direction == -1
-        x = @levelData.map.width + 16
+        x = @width + 16
     y = love.math.random 50, HEIGHT - 50
     
     --add a fish
-    @map\addObject TinyFish, direction, @levelData.map.width, vector x, y
+    table.insert @background.fish, TinyFish direction, @width, vector x, y
   
   spawnSchool: (direction, randomX) =>
     --decide the position of the fish
     local x, y
     if randomX
-      x = love.math.random(0, @levelData.map.width)
+      x = love.math.random(0, @width)
     else
       if direction == 1
         x = -16
       elseif direction == -1
-        x = @levelData.map.width + 16
+        x = @width + 16
     y = love.math.random 50, HEIGHT - 50
     
     --add a bunch of fish
     @fish = {}
     for i = 1, love.math.random 5, 15
       pos = vector(x, y) + vector love.math.random(-40, 40), love.math.random(-40, 40)
-      @map\addObject TinyFish, direction, @levelData.map.width, pos
+      table.insert @background.fish, TinyFish direction, @width, pos
     
   newTimer: =>
     --spawn single fish at random intervals

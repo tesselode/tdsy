@@ -1,7 +1,6 @@
 export class Map
   new: (levelData) =>
     @loadLevel levelData
-    @tinyFishSpawner = TinyFishSpawner self, levelData
 
   loadLevel: (levelData) =>
     @world = bump.newWorld!
@@ -34,6 +33,9 @@ export class Map
     newObject
 
   update: (dt) =>
+    --update scenery
+    @background\update dt
+    
     --update all objects
     for object in *@objects do
       object\update dt
@@ -44,9 +46,6 @@ export class Map
         table.remove @objects, i
 
     @camera\update dt
-    
-    --spawn little fishies
-    @tinyFishSpawner\update dt
 
   draw: =>
     --draw background
