@@ -19,6 +19,8 @@ game =
     @hud = Hud self
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+    
+    musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
     beholder.trigger 'level complete'

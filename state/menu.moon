@@ -5,6 +5,7 @@ menu =
     @timer = timer.new!
     @tween = flux.group!
     
+    --cosmetic
     @background = BackgroundMenu WIDTH * 2, HEIGHT
     
     --menus
@@ -34,7 +35,10 @@ menu =
     
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     
-    musicManager\playSong 'title'
+    if previous == game
+      musicManager\playSong 'title', 1
+    else
+      musicManager\playSong 'title'
     
   update: (dt) =>
     @timer.update dt

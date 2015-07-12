@@ -14,6 +14,7 @@ love.load =  ->
   input     = require 'lib.tactile'
   serialize = require 'lib.ser'
   anim8     = require 'lib.anim8'
+  --slam      = require 'lib.slam'
   require 'extra'
 
   --load classes
@@ -118,3 +119,4 @@ love.load =  ->
 
 love.update = (dt) ->
   input.update!
+  musicManager\update dt
