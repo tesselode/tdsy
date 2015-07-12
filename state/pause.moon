@@ -8,12 +8,12 @@ pause =
     --menu options
     @menu = Menu font.mini, WIDTH / 2, HEIGHT / 2, {150, 150, 150, 255}, {255, 255, 255, 255}
     with @menu
-      \addOption 'Resume', ->
+      \addOption MenuOption 'Resume', ->
         gamestate.pop!
-      \addOption 'Restart', ->
+      \addOption MenuOption 'Restart', ->
         gamestate.pop!
         gamestate.switch game, game.levelData
-      \addOption 'Back to menu', ->
+      \addOption MenuOption 'Back to menu', ->
         @menu.takeInput = false
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->

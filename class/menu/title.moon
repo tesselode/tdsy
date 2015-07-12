@@ -1,9 +1,9 @@
 export class Title
   new: =>
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .65, color.gray, color.white
-    @menu\addOption 'Play!', ->
+    @menu\addOption MenuOption 'Play!', ->
       beholder.trigger 'go to level select'
-    @menu\addOption 'Quit', ->
+    @menu\addOption MenuOption 'Quit', ->
       love.event.quit!
       
   update: (dt) =>

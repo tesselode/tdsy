@@ -6,8 +6,9 @@ export class Menu
     @selected = 1
     @takeInput = true
 
-  addOption: (text, onSelect) =>
-    table.insert @options, {text: text, onSelect: onSelect}
+  addOption: (option) =>
+    option.parent = self
+    table.insert @options, option
 
   previous: =>
     if @takeInput
@@ -18,16 +19,38 @@ export class Menu
     if @takeInput
       @selected += 1
       @selected = math.wrap @selected, 1, #@options
+      
+  secondaryPrevious: =>
+    if @takeInput
+      @options[@selected]\previous!
+      
+  secondaryNext: =>
+    if @takeInput
+      @options[@selected]\next!
 
   select: =>
     if @takeInput
-      @options[@selected].onSelect!
+      @options[@selected]\onSelect!
 
   draw: =>
+    for k, v in pairs @options
+      selected = k == @selected
+      x, y = @x, @y + @spacing * (k - 1)
+      v\draw x, y, selected
+
+export class MenuOption
+  new: (@text, @onSelect) =>
+    
+  previous: =>
+    
+  next: =>
+    
+  select: =>
+    
+  draw: (x, y, selected) =>
     with love.graphics
-      for k, v in pairs @options
-        if k == @selected
-          .setColor @highlightColor
-        else
-          .setColor @color
-        .printAligned v.text, @font, @x, @y + @spacing * (k - 1)
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned @text, @parent.font, x, y
