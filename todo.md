@@ -8,13 +8,9 @@ Let's get a to-do list going so we have a definite goal:
   - Levels 16-19 don't unlock until you get gold on the first 15
   - Level 20 doesn't unlock until you get diamond on every other level
 - Cosmetic:
-  - Music
-    - Title screen music and two or three gameplay musics
-    - Use some music by RoccoW because that'll make life a lot easier
   - Sound effects
   - Some sort of first-run tutorial text explaining the controls
 - Functional:
-  - Title screen
   - Options
 
 ###Optional
