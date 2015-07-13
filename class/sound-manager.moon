@@ -16,3 +16,8 @@ export class SoundManager
         with @sound['bounce'..@bounceSound]
           \play!
         @bounceSound += 1 if @bounceSound < 7
+          
+      beholder.observe 'fish darted', ->
+        with @sound.dart
+          \setPitch .9 + love.math.random(1, 5) * .05
+          \play!

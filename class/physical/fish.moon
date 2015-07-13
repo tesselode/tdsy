@@ -56,6 +56,8 @@ export class Fish extends Physical
 
       --adjust sprite
       @sprite.scale.y = lume.sign @velocity.x
+      
+      beholder.trigger 'fish darted'
 
   update: (dt) =>
     if not @active and @inputVector\len! ~= 0
