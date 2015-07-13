@@ -18,23 +18,22 @@ export class MusicManager
     
     --set song volumes
     for k, v in pairs @music
-      v.source\setVolume v.volume
+      v.source\setVolume v.volume * .8
   
   playSong: (nextSong, crossfadeTime) =>
     crossfadeTime = crossfadeTime or 0
     
-    return false if nextSong == @current
+    return false if @music[nextSong] == @current
     
     --fade out currently playing song
-    for k, v in pairs @music
-      if v.source\isPlaying!
-        @tween\to v, crossfadeTime, {volume: 0}
+    if @current
+      @tween\to @current, crossfadeTime, {volume: 0}
         
     --fade in requested song
-    @current = nextSong
+    @current = @music[nextSong]
     @timer.add crossfadeTime * .5, ->
-      with @music[nextSong]
+      with @current
         .volume = .5
         .source\stop!
         .source\play!
-        @tween\to @music[nextSong], crossfadeTime * .5, {volume: 1}
+        @tween\to @current, crossfadeTime * .5, {volume: 1}

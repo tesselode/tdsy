@@ -14,7 +14,7 @@ love.load =  ->
   input     = require 'lib.tactile'
   serialize = require 'lib.ser'
   anim8     = require 'lib.anim8'
-  --slam      = require 'lib.slam'
+  slam      = require 'lib.slam'
   require 'extra'
 
   --load classes
@@ -37,6 +37,7 @@ love.load =  ->
   require 'class.map'
   require 'class.player-input'
   require 'class.music-manager'
+  require 'class.sound-manager'
 
   --load states
   require 'state.menu'
@@ -112,6 +113,7 @@ love.load =  ->
     .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
 
   musicManager = MusicManager!
+  soundManager = SoundManager!
 
   with gamestate
     .switch menu
