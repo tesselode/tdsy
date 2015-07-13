@@ -15,7 +15,7 @@ export class SoundManager
         @bounceSound = 1
       
       beholder.observe 'jellyfish bounced', ->
-        with @sound['bounce'..@bounceSound]
+        with @sound['bounce-0'..@bounceSound]
           \play!
         @bounceSound += 1 if @bounceSound < 7
           
