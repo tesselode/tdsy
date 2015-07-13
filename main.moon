@@ -122,3 +122,4 @@ love.load =  ->
 love.update = (dt) ->
   input.update!
   musicManager\update dt
+  soundManager\update dt

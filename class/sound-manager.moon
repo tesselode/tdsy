@@ -1,5 +1,7 @@
 export class SoundManager
   new: =>
+    @timer = timer.new!
+    
     --load sounds
     @sound = {}
     for file in *love.filesystem.getDirectoryItems 'sound'
@@ -21,3 +23,13 @@ export class SoundManager
         with @sound.dart
           \setPitch .9 + love.math.random(1, 5) * .05
           \play!
+          
+      beholder.observe 'level complete', (newBest) ->
+        @timer.add .5, ->
+          if newBest
+            @sound.fanfareBig\play!
+          else
+            @sound.fanfareSmall\play!
+          
+  update: (dt) =>
+    @timer.update dt

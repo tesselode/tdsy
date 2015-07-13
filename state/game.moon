@@ -20,15 +20,16 @@ game =
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     
-    musicManager\playSong 'gameplay1', 1
+    musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
-    beholder.trigger 'level complete'
+    newBest = @levelData\addTime @time
+    
+    beholder.trigger 'level complete', newBest
     @levelComplete = true
     @playerInput.enabled = false
 
     --save data
-    newBest = @levelData\addTime @time
     saveManager\save!
     saveManager\unlockLevels!
     beholder.trigger 'show endslate', newBest
