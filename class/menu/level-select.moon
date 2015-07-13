@@ -48,23 +48,29 @@ export class LevelSelect
       if control.left.pressed
         @selected -= 1
         @timesBounceAnimation!
+        beholder.trigger 'menu navigate'
       if control.right.pressed
         @selected += 1
         @timesBounceAnimation!
+        beholder.trigger 'menu navigate'
       if control.up.pressed
         @selected -= 5
         @timesBounceAnimation!
+        beholder.trigger 'menu navigate'
       if control.down.pressed
         @selected += 5
         @timesBounceAnimation!
+        beholder.trigger 'menu navigate'
       @selected = math.wrap @selected, 1, 15
 
       if control.primary.pressed and levelData[@selected].unlocked
         @takeInput = false
         beholder.trigger 'go to game', @levelButton[@selected].level
+        beholder.trigger 'menu select'
             
       if control.secondary.pressed
         beholder.trigger 'go to title'
+        beholder.trigger 'menu back'
 
     --selection cursor
     with @cursor

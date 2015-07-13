@@ -33,15 +33,18 @@ export class Hud
           with @menu
             \addOption MenuOption 'Restart', ->
               gamestate.switch game, game.levelData
+              beholder.trigger 'menu select'
 
             if @state.levelData.levelNum < 15 and @state.levelData\getBestRank! < 4
               \addOption MenuOption 'Next level', ->
+                beholder.trigger 'menu select'
                 @menu.takeInput = false
                 @tween\to self, .15, {fadeAlpha: 255}
                 @timer.add .15, ->
                   gamestate.switch game, levelData[game.levelData.levelNum + 1]
 
             \addOption MenuOption 'Back to menu', ->
+              beholder.trigger 'menu back'
               @menu.takeInput = false
               @tween\to self, .15, {fadeAlpha: 255}
               @timer.add .15, ->

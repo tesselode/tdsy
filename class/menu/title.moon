@@ -11,7 +11,9 @@ export class Title
     with @menu
       \previous! if control.up.pressed
       \next! if control.down.pressed
-      \select! if control.primary.pressed
+      if control.primary.pressed
+        \select!
+        beholder.trigger 'menu select'
         
   draw: =>
     with love.graphics

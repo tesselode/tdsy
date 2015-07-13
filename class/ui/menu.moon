@@ -14,19 +14,23 @@ export class Menu
     if @takeInput
       @selected -= 1
       @selected = math.wrap @selected, 1, #@options
+      beholder.trigger 'menu navigate'
 
   next: =>
     if @takeInput
       @selected += 1
       @selected = math.wrap @selected, 1, #@options
+      beholder.trigger 'menu navigate'
       
   secondaryPrevious: =>
     if @takeInput
       @options[@selected]\previous!
+      beholder.trigger 'menu navigate'
       
   secondaryNext: =>
     if @takeInput
       @options[@selected]\next!
+      beholder.trigger 'menu navigate'
 
   select: =>
     if @takeInput

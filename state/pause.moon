@@ -13,7 +13,9 @@ pause =
       \addOption MenuOption 'Restart', ->
         gamestate.pop!
         gamestate.switch game, game.levelData
+        beholder.trigger 'menu select'
       \addOption MenuOption 'Back to menu', ->
+        beholder.trigger 'menu back'
         @menu.takeInput = false
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->

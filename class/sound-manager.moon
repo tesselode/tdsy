@@ -25,11 +25,18 @@ export class SoundManager
           \play!
           
       beholder.observe 'level complete', (newBest) ->
-        @timer.add .5, ->
+        @timer.add 0, ->
           if newBest
             @sound.fanfareBig\play!
           else
             @sound.fanfareSmall\play!
+            
+      beholder.observe 'menu navigate', ->
+        @sound.menuBeep\play!
+      beholder.observe 'menu select', ->
+        @sound.menuSelect\play!
+      beholder.observe 'menu back', ->
+        @sound.menuBack\play!
           
   update: (dt) =>
     @timer.update dt
