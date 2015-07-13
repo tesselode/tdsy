@@ -6,12 +6,13 @@ export class SoundManager
       if file\find '.wav'
         @sound[file\match('(.-).wav')] = love.audio.newSource 'sound/'..file
         
+    @bounceSound = 1
+        
     beholder.group self, ->
+      beholder.observe 'level start', ->
+        @bounceSound = 1
+      
       beholder.observe 'jellyfish bounced', ->
-        pitch = 1
-        with @sound.hit
-          \setPitch pitch
+        with @sound['bounce'..@bounceSound]
           \play!
-        with @sound.bounce
-          \setPitch pitch
-          \play!
+        @bounceSound += 1 if @bounceSound < 7
