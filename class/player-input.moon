@@ -14,7 +14,7 @@ export class PlayerInput
     @fish.inputVector = inputVector
 
     --darting
-    if @enabled and not @firstFrame and control.primary.pressed
+    if @enabled and not @firstFrame and (inputVector.x ~= 0 or inputVector.y ~= 0) and control.primary.pressed
       @fish\dart!
 
     if @firstFrame
