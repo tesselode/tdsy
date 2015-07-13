@@ -18,7 +18,7 @@ export class MusicManager
     
     --set song volumes
     for k, v in pairs @music
-      v.source\setVolume v.volume * .8
+      v.source\setVolume v.volume * .65
   
   playSong: (nextSong, crossfadeTime) =>
     crossfadeTime = crossfadeTime or 0
