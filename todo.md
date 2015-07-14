@@ -9,8 +9,6 @@ Let's get a to-do list going so we have a definite goal:
   - Level 20 doesn't unlock until you get diamond on every other level
 - Cosmetic:
   - Some sort of first-run tutorial text explaining the controls
-- Functional:
-  - Options
 
 ###Optional
 
@@ -18,7 +16,6 @@ Let's get a to-do list going so we have a definite goal:
   - Level 20 only has a diamond time
 - Cosmetic:
   - Fish animation
-  - Music stops/special fanfare when you get a diamond time
   - A "controller recommended" splash screen
   
 ###Optional (would make sense for a future update)
