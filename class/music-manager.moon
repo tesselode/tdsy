@@ -22,6 +22,12 @@ export class MusicManager
           @userMusicVolume = 1 - (value - 5) / 5
         else
           @userMusicVolume = 1
+          
+      beholder.observe 'level complete', (newBest, newDiamond) ->
+        if false and newDiamond then
+          @current.volume = 0
+          @timer.add 3, ->
+            @tween\to @current, 1, {volume: 1}
     
   update: (dt) =>
     @timer.update dt

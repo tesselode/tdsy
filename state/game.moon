@@ -26,9 +26,11 @@ game =
       musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
+    hadDiamond = @levelData\getBestRank! == 1
     newBest = @levelData\addTime @time
+    newDiamond = @levelData\getBestRank! == 1 and not hadDiamond
     
-    beholder.trigger 'level complete', newBest
+    beholder.trigger 'level complete', newBest, newDiamond
     @levelComplete = true
     @playerInput.enabled = false
 

@@ -24,12 +24,16 @@ export class SoundManager
           \setPitch .9 + love.math.random(1, 5) * .05
           \play!
           
-      beholder.observe 'level complete', (newBest) ->
+      beholder.observe 'level complete', (newBest, newDiamond) ->
         @timer.add 0, ->
           if newBest
             @sound.fanfareBig\play!
           else
             @sound.fanfareSmall\play!
+            
+        if false and newDiamond
+          @timer.add 1, ->
+            @sound.diamondGet\play!
             
       beholder.observe 'menu navigate', ->
         @sound.menuBeep\play!
