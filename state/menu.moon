@@ -90,4 +90,4 @@ menu =
   
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255
-      .draw @canvas, 0, 0, 0, scaleFactor, scaleFactor
+      .draw @canvas, .getWidth! / 2, .getHeight! / 2, 0, scaleFactor, scaleFactor, @canvas\getWidth! / 2, @canvas\getHeight! / 2

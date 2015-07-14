@@ -1,9 +1,5 @@
 export class SaveManager
   new: =>
-    @saveFilename = 'save'
-    @optionsFilename = 'options'
-    @load!
-    
     beholder.group self, ->
       beholder.observe 'set sound balance', (value) ->
         @options.soundBalance = value
@@ -11,6 +7,21 @@ export class SaveManager
       beholder.observe 'set music type', (value) ->
         @options.musicType = value
         @save!
+      beholder.observe 'set screen size', (value) ->
+        @options.screenSize = value
+        @save!
+        
+        if value == 5
+          width, height = love.window.getDesktopDimensions!
+          love.window.setMode width, height
+          love.window.setFullscreen true
+        else
+          love.window.setFullscreen false
+          love.window.setMode WIDTH * value, HEIGHT * value
+        
+    @saveFilename = 'save'
+    @optionsFilename = 'options'
+    @load!
 
   unlockLevels: =>
     if levelData[1]
@@ -40,7 +51,9 @@ export class SaveManager
       @options =
         soundBalance: 5
         musicType: 1
+        screenSize: 2
     beholder.trigger 'set sound balance', @options.soundBalance
+    beholder.trigger 'set screen size', @options.screenSize
 
     @unlockLevels!
 

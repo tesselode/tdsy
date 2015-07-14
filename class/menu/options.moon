@@ -48,10 +48,37 @@ export class MusicTypeOption extends MenuOption
         .printAligned 'Type A', @parent.font, WIDTH - 20, y, 'right', 'middle'
       elseif @value == 2
         .printAligned 'Type B', @parent.font, WIDTH - 20, y, 'right', 'middle'
+        
+export class ScreenSizeOption extends MenuOption
+  new: =>
+    @value = saveManager.options.screenSize or 1
+    
+  previous: =>
+    @value = math.wrap @value - 1, 1, 5
+    beholder.trigger 'set screen size', @value
+    
+  next: =>
+    @value = math.wrap @value + 1, 1, 5
+    beholder.trigger 'set screen size', @value
+    
+  onSelect: =>
+    
+  draw: (x, y, selected) =>
+    with love.graphics
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned 'Screen size', @parent.font, 20, y, 'left', 'middle'
+      if @value == 5
+        .printAligned 'Full', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      else
+        .printAligned @value..'X', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
 export class Options
   new: =>
-    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .65, color.gray, color.white
+    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .7, color.gray, color.white
+    @menu\addOption ScreenSizeOption!
     @menu\addOption VolumeSliderOption!
     @menu\addOption MusicTypeOption!
     @menu\addOption MenuOption 'Back', ->
@@ -72,4 +99,8 @@ export class Options
       beholder.trigger 'go to title'
         
   draw: =>
+    with love.graphics
+      .setColor 255, 255, 255, 255
+      .printAligned 'Options', font.big, WIDTH / 2, HEIGHT * .35
+    
     @menu\draw!
