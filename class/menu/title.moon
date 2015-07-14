@@ -6,7 +6,11 @@ export class Title
     @menu\addOption MenuOption 'Quit', ->
       love.event.quit!
       
+    @uptime = 0
+      
   update: (dt) =>
+    @uptime += dt
+    
     --menu controls
     with @menu
       \previous! if control.up.pressed
@@ -18,8 +22,7 @@ export class Title
   draw: =>
     with love.graphics
       --title
-      .setFont font.big
-      .printf "The Tops Don't Sting You!", 0, 30, WIDTH, 'center'
+      .draw image.title, WIDTH * .5, HEIGHT * .5 + math.sin(@uptime * 2) * 2, 0, 1, 1, image.title\getWidth! / 2, image.title\getHeight!
       
       --menu
       @menu\draw!
