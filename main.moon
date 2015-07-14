@@ -75,8 +75,6 @@ love.load =  ->
     if love.filesystem.exists 'level/level'..i..'.oel'
       levelData[i] = LevelData i, 'level'..i
 
-  saveManager = SaveManager!
-
   control = {}
   with control
     --keyboard input
@@ -115,6 +113,7 @@ love.load =  ->
 
   musicManager = MusicManager!
   soundManager = SoundManager!
+  saveManager = SaveManager!
 
   with gamestate
     .switch menu

@@ -1,6 +1,6 @@
 export class VolumeSliderOption extends MenuOption
   new: =>
-    @value = 5
+    @value = saveManager.options.soundBalance or 5
     
   previous: =>
     @value = lume.clamp @value - 1, 0, 10
