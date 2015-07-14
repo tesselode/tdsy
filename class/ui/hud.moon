@@ -6,6 +6,8 @@ export class Hud
     --cosmetic stuff
     @goalDisplayY = 10
     @timerY = -50
+    @tutorialY = HEIGHT + 20
+    @tween\to(self, .5, {tutorialY: HEIGHT * .75})
     @fadeAlpha = 255
     @tween\to self, .15, {fadeAlpha: 0}
 
@@ -13,6 +15,7 @@ export class Hud
       beholder.observe 'level start', ->
         @tween\to(self, .35, {goalDisplayY: -50})\ease 'linear'
         @tween\to(self, .35, {timerY: 10})\ease 'linear'
+        @tween\to(self, .5, {tutorialY: HEIGHT + 20})
 
       beholder.observe 'show endslate', (newBest) ->
         --create endslate
@@ -76,6 +79,14 @@ export class Hud
       --draw time
       .setColor 255, 255, 255, 255
       .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY, 'center', 'middle'
+      
+      --tutorial text (levels 1 and 2)
+      if @state.levelData.levelNum == 1 and @state.levelData\getBestRank! == 4
+        .setFont font.mini
+        .printf 'Arrow keys/analog stick\nto move', 0, @tutorialY, WIDTH, 'center'
+      if @state.levelData.levelNum == 2 and @state.levelData\getBestRank! == 4
+        .setFont font.mini
+        .printf 'X key/A button\nto dash', 0, @tutorialY, WIDTH, 'center'
 
       --level end slate
       if @endSlate
