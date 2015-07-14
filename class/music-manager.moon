@@ -12,13 +12,16 @@ export class MusicManager
         
     for k, v in pairs @music
       v.source\setLooping true
-      v.source\addTags 'music', 'musicMaster'
       
-    --volume tweaks
-    love.audio.tags.musicMaster.setVolume .2
-  
-  setVolumeBalance: (value) =>
+    @masterMusicVolume = .65
+    @userMusicVolume = 1
     
+    beholder.group self, ->
+      beholder.observe 'set sound balance', (value) ->
+        if value > 5
+          @userMusicVolume = 1 - (value - 5) / 5
+        else
+          @userMusicVolume = 1
     
   update: (dt) =>
     @timer.update dt
@@ -26,7 +29,7 @@ export class MusicManager
     
     --set song volumes
     for k, v in pairs @music
-      v.source\setVolume v.volume
+      v.source\setVolume v.volume * @userMusicVolume * @masterMusicVolume
   
   playSong: (nextSong, crossfadeTime) =>
     crossfadeTime = crossfadeTime or 0

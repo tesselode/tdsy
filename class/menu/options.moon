@@ -4,9 +4,11 @@ export class VolumeSliderOption extends MenuOption
     
   previous: =>
     @value = lume.clamp @value - 1, 0, 10
+    beholder.trigger 'set sound balance', @value
     
   next: =>
     @value = lume.clamp @value + 1, 0, 10
+    beholder.trigger 'set sound balance', @value
     
   onSelect: =>
     
