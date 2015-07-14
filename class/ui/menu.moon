@@ -44,12 +44,12 @@ export class Menu
 
 export class MenuOption
   new: (@text, @onSelect) =>
+    @hAlign = 'center'
+    @vAlign = 'middle'
     
   previous: =>
     
   next: =>
-    
-  select: =>
     
   draw: (x, y, selected) =>
     with love.graphics
@@ -57,4 +57,4 @@ export class MenuOption
         .setColor @parent.highlightColor
       else
         .setColor @parent.color
-      .printAligned @text, @parent.font, x, y
+      .printAligned @text, @parent.font, x, y, @hAlign, @vAlign

@@ -32,6 +32,7 @@ love.load =  ->
   require 'class.ui.menu'
   require 'class.menu.level-select'
   require 'class.menu.title'
+  require 'class.menu.options'
   require 'class.level-data'
   require 'class.save-manager'
   require 'class.map'

@@ -6,11 +6,12 @@ menu =
     @tween = flux.group!
     
     --cosmetic
-    @background = BackgroundMenu WIDTH * 2, HEIGHT
+    @background = BackgroundMenu WIDTH * 3, HEIGHT
     
     --menus
-    @title           = Title!
-    @levelSelect     = LevelSelect!
+    @title       = Title!
+    @levelSelect = LevelSelect!
+    @options     = Options!
     if previous == game
       @focused = @levelSelect
       @translateVector = vector -WIDTH, 0
@@ -28,6 +29,9 @@ menu =
       beholder.observe 'go to title', ->
         @focused = @title
         @tween\to(@translateVector, .5, {x: 0, y: 0})\ease('cubicout')
+      beholder.observe 'go to options', ->
+        @focused = @options
+        @tween\to(@translateVector, .5, {x: WIDTH, y: 0})\ease('cubicout')
       beholder.observe 'go to game', (level) ->
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->
@@ -58,7 +62,7 @@ menu =
         --draw background
         @background\draw!
         .push!
-        .translate @translateVector.x, HEIGHT * .5
+        .translate @translateVector.x - WIDTH, HEIGHT * .5
         @background\drawScrolling!
         .pop!
         
@@ -71,6 +75,11 @@ menu =
         .push!
         .translate WIDTH, 0
         @levelSelect\draw!
+        .pop!
+        
+        .push!
+        .translate -WIDTH, 0
+        @options\draw!
         .pop!
         
         .pop!

@@ -9,8 +9,16 @@ export class MusicManager
         title: {volume: 1, source: .newSource 'music/lazy.mp3'}
         gameplay1: {volume: 1, source: .newSource 'music/type a.mp3'}
         gameplay2: {volume: 1, source: .newSource 'music/type b.mp3'}
+        
     for k, v in pairs @music
       v.source\setLooping true
+      v.source\addTags 'music', 'musicMaster'
+      
+    --volume tweaks
+    love.audio.tags.musicMaster.setVolume .2
+  
+  setVolumeBalance: (value) =>
+    
     
   update: (dt) =>
     @timer.update dt
@@ -18,7 +26,7 @@ export class MusicManager
     
     --set song volumes
     for k, v in pairs @music
-      v.source\setVolume v.volume * .65
+      v.source\setVolume v.volume
   
   playSong: (nextSong, crossfadeTime) =>
     crossfadeTime = crossfadeTime or 0
