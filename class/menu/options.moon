@@ -22,11 +22,38 @@ export class VolumeSliderOption extends MenuOption
       
       .rectangle 'fill', WIDTH - 100, y - 1, 80, 2
       .rectangle 'fill', WIDTH - 100 + 80 * (@value / 10) - 1, y - 5, 2, 10
+      
+export class MusicTypeOption extends MenuOption
+  new: =>
+    @value = saveManager.options.musicType or 1
+    
+  previous: =>
+    @value = math.wrap @value - 1, 1, 2
+    beholder.trigger 'set music type', @value
+    
+  next: =>
+    @value = math.wrap @value + 1, 1, 2
+    beholder.trigger 'set music type', @value
+    
+  onSelect: =>
+    
+  draw: (x, y, selected) =>
+    with love.graphics
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned 'Music', @parent.font, 20, y, 'left', 'middle'
+      if @value == 1
+        .printAligned 'Type A', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      elseif @value == 2
+        .printAligned 'Type B', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
 export class Options
   new: =>
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .65, color.gray, color.white
     @menu\addOption VolumeSliderOption!
+    @menu\addOption MusicTypeOption!
     @menu\addOption MenuOption 'Back', ->
       beholder.trigger 'go to title'
       

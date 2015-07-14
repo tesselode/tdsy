@@ -8,6 +8,9 @@ export class SaveManager
       beholder.observe 'set sound balance', (value) ->
         @options.soundBalance = value
         @save!
+      beholder.observe 'set music type', (value) ->
+        @options.musicType = value
+        @save!
 
   unlockLevels: =>
     if levelData[1]
@@ -36,6 +39,7 @@ export class SaveManager
     else
       @options =
         soundBalance: 5
+        musicType: 1
     beholder.trigger 'set sound balance', @options.soundBalance
 
     @unlockLevels!

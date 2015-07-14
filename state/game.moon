@@ -20,7 +20,10 @@ game =
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
     
-    musicManager\playSong 'gameplay1', 1
+    if saveManager.options.musicType == 1
+      musicManager\playSong 'gameplay1', 1
+    elseif saveManager.options.musicType == 2
+      musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
     newBest = @levelData\addTime @time
