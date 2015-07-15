@@ -14,7 +14,7 @@ export class LevelSelect
         completionPoints += 2
       elseif v\getBestRank! == 3
         completionPoints += 1
-    @completionPercentage = (completionPoints / 48) * 100
+    @completionPercentage = (completionPoints / (NUMLEVELS * 3)) * 100
 
     --create level buttons
     @levelButton = {}
