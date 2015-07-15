@@ -10,6 +10,7 @@ game =
     @levelComplete = false
     @jellyfishBounced = 0
     @time = 0
+    @gameSpeed = 1
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -41,11 +42,11 @@ game =
 
   update: (dt) =>
     @playerInput\update dt
-    @map\update dt
+    @map\update dt * @gameSpeed
 
     --game flow
     if @levelStarted and not @levelComplete
-      @time += dt
+      @time += dt * @gameSpeed
       if @jellyfishBounced == #@levelData.map.jellyfish
         @endLevel!
 
