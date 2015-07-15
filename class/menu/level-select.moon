@@ -19,8 +19,20 @@ export class LevelSelect
     --create level buttons
     @levelButton = {}
     levelNum = 0
-    for i = 0, 2 do
-      for j = 0, 4 do
+    for i = 0, 2
+      for j = 0, 4
+        levelNum += 1
+        table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
+    
+    --bonus levels
+    @showBonusLevels = true
+    for i = 1, 15
+      if levelData[i]\getBestRank! > 3
+        @showBonusLevels = false
+    
+    if @showBonusLevels
+      i = 3
+      for j = 0, 4
         levelNum += 1
         table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
 
@@ -61,7 +73,10 @@ export class LevelSelect
         @selected += 5
         @timesBounceAnimation!
         beholder.trigger 'menu navigate'
-      @selected = math.wrap @selected, 1, 15
+      if @showBonusLevels
+        @selected = math.wrap @selected, 1, 20
+      else
+        @selected = math.wrap @selected, 1, 15
 
       if control.primary.pressed and levelData[@selected].unlocked
         @takeInput = false
