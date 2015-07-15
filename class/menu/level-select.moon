@@ -29,12 +29,16 @@ export class LevelSelect
     for i = 1, 15
       if levelData[i]\getBestRank! > 3
         @showBonusLevels = false
-    
     if @showBonusLevels
       i = 3
       for j = 0, 4
         levelNum += 1
         table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
+        
+    @finalLevelRevealed = true
+    for i = 1, NUMLEVELS - 1
+      if levelData[i]\getBestRank! > 2
+        @finalLevelRevealed = false
 
     --controls
     @takeInput = true
@@ -131,12 +135,23 @@ export class LevelSelect
 
       --print locked message
       if levelData[@selected] and not levelData[@selected].unlocked
+        local hint
+        if @selected < 16
+          hint = 'Get bronze ranks\nto unlock levels'
+        elseif @selected < NUMLEVELS
+          hint = 'Get gold ranks\nto unlock levels'
+        else
+          if @finalLevelRevealed
+            hint = 'Get diamond ranks on\nevery level to unlock'
+          else
+            hint = '????'
+        
         .setColor 0, 0, 0, 100
         .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
         .setColor color.white
         .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
         .setFont font.mini
-        .printf 'Get bronze ranks\nto unlock levels', 0, HEIGHT * .4, WIDTH, 'center'
+        .printf hint, 0, HEIGHT * .4, WIDTH, 'center'
 
       --draw completion bar
       .setColor 8, 0, 8, 255
