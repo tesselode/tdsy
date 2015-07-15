@@ -10,31 +10,11 @@ export class Background
     for i = #@fish, 1, -1
       if @fish[i].delete
         table.remove @fish, i
-
+        
   draw: =>
-    --draw water
-    stop1 = @transition1
-    stop2 = stop1 + image.waterBright\getHeight!
-    stop3 = @transition2
-    stop4 = @transition2 + image.water\getHeight!
-
     with love.graphics
-      .setColor 91, 153, 244, 255
-      .rectangle 'fill', 0, 0, WIDTH, stop1
-
       .setColor 255, 255, 255, 255
-      for i = 0, WIDTH, image.waterBright\getWidth!
-        .draw image.waterBright, i, stop1
-
-      .setColor 68, 80, 140, 255
-      .rectangle 'fill', 0, stop2, WIDTH, stop3 - stop2
-
-      .setColor 255, 255, 255, 255
-      for i = 0, WIDTH, image.water\getWidth!
-        .draw image.water, i, stop3
-
-      .setColor 42, 52, 67, 255
-      .rectangle 'fill', 0, stop4, WIDTH, HEIGHT - stop4
+      .draw @background
 
   drawScrolling: =>
     --draw fish
@@ -52,9 +32,7 @@ export class BackgroundGameplay extends Background
   new: (width, height) =>
     super width, height
     
-    --water
-    @transition1 = 0
-    @transition2 = HEIGHT - 48  
+    @background = image.background
     
     --background fish
     @fish = {}
@@ -104,9 +82,7 @@ export class BackgroundMenu extends Background
   new: (width, height) =>
     super width, height
     
-    --water
-    @transition1 = HEIGHT * .5
-    @transition2 = HEIGHT
+    @background = image.backgroundMenu
     
     --background fish
     @fish = {}
