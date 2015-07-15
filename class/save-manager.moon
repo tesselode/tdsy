@@ -26,15 +26,24 @@ export class SaveManager
   unlockLevels: =>
     if levelData[1]
       levelData[1].unlocked = true
-    for i = 1, NUMLEVELS - 1
+    for i = 1, NUMLEVELS - 6
       if levelData[i] and levelData[i]\getBestRank! < 4
         if levelData[i + 1] then
           levelData[i + 1].unlocked = true
           
-    --temporary - every level is unlocked
-    for i = 1, NUMLEVELS do
-      if levelData[i]
+    --unlock bonus levels
+    unlockBonusLevels = true
+    for i = 1, NUMLEVELS - 5
+      if levelData[i]\getBestRank! > 2
+        unlockBonusLevels = false
+    if unlockBonusLevels
+      for i = 16, NUMLEVELS - 1
         levelData[i].unlocked = true
+          
+    --temporary - every level is unlocked
+    --for i = 1, NUMLEVELS do
+    --  if levelData[i]
+    --    levelData[i].unlocked = true
 
   load: =>
     --load save data
