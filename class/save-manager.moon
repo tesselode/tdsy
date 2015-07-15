@@ -24,6 +24,7 @@ export class SaveManager
     @load!
 
   unlockLevels: =>
+    --unlock main levels
     if levelData[1]
       levelData[1].unlocked = true
     for i = 1, NUMLEVELS - 6
@@ -39,6 +40,13 @@ export class SaveManager
     if unlockBonusLevels
       for i = 16, NUMLEVELS - 1
         levelData[i].unlocked = true
+        
+    --unlock last level
+    unlockLastLevel = true
+    for i = 1, NUMLEVELS - 1
+      if levelData[i]\getBestRank! ~= 1
+        unlockLastLevel = false
+    levelData[NUMLEVELS].unlocked = true if unlockLastLevel
           
     --temporary - every level is unlocked
     --for i = 1, NUMLEVELS do
