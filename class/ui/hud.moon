@@ -38,7 +38,8 @@ export class Hud
               gamestate.switch game, game.levelData
               beholder.trigger 'menu select'
 
-            if @state.levelData.levelNum < 15 and @state.levelData\getBestRank! < 4
+            nextLevel = levelData[@state.levelData.levelNum + 1]
+            if nextLevel and nextLevel.unlocked
               \addOption MenuOption 'Next level', ->
                 beholder.trigger 'menu select'
                 @menu.takeInput = false
