@@ -1,13 +1,5 @@
 Let's get a to-do list going so we have a definite goal:
 
-###For sure
-
-- Game flow:
-  - 20 levels
-  - Last 5 levels don't show until you get bronze on the first 15
-  - Levels 16-19 don't unlock until you get gold on the first 15
-  - Level 20 doesn't unlock until you get diamond on every other level
-
 ###Optional
 
 - Game flow:
