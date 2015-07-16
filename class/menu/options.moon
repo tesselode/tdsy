@@ -96,6 +96,7 @@ export class Options
         beholder.trigger 'menu select'
         
     if control.secondary.pressed
+      beholder.trigger 'menu back'
       beholder.trigger 'go to title'
         
   draw: =>
