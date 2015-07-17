@@ -1,19 +1,19 @@
-<level width="768" height="224" SilverTime="12" GoldTime="8" DiamondTime="6">
+<level width="512" height="224" SilverTime="15" GoldTime="12" DiamondTime="7">
   <Entities>
-    <Fish id="0" x="16" y="112" />
-    <Jellyfish id="1" x="80" y="112" angle="-1.570796" />
-    <Jellyfish id="2" x="128" y="112" angle="-1.570796" />
-    <Jellyfish id="3" x="176" y="112" angle="-1.570796" />
-    <Jellyfish id="4" x="224" y="112" angle="-1.570796" />
-    <Jellyfish id="5" x="272" y="112" angle="-1.570796" />
-    <Jellyfish id="6" x="320" y="96" angle="-1.570796" />
-    <Jellyfish id="7" x="368" y="80" angle="-1.570796" />
-    <Jellyfish id="8" x="416" y="64" angle="-1.570796" />
-    <Jellyfish id="9" x="464" y="80" angle="-1.570796" />
-    <Jellyfish id="10" x="512" y="96" angle="-1.570796" />
-    <Jellyfish id="11" x="560" y="112" angle="-1.570796" />
-    <Jellyfish id="12" x="608" y="128" angle="-1.570796" />
-    <Jellyfish id="13" x="656" y="144" angle="-1.570796" />
-    <Jellyfish id="14" x="704" y="160" angle="-1.570796" />
+    <Fish id="0" x="480" y="192" />
+    <Jellyfish id="1" x="480" y="208" angle="0" />
+    <Jellyfish id="2" x="432" y="192" angle="0" />
+    <Jellyfish id="3" x="384" y="176" angle="0" />
+    <Jellyfish id="4" x="336" y="192" angle="0" />
+    <Jellyfish id="6" x="208" y="192" angle="0" />
+    <Jellyfish id="7" x="128" y="176" angle="0" />
+    <Jellyfish id="8" x="64" y="160" angle="0" />
+    <Jellyfish id="9" x="16" y="112" angle="1.570796" />
+    <Jellyfish id="10" x="96" y="96" angle="0" />
+    <Jellyfish id="11" x="160" y="80" angle="0" />
+    <Jellyfish id="12" x="224" y="96" angle="0" />
+    <Jellyfish id="13" x="288" y="112" angle="0" />
+    <Jellyfish id="14" x="352" y="96" angle="0" />
+    <Jellyfish id="16" x="448" y="96" angle="0" />
   </Entities>
 </level>
