@@ -124,7 +124,12 @@ export class LevelSelect
       --print next time
       .setColor color.white
       .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
-      if levelData[@selected] and levelData[@selected]\getBestRank! < 3
+      local maxGoalToShow
+      if @finalLevelRevealed
+        maxGoalToShow = 2
+      else
+        maxGoalToShow = 3
+      if levelData[@selected] and levelData[@selected]\getBestRank! < maxGoalToShow
         .setColor color.rank[4]
         .printAligned '--', font.time, WIDTH - 75, 170, 'center'
       elseif levelData[@selected]
