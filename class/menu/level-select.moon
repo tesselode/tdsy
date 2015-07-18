@@ -159,4 +159,7 @@ export class LevelSelect
       .setColor 91, 153, 254, 255
       .rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
       .setColor color.white
-      .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
+      if @completionPercentage == 100
+        .printAligned 'Thank you for playing!', font.mini, WIDTH / 2, HEIGHT * .9
+      else
+        .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9

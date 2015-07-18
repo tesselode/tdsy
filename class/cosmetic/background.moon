@@ -82,10 +82,13 @@ export class BackgroundGameplay extends Background
 
 
 export class BackgroundMenu extends Background
-  new: (width, height) =>
+  new: (width, height, weird) =>
     super width, height
     
-    @background = image.backgroundMenu
+    if weird
+      @background = image.backgroundMenuWeird
+    else
+      @background = image.backgroundMenu
     
     --background fish
     @fish = {}

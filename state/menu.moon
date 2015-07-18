@@ -6,7 +6,11 @@ menu =
     @tween = flux.group!
     
     --cosmetic
-    @background = BackgroundMenu WIDTH * 3, HEIGHT
+    useWeirdBackground = true
+    for k, v in pairs levelData
+      if v\getBestRank! ~= 1
+        useWeirdBackground = false
+    @background = BackgroundMenu WIDTH * 3, HEIGHT, useWeirdBackground
     
     --menus
     @title       = Title!
