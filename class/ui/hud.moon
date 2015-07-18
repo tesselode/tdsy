@@ -3,6 +3,11 @@ export class Hud
     @timer = timer.new!
     @tween = flux.group!
 
+    @finalLevelRevealed = true
+    for i = 1, NUMLEVELS - 1
+      if levelData[i]\getBestRank! > 2
+        @finalLevelRevealed = false
+
     --cosmetic stuff
     @goalDisplayY = 10
     @timerY = -50
@@ -71,11 +76,19 @@ export class Hud
   draw: =>
     with love.graphics
       --draw goal time
-      if @state.levelData\getBestRank! > 2
-        .setColor color.white
+      local maxGoalToShow
+      if @finalLevelRevealed
+        maxGoalToShow = 1
+      else
+        maxGoalToShow = 2
+        
+      .setColor color.white
+      if @state.levelData\getBestRank! > maxGoalToShow
         .printAligned 'Goal: ', font.mini, WIDTH / 2, @goalDisplayY, 'right', 'middle'
-        --.setColor color.rank[@state.levelData\getBestRank! - 1]
         .printAligned string.format('%0.1f', @state.levelData\getNext!), font.time, WIDTH / 2, @goalDisplayY, 'left', 'middle'
+      else
+        .printAligned 'Best: ', font.mini, WIDTH / 2, @goalDisplayY, 'right', 'middle'
+        .printAligned string.format('%0.2f', @state.levelData.best), font.time, WIDTH / 2, @goalDisplayY, 'left', 'middle'
 
       --draw time
       .setColor 255, 255, 255, 255
