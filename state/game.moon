@@ -66,6 +66,9 @@ game =
       \renderTo ->
         @map\draw!
         @hud\draw!
+        
+        love.graphics.setColor 255, 255, 255, 255
+        --love.graphics.draw image.titleSquare, WIDTH / 2, HEIGHT / 2, 0, .5, .5, image.titleSquare\getWidth! / 2, image.titleSquare\getHeight! / 2
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
