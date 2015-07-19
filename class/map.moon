@@ -24,7 +24,7 @@ export class Map
         @addObject Jellyfish, vector(.x, .y), .angle
 
     --background
-    @background = BackgroundGameplay levelData.map.width, levelData.map.height, levelData.levelNum > 15
+    @background = BackgroundGameplay levelData
 
   addObject: (object, ...) =>
     newObject = object @world
@@ -35,11 +35,11 @@ export class Map
   update: (dt) =>
     --update scenery
     @background\update dt
-    
+
     --update all objects
     for object in *@objects do
       object\update dt
-      
+
     --delete objects
     for i = #@objects, 1, -1 do
       if @objects[i].delete

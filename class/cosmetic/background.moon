@@ -1,16 +1,17 @@
 export class Background
-  new: (@width, @height) =>
+  new: (@levelData) =>
+    @width, @height = @levelData.map.width, @levelData.map.height
     @canvas = love.graphics.newCanvas @width, @height
 
   update: (dt) =>
     @tinyFishSpawner\update dt
     for fish in *@fish
       fish\update dt
-      
+
     for i = #@fish, 1, -1
       if @fish[i].delete
         table.remove @fish, i
-        
+
   draw: =>
     with love.graphics
       .setColor 255, 255, 255, 255
@@ -20,7 +21,7 @@ export class Background
     --draw fish
     for fish in *@fish
       fish\draw!
-    
+
     --draw scenery
     with love.graphics
       .setColor 255, 255, 255, 255
@@ -29,18 +30,20 @@ export class Background
 
 
 export class BackgroundGameplay extends Background
-  new: (width, height, weird) =>
-    super width, height
-    
-    if weird
+  new: (levelData) =>
+    super levelData
+
+    if @levelData.levelNum == NUMLEVELS
+      @background = image.backgroundWeird2
+    elseif @levelData.levelNum > 15
       @background = image.backgroundWeird
     else
       @background = image.background
-    
+
     --background fish
     @fish = {}
     @tinyFishSpawner = TinyFishSpawner self, @width
-    
+
     --scenery
     with love.graphics
       @canvas\renderTo ->
@@ -78,18 +81,18 @@ export class BackgroundGameplay extends Background
         .setColor 255, 255, 255, 255
         for i = 0, @width, image.sand\getWidth!
           .draw image.sand, i, HEIGHT - 8
-          
+
 
 
 export class BackgroundMenu extends Background
-  new: (width, height, weird) =>
-    super width, height
-    
+  new: (@width, @height, weird) =>
+    @canvas = love.graphics.newCanvas @width, @height
+
     if weird
       @background = image.backgroundMenuWeird
     else
       @background = image.backgroundMenu
-    
+
     --background fish
     @fish = {}
     @tinyFishSpawner = TinyFishSpawner self, @width, 5
