@@ -4,5 +4,9 @@ export HEIGHT = 224
 export NUMLEVELS = 20
 
 love.conf = (t) ->
-  t.window.fullscreentype = 'desktop'
-  t.console = true
+  with t.window
+    .fullscreentype = 'desktop'
+    .title          = "The Tops Don't Sting You!"
+  t.console  = true
+  t.version  = "0.9.2"
+  t.identity = "The Tops Don't Sting You!"
