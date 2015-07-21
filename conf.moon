@@ -7,6 +7,5 @@ love.conf = (t) ->
   with t.window
     .fullscreentype = 'desktop'
     .title          = "The Tops Don't Sting You!"
-  t.console  = true
   t.version  = "0.9.2"
   t.identity = "The Tops Don't Sting You!"
