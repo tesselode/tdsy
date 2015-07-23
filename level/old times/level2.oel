@@ -1,4 +1,4 @@
-<level width="256" height="224" SilverTime="10" GoldTime="7" DiamondTime="4">
+<level width="256" height="224" SilverTime="10" GoldTime="7" DiamondTime="3.6">
   <Entities>
     <Fish id="0" x="16" y="96" />
     <Jellyfish id="1" x="64" y="176" angle="0" />
