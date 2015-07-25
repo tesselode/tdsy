@@ -20,17 +20,24 @@ game =
     @hud = Hud self
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
-    
+
+    --default music choice
     if saveManager.options.musicType == 1
-      musicManager\playSong 'gameplay1', 1
+      if @levelData.levelNum > 15
+        musicManager\playSong 'gameplay2', 1
+      else
+        musicManager\playSong 'gameplay1', 1
+    --user set music choice
     elseif saveManager.options.musicType == 2
+      musicManager\playSong 'gameplay1', 1
+    elseif saveManager.options.musicType == 3
       musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
     hadDiamond = @levelData\getBestRank! == 1
     newBest = @levelData\addTime @time
     newDiamond = @levelData\getBestRank! == 1 and not hadDiamond
-    
+
     beholder.trigger 'level complete', newBest, newDiamond
     @levelComplete = true
     @playerInput.enabled = false
@@ -66,7 +73,7 @@ game =
       \renderTo ->
         @map\draw!
         @hud\draw!
-        
+
         love.graphics.setColor 255, 255, 255, 255
         --love.graphics.draw image.titleSquare, WIDTH / 2, HEIGHT / 2, 0, .5, .5, image.titleSquare\getWidth! / 2, image.titleSquare\getHeight! / 2
 
