@@ -1,5 +1,5 @@
 export class LevelSelect
-  new: (@selected) =>  
+  new: (@selected) =>
     @timer = timer.new!
     @tween = flux.group!
 
@@ -34,7 +34,7 @@ export class LevelSelect
         table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
 
     @finalLevelRevealed = true
-    for i = 1, NUMLEVELS - 1
+    for i = 1, 15
       if levelData[i]\getBestRank! > 2
         @finalLevelRevealed = false
 
@@ -139,22 +139,24 @@ export class LevelSelect
       --print locked message
       if levelData[@selected] and not levelData[@selected].unlocked
         local hint
+        showMessage = true
         if @selected < 16
           hint = 'Get bronze ranks\nto unlock levels'
         elseif @selected < NUMLEVELS
           hint = 'Get gold ranks\nto unlock levels'
         else
           if @finalLevelRevealed
-            hint = 'Get diamond ranks on\nevery level to unlock'
+            hint = 'Get gold ranks on\nevery level to unlock'
           else
-            hint = '????'
+            showMessage = false
 
-        .setColor 0, 0, 0, 100
-        .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
-        .setColor color.white
-        .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
-        .setFont font.mini
-        .printf hint, 0, HEIGHT * .4, WIDTH, 'center'
+        if showMessage
+          .setColor 0, 0, 0, 100
+          .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
+          .setColor color.white
+          .printAligned 'Locked', font.big, WIDTH / 2, HEIGHT * .2
+          .setFont font.mini
+          .printf hint, 0, HEIGHT * .4, WIDTH, 'center'
 
       --draw completion bar
       .setColor 8, 0, 8, 255

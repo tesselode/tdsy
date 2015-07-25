@@ -10,7 +10,7 @@ export class SaveManager
       beholder.observe 'set screen size', (value) ->
         @options.screenSize = value
         @save!
-        
+
         if value == 5
           width, height = love.window.getDesktopDimensions!
           love.window.setMode width, height
@@ -18,7 +18,7 @@ export class SaveManager
         else
           love.window.setFullscreen false
           love.window.setMode WIDTH * value, HEIGHT * value
-        
+
     @saveFilename = 'save'
     @optionsFilename = 'options'
     @load!
@@ -31,7 +31,7 @@ export class SaveManager
       if levelData[i] and levelData[i]\getBestRank! < 4
         if levelData[i + 1] then
           levelData[i + 1].unlocked = true
-          
+
     --unlock bonus levels
     unlockBonusLevels = true
     for i = 1, NUMLEVELS - 5
@@ -40,14 +40,14 @@ export class SaveManager
     if unlockBonusLevels
       for i = 16, NUMLEVELS - 1
         levelData[i].unlocked = true
-        
+
     --unlock last level
     unlockLastLevel = true
     for i = 1, NUMLEVELS - 1
-      if levelData[i]\getBestRank! ~= 1
+      if levelData[i]\getBestRank! > 2
         unlockLastLevel = false
     levelData[NUMLEVELS].unlocked = true if unlockLastLevel
-          
+
     --temporary - every level is unlocked
     --for i = 1, NUMLEVELS do
     --  if levelData[i]
@@ -60,7 +60,7 @@ export class SaveManager
       for i = 1, NUMLEVELS
         if levelData[i]
           levelData[i].best = data.bestTimes[i]
-    
+
     --load options
     if love.filesystem.exists @optionsFilename
       @options = love.filesystem.load(@optionsFilename)!
@@ -83,6 +83,6 @@ export class SaveManager
 
     --write save data
     love.filesystem.write @saveFilename, serialize data
-    
+
     --write options
     love.filesystem.write @optionsFilename, serialize @options
