@@ -124,7 +124,7 @@ export class LevelSelect
       .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
       local maxGoalToShow
       if @finalLevelRevealed
-        maxGoalToShow = 2
+        maxGoalToShow = 3 --change to 2 to show diamond times once the final level is revealed
       else
         maxGoalToShow = 3
       if levelData[@selected] and levelData[@selected]\getBestRank! < maxGoalToShow

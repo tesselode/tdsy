@@ -78,10 +78,10 @@ export class Hud
       --draw goal time
       local maxGoalToShow
       if @finalLevelRevealed
-        maxGoalToShow = 1
+        maxGoalToShow = 2 --change to one to show the diamond goal once the final level is revealed
       else
         maxGoalToShow = 2
-        
+
       .setColor color.white
       if @state.levelData\getBestRank! > maxGoalToShow
         .printAligned 'Goal: ', font.mini, WIDTH / 2, @goalDisplayY, 'right', 'middle'
@@ -93,7 +93,7 @@ export class Hud
       --draw time
       .setColor 255, 255, 255, 255
       .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY, 'center', 'middle'
-      
+
       --tutorial text (levels 1 and 2)
       if @state.levelData.levelNum == 1 and @state.levelData\getBestRank! == 4
         .setFont font.mini
