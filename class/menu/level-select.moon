@@ -1,7 +1,5 @@
 export class LevelSelect
-  new: =>
-    @selected = 1
-    
+  new: (@selected) =>  
     @timer = timer.new!
     @tween = flux.group!
 
@@ -23,7 +21,7 @@ export class LevelSelect
       for j = 0, 4
         levelNum += 1
         table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
-    
+
     --bonus levels
     @showBonusLevels = true
     for i = 1, 15
@@ -34,7 +32,7 @@ export class LevelSelect
       for j = 0, 4
         levelNum += 1
         table.insert @levelButton, LevelButton levelData[levelNum], 35 + 37 * j, 5 + 37 * i
-        
+
     @finalLevelRevealed = true
     for i = 1, NUMLEVELS - 1
       if levelData[i]\getBestRank! > 2
@@ -50,11 +48,11 @@ export class LevelSelect
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
-    
+
   timesBounceAnimation: =>
     @timesY = -4
     @tween\to(self, .1, {timesY: 0})\ease 'linear'
-    
+
   update: (dt) =>
     @timer.update dt
     @tween\update dt
@@ -86,7 +84,7 @@ export class LevelSelect
         @takeInput = false
         beholder.trigger 'go to game', @levelButton[@selected].level
         beholder.trigger 'menu select'
-            
+
       if control.secondary.pressed
         beholder.trigger 'go to title'
         beholder.trigger 'menu back'
@@ -97,7 +95,7 @@ export class LevelSelect
       .goalY = @levelButton[@selected].y
       .x = lume.lerp .x, .goalX, 20 * dt
       .y = lume.lerp .y, .goalY, 20 * dt
-      
+
   draw: =>
     with love.graphics
       --draw level buttons
@@ -150,7 +148,7 @@ export class LevelSelect
             hint = 'Get diamond ranks on\nevery level to unlock'
           else
             hint = '????'
-        
+
         .setColor 0, 0, 0, 100
         .rectangle 'fill', 0, HEIGHT * .2, WIDTH, HEIGHT * .4
         .setColor color.white
