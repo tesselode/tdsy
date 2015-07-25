@@ -22,6 +22,7 @@ export class Fish extends Physical
     @canDart = true
 
     --cosmetic stuff
+    @drawDepth = -1000
     @hitboxColor = {255, 255, 255, 100}
     @sprite = Sprite image.fish
     @bubbleTrail = love.graphics.newParticleSystem image.bubbleSmall, 10000
@@ -56,7 +57,7 @@ export class Fish extends Physical
 
       --adjust sprite
       @sprite.scale.y = lume.sign @velocity.x
-      
+
       beholder.trigger 'fish darted'
 
   update: (dt) =>

@@ -2,7 +2,7 @@ export class MapObject
   new: (@world) =>
     @timer = timer.new!
     @tween = flux.group!
-    @drawDepth = 0
+    @drawDepth = love.math.random!
     @delete = false
 
   create: =>
