@@ -164,12 +164,12 @@ export class LevelSelect
           .printf hint, 0, HEIGHT * .4, WIDTH, 'center'
 
       --draw completion bar
-      .setColor 8, 0, 8, 255
-      .rectangle 'fill', 20, HEIGHT * .9, WIDTH - 40, 20
-      .setColor 91, 153, 254, 255
-      .rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
-      .setColor color.white
-      if @completionPercentage == 100
-        .printAligned 'Thank you for playing!', font.mini, WIDTH / 2, HEIGHT * .9
-      else
-        .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
+      --.setColor 8, 0, 8, 255
+      --.rectangle 'fill', 20, HEIGHT * .9, WIDTH - 40, 20
+      --.setColor 91, 153, 254, 255
+      --.rectangle 'fill', 20, HEIGHT * .9, (WIDTH - 40) * (@completionPercentage / 100), 20
+      --.setColor color.white
+      --if @completionPercentage == 100
+      --  .printAligned 'Thank you for playing!', font.mini, WIDTH / 2, HEIGHT * .9
+      --else
+      --  .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
