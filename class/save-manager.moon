@@ -65,6 +65,7 @@ export class SaveManager
     else
       @triggers =
         newLevels: {triggered: false, shown: false}
+        diamondTimes: {triggered: false, shown: false}
 
     --load options
     if love.filesystem.exists @optionsFilename

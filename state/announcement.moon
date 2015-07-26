@@ -15,14 +15,14 @@ announcement =
       if levelData[i]\getBestRank! > 3
         newLevelsRevealed = false
 
-    with saveManager.triggers.newLevels
-      if not .triggered and newLevelsRevealed
-        .triggered = true
-      print not .shown
-      if .triggered and not .shown
-        @message = 'New levels revealed!'
-        .shown = true
-        saveManager\save!
+    --"diamond times revealed" trigger conditions
+    diamondTimesRevealed = true
+    for i = 1, NUMLEVELS
+      if levelData[i]\getBestRank! > 2
+        diamondTimesRevealed = false
+
+    @checkTrigger saveManager.triggers.newLevels, newLevelsRevealed, 'New levels revealed!'
+    @checkTrigger saveManager.triggers.diamondTimes, diamondTimesRevealed, 'Diamond times revealed!'
 
     --if there's no message then skip this state
     if not @message
@@ -45,6 +45,16 @@ announcement =
         @takeInput = true
 
       @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+
+  checkTrigger: (trigger, condition, message) =>
+    with trigger
+      if not .triggered and condition
+        .triggered = true
+      print not .shown
+      if .triggered and not .shown
+        @message = message
+        .shown = true
+        saveManager\save!
 
   update: (dt) =>
     @timer.update dt
