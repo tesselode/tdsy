@@ -23,6 +23,14 @@ announcement =
     if not @message
       @done!
 
+    --duck out music briefly
+    with musicManager
+      if .current
+        .current.volume = 0
+        .timer.add 3, ->
+          .tween\to .current, 1, {volume: 1}
+    beholder.trigger 'announcement'
+
     @takeInput = false
 
     --cosmetic
@@ -42,6 +50,9 @@ announcement =
       @tween\to @rectangle, .2, {width: 0, height: 0}
       @timer.add .2, ->
         @done!
+
+  leave: =>
+    beholder.trigger 'announcement end'
 
   draw: =>
     with love.graphics
