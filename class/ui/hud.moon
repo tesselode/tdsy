@@ -28,6 +28,7 @@ export class Hud
           newBest: newBest
           blackAlpha: 0
           y: HEIGHT
+        @buttonDisplay = ButtonDisplay 'Go!'
 
         --animations
         @tween\to self, 1, {timerY: -50}
@@ -142,10 +143,13 @@ export class Hud
           .setColor color.rank[@state.levelData\getBestRank! - 1]
           .printAligned string.format('%0.1f', @state.levelData\getNext!), font.timeBig, WIDTH - 20, 120, 'right', 'middle'
 
+        @buttonDisplay\draw!
+
         .pop!
 
         --draw menu
         @menu\draw! if @menu
+
 
       --draw fade out
       .setColor 0, 0, 0, @fadeAlpha

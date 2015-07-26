@@ -24,6 +24,7 @@ pause =
 
     --cosmetic
     @fadeAlpha = 0
+    @buttonDisplay = ButtonDisplay 'Select', 'Back'
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -36,7 +37,7 @@ pause =
       \next! if control.down.pressed
       \select! if control.primary.pressed
 
-    if control.pause.pressed and not control.primary.pressed
+    if (control.pause.pressed or control.secondary.pressed) and not control.primary.pressed
       gamestate.pop!
 
   draw: =>
@@ -53,6 +54,7 @@ pause =
           .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT * .4, 'center', 'bottom'
 
           @menu\draw!
+          @buttonDisplay\draw!
 
           --draw fade out
           .setColor 0, 0, 0, @fadeAlpha
