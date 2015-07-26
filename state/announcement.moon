@@ -7,6 +7,8 @@ announcement =
 
     @previous = previous
 
+    @message = nil
+
     --"new levels revealed" trigger conditions
     newLevelsRevealed = true
     for i = 1, 15
@@ -16,30 +18,33 @@ announcement =
     with saveManager.triggers.newLevels
       if not .triggered and newLevelsRevealed
         .triggered = true
+      print not .shown
       if .triggered and not .shown
         @message = 'New levels revealed!'
+        .shown = true
+        saveManager\save!
 
     --if there's no message then skip this state
     if not @message
       @done!
+    else
+      --duck out music briefly
+      with musicManager
+        if .current
+          .current.volume = 0
+          .timer.add 3, ->
+            .tween\to .current, 1, {volume: 1}
+      beholder.trigger 'announcement'
 
-    --duck out music briefly
-    with musicManager
-      if .current
-        .current.volume = 0
-        .timer.add 3, ->
-          .tween\to .current, 1, {volume: 1}
-    beholder.trigger 'announcement'
+      @takeInput = false
 
-    @takeInput = false
+      --cosmetic
+      @rectangle = {width: 0, height: 0}
+      @tween\to @rectangle, .2, {width: 200, height: 50}
+      @timer.add .2, ->
+        @takeInput = true
 
-    --cosmetic
-    @rectangle = {width: 0, height: 0}
-    @tween\to @rectangle, .2, {width: 200, height: 50}
-    @timer.add .2, ->
-      @takeInput = true
-
-    @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+      @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   update: (dt) =>
     @timer.update dt
