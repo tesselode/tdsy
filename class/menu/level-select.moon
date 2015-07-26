@@ -38,6 +38,11 @@ export class LevelSelect
       if levelData[i]\getBestRank! > 2
         @finalLevelRevealed = false
 
+    @allGold = true
+    for i = 1, NUMLEVELS
+      if levelData[i]\getBestRank! > 2
+        @allGold = false
+
     --controls
     @takeInput = true
 
@@ -123,8 +128,8 @@ export class LevelSelect
       .setColor color.white
       .printAligned 'Goal', font.mini, WIDTH - 75, 150, 'center'
       local maxGoalToShow
-      if @finalLevelRevealed
-        maxGoalToShow = 3 --change to 2 to show diamond times once the final level is revealed
+      if @allGold
+        maxGoalToShow = 2
       else
         maxGoalToShow = 3
       if levelData[@selected] and levelData[@selected]\getBestRank! < maxGoalToShow

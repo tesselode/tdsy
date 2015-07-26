@@ -3,10 +3,10 @@ export class Hud
     @timer = timer.new!
     @tween = flux.group!
 
-    @finalLevelRevealed = true
-    for i = 1, NUMLEVELS - 1
+    @allGold = true
+    for i = 1, NUMLEVELS
       if levelData[i]\getBestRank! > 2
-        @finalLevelRevealed = false
+        @allGold = false
 
     --cosmetic stuff
     @goalDisplayY = 10
@@ -80,8 +80,8 @@ export class Hud
     with love.graphics
       --draw goal time
       local maxGoalToShow
-      if @finalLevelRevealed
-        maxGoalToShow = 2 --change to one to show the diamond goal once the final level is revealed
+      if @allGold
+        maxGoalToShow = 1
       else
         maxGoalToShow = 2
 
@@ -133,7 +133,7 @@ export class Hud
         if @state.levelData\getBestRank! == 1
           .setColor color.rank[1]
           .printAligned 'Diamond rank achieved!', font.mini, WIDTH / 2, 120, 'center', 'middle'
-        elseif @state.levelData\getBestRank! == 2
+        elseif @state.levelData\getBestRank! == 2 and not @allGold
           .setColor color.rank[2]
           .printAligned 'Gold rank achieved!', font.mini, WIDTH / 2, 120, 'center', 'middle'
         else
