@@ -126,6 +126,7 @@ love.load =  ->
     .registerEvents!
 
 love.update = (dt) ->
+  input.getJoysticks!
   input.update!
   musicManager\update dt
   soundManager\update dt
