@@ -53,6 +53,7 @@ export class LevelSelect
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
+    @buttonDisplay = ButtonDisplay true, true
 
   timesBounceAnimation: =>
     @timesY = -4
@@ -173,3 +174,5 @@ export class LevelSelect
       --  .printAligned 'Thank you for playing!', font.mini, WIDTH / 2, HEIGHT * .9
       --else
       --  .printAligned string.format('%0.0f', @completionPercentage)..'% completion', font.mini, WIDTH / 2, HEIGHT * .9
+
+      @buttonDisplay\draw!
