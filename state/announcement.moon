@@ -5,6 +5,8 @@ announcement =
     @timer = timer.new!
     @tween = flux.group!
 
+    @previous = previous
+
     --"new levels revealed" trigger conditions
     newLevelsRevealed = true
     for i = 1, 15

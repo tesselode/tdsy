@@ -2,6 +2,10 @@ export menu
 
 menu =
   enter: (previous) =>
+    --dumb hack to get around the announcement screen affecing transitions
+    if previous == announcement
+      previous = previous.previous
+
     @timer = timer.new!
     @tween = flux.group!
 
@@ -13,12 +17,12 @@ menu =
     @background = BackgroundMenu WIDTH * 3, HEIGHT, useWeirdBackground
 
     --menus
-    @title       = Title!
+    @title = Title!
     if previous == game
       @levelSelect = LevelSelect game.levelData.levelNum
     else
       @levelSelect = LevelSelect 1
-    @options     = Options!
+    @options = Options!
     if previous == game
       @focused = @levelSelect
       @translateVector = vector -WIDTH, 0
