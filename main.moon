@@ -117,7 +117,8 @@ love.load =  ->
   saveManager = SaveManager!
 
   with gamestate
-    .switch menu
+    .switch announcement, ->
+      .switch menu
     .registerEvents!
 
 love.update = (dt) ->
