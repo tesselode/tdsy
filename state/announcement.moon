@@ -43,6 +43,7 @@ announcement =
       @tween\to @rectangle, .2, {width: 200, height: 50}
       @timer.add .2, ->
         @takeInput = true
+      @buttonDisplay = ButtonDisplay 'OK Cool!'
 
       @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -85,6 +86,8 @@ announcement =
         if @takeInput
           .setColor color.white
           .printAligned @message, font.mini, WIDTH * .5, HEIGHT * .5, 'center', 'middle'
+
+        @buttonDisplay\draw!
 
       with love.graphics
         scaleFactor = .getHeight! / HEIGHT
