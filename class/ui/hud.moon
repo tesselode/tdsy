@@ -40,7 +40,8 @@ export class Hud
           @menu = Menu font.mini, WIDTH / 2, 160, {150, 150, 150, 255}, {255, 255, 255, 255}
           with @menu
             \addOption MenuOption 'Restart', ->
-              gamestate.switch game, game.levelData
+              gamestate.switch announcement, ->
+                gamestate.switch game, game.levelData
               beholder.trigger 'menu select'
 
             nextLevel = levelData[@state.levelData.levelNum + 1]
@@ -50,14 +51,16 @@ export class Hud
                 @menu.takeInput = false
                 @tween\to self, .15, {fadeAlpha: 255}
                 @timer.add .15, ->
-                  gamestate.switch game, levelData[game.levelData.levelNum + 1]
+                  gamestate.switch announcement, ->
+                    gamestate.switch game, levelData[game.levelData.levelNum + 1]
 
             \addOption MenuOption 'Back to menu', ->
               beholder.trigger 'menu back'
               @menu.takeInput = false
               @tween\to self, .15, {fadeAlpha: 255}
               @timer.add .15, ->
-                gamestate.switch menu
+                gamestate.switch announcement, ->
+                  gamestate.switch menu
 
   update: (dt) =>
     @timer.update dt

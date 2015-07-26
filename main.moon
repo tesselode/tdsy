@@ -44,6 +44,7 @@ love.load =  ->
   require 'state.menu'
   require 'state.game'
   require 'state.pause'
+  require 'state.announcement'
 
   --load images
   image = {}

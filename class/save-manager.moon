@@ -11,6 +11,7 @@ export class SaveManager
         @options.screenSize = value
         @save!
 
+        --set the screen size
         if value == 5
           width, height = love.window.getDesktopDimensions!
           love.window.setMode width, height
@@ -60,6 +61,10 @@ export class SaveManager
       for i = 1, NUMLEVELS
         if levelData[i]
           levelData[i].best = data.bestTimes[i]
+      @triggers = data.triggers
+    else
+      @triggers =
+        newLevels: {triggered: false, shown: false}
 
     --load options
     if love.filesystem.exists @optionsFilename
@@ -77,6 +82,7 @@ export class SaveManager
   save: =>
     data =
       bestTimes: {}
+      triggers: @triggers
     for i = 1, NUMLEVELS
       if levelData[i]
         data.bestTimes[i] = levelData[i].best
