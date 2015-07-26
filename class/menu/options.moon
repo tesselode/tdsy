@@ -79,12 +79,14 @@ export class ScreenSizeOption extends MenuOption
 
 export class Options
   new: =>
-    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .7, color.gray, color.white
+    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .5, color.gray, color.white
     @menu\addOption ScreenSizeOption!
     @menu\addOption VolumeSliderOption!
     @menu\addOption MusicTypeOption!
     @menu\addOption MenuOption 'Back', ->
       beholder.trigger 'go to title'
+
+    @buttonDisplay = ButtonDisplay 'Select', 'Back'
 
   update: (dt) =>
     --menu controls
@@ -104,6 +106,7 @@ export class Options
   draw: =>
     with love.graphics
       .setColor 255, 255, 255, 255
-      .printAligned 'Options', font.big, WIDTH / 2, HEIGHT * .35
+      .printAligned 'Options', font.big, WIDTH / 2, HEIGHT * .2
 
     @menu\draw!
+    @buttonDisplay\draw!

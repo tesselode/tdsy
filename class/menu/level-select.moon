@@ -53,7 +53,7 @@ export class LevelSelect
       goalX: @levelButton[@selected].x
       goalY: @levelButton[@selected].y
     @timesY = 0
-    @buttonDisplay = ButtonDisplay true, true
+    @buttonDisplay = ButtonDisplay 'Go!', 'Back'
 
   timesBounceAnimation: =>
     @timesY = -4
