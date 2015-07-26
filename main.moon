@@ -1,5 +1,7 @@
 love.load =  ->
-  love.graphics.setDefaultFilter 'nearest', 'nearest'
+  with love.graphics
+    .setDefaultFilter 'nearest', 'nearest'
+    .setLineStyle 'rough'
 
   export *
 
