@@ -83,41 +83,45 @@ love.load =  ->
   control = {}
   with control
     --keyboard input
-    .keyboardLeft   = input.addKeyboardButtonDetector 'left'
-    .keyboardRight  = input.addKeyboardButtonDetector 'right'
-    .keyboardUp     = input.addKeyboardButtonDetector 'up'
-    .keyboardDown   = input.addKeyboardButtonDetector 'down'
-    .keyboardX      = input.addKeyboardButtonDetector 'x'
-    .keyboardZ      = input.addKeyboardButtonDetector 'z'
-    .keyboardR      = input.addKeyboardButtonDetector 'r'
-    .keyboardEscape = input.addKeyboardButtonDetector 'escape'
-    .keyboardXAxis  = input.addBinaryAxisDetector .keyboardLeft, .keyboardRight
-    .keyboardYAxis  = input.addBinaryAxisDetector .keyboardUp, .keyboardDown
+    .keyboardLeft      = input.addKeyboardButtonDetector 'left'
+    .keyboardRight     = input.addKeyboardButtonDetector 'right'
+    .keyboardUp        = input.addKeyboardButtonDetector 'up'
+    .keyboardDown      = input.addKeyboardButtonDetector 'down'
+    .keyboardX         = input.addKeyboardButtonDetector 'x'
+    .keyboardZ         = input.addKeyboardButtonDetector 'z'
+    .keyboardEscape    = input.addKeyboardButtonDetector 'escape'
+    .keyboardR         = input.addKeyboardButtonDetector 'r'
+    .keyboardXAxis     = input.addBinaryAxisDetector .keyboardLeft, .keyboardRight
+    .keyboardYAxis     = input.addBinaryAxisDetector .keyboardUp, .keyboardDown
 
     --gamepad input
-    .gamepadA       = input.addGamepadButtonDetector 'a', 1
-    .gamepadB       = input.addGamepadButtonDetector 'b', 1
-    .gamepadStart   = input.addGamepadButtonDetector 'start', 1
-    .gamepadBack  = input.addGamepadButtonDetector 'back', 1
-    .gamepadLeft    = input.addAxisButtonDetector 'leftx', -.5, 1
-    .gamepadRight   = input.addAxisButtonDetector 'leftx', .5, 1
-    .gamepadDown    = input.addAxisButtonDetector 'lefty', .5, 1
-    .gamepadUp      = input.addAxisButtonDetector 'lefty', -.5, 1
-    .gamepadLeftX   = input.addAnalogAxisDetector 'leftx', 1
-    .gamepadLeftY   = input.addAnalogAxisDetector 'lefty', 1
+    .gamepadStickLeft  = input.addAxisButtonDetector 'leftx', -.5, 1
+    .gamepadStickRight = input.addAxisButtonDetector 'leftx', .5, 1
+    .gamepadStickUp    = input.addAxisButtonDetector 'lefty', -.5, 1
+    .gamepadStickDown  = input.addAxisButtonDetector 'lefty', .5, 1
+    .gamepadDPadLeft   = input.addGamepadButtonDetector 'dpleft', 1
+    .gamepadDPadRight  = input.addGamepadButtonDetector 'dpright', 1
+    .gamepadDPadUp     = input.addGamepadButtonDetector 'dpup', 1
+    .gamepadDPadDown   = input.addGamepadButtonDetector 'dpdown', 1
+    .gamepadA          = input.addGamepadButtonDetector 'a', 1
+    .gamepadB          = input.addGamepadButtonDetector 'b', 1
+    .gamepadStart      = input.addGamepadButtonDetector 'start', 1
+    .gamepadBack       = input.addGamepadButtonDetector 'back', 1
+    .gamepadAnalogX    = input.addAnalogAxisDetector 'leftx', 1
+    .gamepadAnalogY    = input.addAnalogAxisDetector 'lefty', 1
+    .gamepadDigitalX   = input.addBinaryAxisDetector .gamepadDPadLeft, .gamepadDPadRight
+    .gamepadDigitalY   = input.addBinaryAxisDetector .gamepadDPadUp, .gamepadDPadDown
 
     --controls
-    .left           = input.addButton .keyboardLeft, .gamepadLeft
-    .right          = input.addButton .keyboardRight, .gamepadRight
-    .down           = input.addButton .keyboardDown, .gamepadDown
-    .up             = input.addButton .keyboardUp, .gamepadUp
-    .primary        = input.addButton .keyboardX, .gamepadA
-    .secondary      = input.addButton .keyboardZ, .gamepadB
-    .pause          = input.addButton .keyboardEscape, .gamepadStart
-    .restart        = input.addButton .keyboardR, .gamepadBack
-    .horizontal     = input.addAxis .gamepadLeftX, .keyboardXAxis
-    .vertical       = input.addAxis .gamepadLeftY, .keyboardYAxis
-    .movement       = input.addAxisPair {.gamepadLeftX, .gamepadLeftY}, {.keyboardXAxis, .keyboardYAxis}
+    .left              = input.addButton .keyboardLeft, .gamepadStickLeft, .gamepadDPadLeft
+    .right             = input.addButton .keyboardRight, .gamepadStickRight, .gamepadDPadRight
+    .up                = input.addButton .keyboardUp, .gamepadStickUp, .gamepadDPadUp
+    .down              = input.addButton .keyboardDown, .gamepadStickDown, .gamepadDPadDown
+    .primary           = input.addButton .keyboardX, .gamepadA
+    .secondary         = input.addButton .keyboardZ, .gamepadB
+    .pause             = input.addButton .keyboardEscape, .gamepadStart
+    .restart           = input.addButton .keyboardR, .gamepadBack
+    .movement          = input.addAxisPair {.gamepadAnalogX, .gamepadAnalogY}, {.gamepadDigitalX, .gamepadDigitalY}, {.keyboardXAxis, .keyboardYAxis}
 
   musicManager = MusicManager!
   soundManager = SoundManager!
