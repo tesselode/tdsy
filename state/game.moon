@@ -62,6 +62,10 @@ game =
     --pause menu
     if not @levelComplete and control.pause.pressed
       gamestate.push pause
+    --quick restart
+    if not @levelComplete and control.restart.pressed
+      gamestate.switch game, @levelData
+      beholder.trigger 'menu select'
 
   leave: =>
     @hud\destroy!

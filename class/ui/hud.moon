@@ -105,6 +105,9 @@ export class Hud
       if @state.levelData.levelNum == 2 and @state.levelData\getBestRank! == 4
         .setFont font.mini
         .printf 'X key/A button\nto dash', 0, @tutorialY, WIDTH, 'center'
+      if @state.levelData.levelNum == 3 and @state.levelData\getBestRank! == 4
+        .setFont font.mini
+        .printf 'R key/Back button\nto restart', 0, @tutorialY, WIDTH, 'center'
 
       --level end slate
       if @endSlate
