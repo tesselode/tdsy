@@ -35,8 +35,6 @@ export class MusicTypeOption extends MenuOption
     @value = math.wrap @value + 1, 1, 3
     beholder.trigger 'set music type', @value
 
-  onSelect: =>
-
   draw: (x, y, selected) =>
     with love.graphics
       if selected
@@ -63,8 +61,6 @@ export class ScreenSizeOption extends MenuOption
     @value = math.wrap @value + 1, 1, 5
     beholder.trigger 'set screen size', @value
 
-  onSelect: =>
-
   draw: (x, y, selected) =>
     with love.graphics
       if selected
@@ -77,12 +73,39 @@ export class ScreenSizeOption extends MenuOption
       else
         .printAligned @value..'X', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
+export class DeadzoneOption extends MenuOption
+  new: =>
+    @value = saveManager.options.deadzone or 1
+
+  previous: =>
+    @value = math.wrap @value - 1, 1, 3
+    beholder.trigger 'set deadzone', @value
+
+  next: =>
+    @value = math.wrap @value + 1, 1, 3
+    beholder.trigger 'set deadzone', @value
+
+  draw: (x, y, selected) =>
+    with love.graphics
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned 'Deadzone', @parent.font, 20, y, 'left', 'middle'
+      if @value == 1
+        .printAligned '25%', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      elseif @value == 2
+        .printAligned '33%', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      else
+        .printAligned '50%', @parent.font, WIDTH - 20, y, 'right', 'middle'
+
 export class Options
   new: =>
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .5, color.gray, color.white
     @menu\addOption ScreenSizeOption!
     @menu\addOption VolumeSliderOption!
     @menu\addOption MusicTypeOption!
+    @menu\addOption DeadzoneOption!
     @menu\addOption MenuOption 'Back', ->
       beholder.trigger 'go to title'
 

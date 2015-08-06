@@ -19,6 +19,13 @@ export class SaveManager
         else
           love.window.setFullscreen false
           love.window.setMode WIDTH * value, HEIGHT * value
+      beholder.observe 'set deadzone', (value) ->
+        @options.deadzone = value
+        @save!
+        with input
+          .deadzone = .25 if value == 1
+          .deadzone = .33 if value == 2
+          .deadzone = .5 if value == 3
 
     @saveFilename = 'save'
     @optionsFilename = 'options'
@@ -75,6 +82,7 @@ export class SaveManager
         soundBalance: 5
         musicType: 1
         screenSize: 2
+        deadzone: 2
     beholder.trigger 'set sound balance', @options.soundBalance
     beholder.trigger 'set screen size', @options.screenSize
 

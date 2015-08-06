@@ -21,12 +21,12 @@ export class Menu
       @selected += 1
       @selected = math.wrap @selected, 1, #@options
       beholder.trigger 'menu navigate'
-      
+
   secondaryPrevious: =>
     if @takeInput
       @options[@selected]\previous!
       beholder.trigger 'menu navigate'
-      
+
   secondaryNext: =>
     if @takeInput
       @options[@selected]\next!
@@ -46,11 +46,13 @@ export class MenuOption
   new: (@text, @onSelect) =>
     @hAlign = 'center'
     @vAlign = 'middle'
-    
+
   previous: =>
-    
+
   next: =>
-    
+
+  onSelect: =>
+
   draw: (x, y, selected) =>
     with love.graphics
       if selected
