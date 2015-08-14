@@ -46,14 +46,8 @@ export class SoundManager
       beholder.observe 'menu back', ->
         @sound.menuBack\play!
 
-      beholder.observe 'set sound balance', (value) ->
-        local volume
-        if value < 5
-          volume = 1 - (5 - value) / 5
-        else
-          volume = 1
-        print volume
-
+      beholder.observe 'set sound volume', (value) ->
+        volume = value / 10
         for k, v in pairs @sound
           v\setVolume volume
 

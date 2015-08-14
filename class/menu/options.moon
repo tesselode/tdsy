@@ -1,14 +1,14 @@
-export class VolumeSliderOption extends MenuOption
+export class MusicVolumeOption extends MenuOption
   new: =>
-    @value = saveManager.options.soundBalance or 5
+    @value = saveManager.options.musicVolume or 10
 
   previous: =>
     @value = lume.clamp @value - 1, 0, 10
-    beholder.trigger 'set sound balance', @value
+    beholder.trigger 'set music volume', @value
 
   next: =>
     @value = lume.clamp @value + 1, 0, 10
-    beholder.trigger 'set sound balance', @value
+    beholder.trigger 'set music volume', @value
 
   onSelect: =>
 
@@ -18,7 +18,32 @@ export class VolumeSliderOption extends MenuOption
         .setColor @parent.highlightColor
       else
         .setColor @parent.color
-      .printAligned 'Sound balance', @parent.font, 20, y, 'left', 'middle'
+      .printAligned 'Music volume', @parent.font, 20, y, 'left', 'middle'
+
+      .rectangle 'fill', WIDTH - 100, y - 1, 80, 2
+      .rectangle 'fill', WIDTH - 100 + 80 * (@value / 10) - 1, y - 5, 2, 10
+
+export class SoundVolumeOption extends MenuOption
+  new: =>
+    @value = saveManager.options.soundVolume or 10
+
+  previous: =>
+    @value = lume.clamp @value - 1, 0, 10
+    beholder.trigger 'set sound volume', @value
+
+  next: =>
+    @value = lume.clamp @value + 1, 0, 10
+    beholder.trigger 'set sound volume', @value
+
+  onSelect: =>
+
+  draw: (x, y, selected) =>
+    with love.graphics
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned 'Sound volume', @parent.font, 20, y, 'left', 'middle'
 
       .rectangle 'fill', WIDTH - 100, y - 1, 80, 2
       .rectangle 'fill', WIDTH - 100 + 80 * (@value / 10) - 1, y - 5, 2, 10
@@ -103,7 +128,8 @@ export class Options
   new: =>
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .5, color.gray, color.white
     @menu\addOption ScreenSizeOption!
-    @menu\addOption VolumeSliderOption!
+    @menu\addOption MusicVolumeOption!
+    @menu\addOption SoundVolumeOption!
     @menu\addOption MusicTypeOption!
     @menu\addOption DeadzoneOption!
     @menu\addOption MenuOption 'Back', ->

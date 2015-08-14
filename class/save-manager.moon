@@ -1,8 +1,11 @@
 export class SaveManager
   new: =>
     beholder.group self, ->
-      beholder.observe 'set sound balance', (value) ->
-        @options.soundBalance = value
+      beholder.observe 'set music volume', (value) ->
+        @options.musicVolume = value
+        @save!
+      beholder.observe 'set sound volume', (value) ->
+        @options.soundVolume = value
         @save!
       beholder.observe 'set music type', (value) ->
         @options.musicType = value

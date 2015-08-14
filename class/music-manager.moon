@@ -17,11 +17,8 @@ export class MusicManager
     @userMusicVolume = 1
 
     beholder.group self, ->
-      beholder.observe 'set sound balance', (value) ->
-        if value > 5
-          @userMusicVolume = 1 - (value - 5) / 5
-        else
-          @userMusicVolume = 1
+      beholder.observe 'set music volume', (value) ->
+        @userMusicVolume = value / 10
 
       beholder.observe 'level complete', (newBest, newDiamond) ->
         if false and newDiamond then
