@@ -13,7 +13,7 @@ export class ButtonDisplay
           .setColor 148, 204, 78, 255
           .circle 'fill', x, HEIGHT - 10, 8, 100
           .setColor color.white
-          .printAligned 'A', font.mini, x + 1, HEIGHT - 10 - 1, 'center', 'middle'
+          .printAligned 'A', font.mini, x + 1, HEIGHT - 10, 'center', 'middle'
         else
           --draw key
           .setLineWidth 2
@@ -23,7 +23,7 @@ export class ButtonDisplay
           .setColor 94, 102, 96, 255
           .rectangle 'fill', x - 8, HEIGHT - 10 - 8, 16, 16
           .setColor color.white
-          .printAligned 'X', font.mini, x + 1, HEIGHT - 10 - 1, 'center', 'middle'
+          .printAligned 'X', font.mini, x + 1, HEIGHT - 10, 'center', 'middle'
 
         --draw text
         .setColor color.white
@@ -38,7 +38,7 @@ export class ButtonDisplay
           .setColor 166, 65, 77, 255
           .circle 'fill', 13, HEIGHT - 10, 8, 100
           .setColor color.white
-          .printAligned 'B', font.mini, 13 + 1, HEIGHT - 10 - 1, 'center', 'middle'
+          .printAligned 'B', font.mini, 13 + 1, HEIGHT - 10, 'center', 'middle'
         else
           --draw key
           .setLineWidth 2
@@ -47,7 +47,7 @@ export class ButtonDisplay
           .setColor 94, 102, 96, 255
           .rectangle 'fill', 13 - 8, HEIGHT - 10 - 8, 16, 16
           .setColor color.white
-          .printAligned 'Z', font.mini, 13 + 1, HEIGHT - 10 - 1, 'center', 'middle'
+          .printAligned 'Z', font.mini, 13 + 1, HEIGHT - 10, 'center', 'middle'
 
         --draw text
         .setColor color.white
