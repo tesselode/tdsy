@@ -12,7 +12,7 @@ export class Hud
     @goalDisplayY = 10
     @timerY = -50
     @tutorialY = HEIGHT + 20
-    @tween\to(self, .5, {tutorialY: HEIGHT * .75})
+    @tween\to(self, .5, {tutorialY: HEIGHT * .85})
     @fadeAlpha = 255
     @tween\to self, .15, {fadeAlpha: 0}
 
@@ -98,16 +98,25 @@ export class Hud
       .setColor 255, 255, 255, 255
       .printAligned string.format('%0.1f', @state.time), font.time, WIDTH / 2, @timerY, 'center', 'middle'
 
-      --tutorial text (levels 1 and 2)
+      --tutorial text (levels 1-3)
       if @state.levelData.levelNum == 1 and @state.levelData\getBestRank! == 4
         .setFont font.mini
-        .printf 'Arrow keys/analog stick\nto move', 0, @tutorialY, WIDTH, 'center'
+        if love.joystick.getJoysticks![1]
+          .printf 'Analog stick to move', 0, @tutorialY, WIDTH, 'center'
+        else
+          .printf 'Arrow keys to move', 0, @tutorialY, WIDTH, 'center'
       if @state.levelData.levelNum == 2 and @state.levelData\getBestRank! == 4
         .setFont font.mini
-        .printf 'X key/A button\nto dash', 0, @tutorialY, WIDTH, 'center'
+        if love.joystick.getJoysticks![1]
+          .printf 'Press A to dash', 0, @tutorialY, WIDTH, 'center'
+        else
+          .printf 'Press X to dash', 0, @tutorialY, WIDTH, 'center'
       if @state.levelData.levelNum == 3 and @state.levelData\getBestRank! == 4
         .setFont font.mini
-        .printf 'R key/Back button\nto restart', 0, @tutorialY, WIDTH, 'center'
+        if love.joystick.getJoysticks![1]
+          .printf 'Press select to restart', 0, @tutorialY, WIDTH, 'center'
+        else
+          .printf 'Press R to restart', 0, @tutorialY, WIDTH, 'center'
 
       --level end slate
       if @endSlate
