@@ -72,7 +72,7 @@ export class GameOptions
     @menu\addOption MenuOption 'Start!', ->
       @takeInput = false
       beholder.trigger 'go to game', @level
-      beholder.trigger 'menu select'
+    @menu.selected = 3
 
     beholder.group self, ->
       beholder.observe 'go to game options', (level) ->
@@ -99,7 +99,10 @@ export class GameOptions
 
   draw: =>
     with love.graphics
-      .setColor 255, 255, 255, 255
-      .printAligned 'Options', font.big, WIDTH / 2, HEIGHT * .2
+      .setColor color.darkBlue
+      .rectangle 'fill', 10, HEIGHT * .5 - 50, WIDTH - 20, 100
+      .setColor color.white
+      .rectangle 'line', 10, HEIGHT * .5 - 50, WIDTH - 20, 100
+      .printAligned 'Game Options', font.big, WIDTH / 2, HEIGHT * .3
 
     @menu\draw!

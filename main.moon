@@ -71,6 +71,7 @@ love.load =  ->
   color.gray = {150, 150, 150, 255}
   color.black = {8, 0, 8, 255}
   color.red = {166, 65, 77, 255}
+  color.darkBlue = {68, 80, 140, 255}
   color.rank = {}
   color.rank[1] = {132, 219, 252, 255}
   color.rank[2] = {242, 222, 112, 255}
