@@ -54,10 +54,10 @@ menu =
       beholder.observe 'go to options', ->
         @focused = @options
         @tween\to(@translateVector, .5, {x: WIDTH, y: 0})\ease('cubicout')
-      beholder.observe 'go to game', (level) ->
+      beholder.observe 'go to game', (level, speed) ->
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->
-          gamestate.switch game, level
+          gamestate.switch game, level, speed
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 

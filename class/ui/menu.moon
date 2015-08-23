@@ -9,6 +9,7 @@ export class Menu
   addOption: (option) =>
     option.parent = self
     table.insert @options, option
+    return option
 
   previous: =>
     if @takeInput

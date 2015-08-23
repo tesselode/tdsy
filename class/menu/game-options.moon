@@ -15,9 +15,9 @@ export class PracticeModeOption extends MenuOption
       if @value == 1
         .printAligned 'Off', @parent.font, WIDTH - 20, y, 'right', 'middle'
       elseif @value == 2
-        .printAligned '0.9x', @parent.font, WIDTH - 20, y, 'right', 'middle'
-      elseif @value == 3
         .printAligned '0.75x', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      elseif @value == 3
+        .printAligned '0.66x', @parent.font, WIDTH - 20, y, 'right', 'middle'
       elseif @value == 4
         .printAligned '0.5x', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
@@ -52,11 +52,17 @@ export class GameOptions
     @takeInput = true
 
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .5, color.gray, color.white
-    @menu\addOption PracticeModeOption!
+    @practiceModeOption = @menu\addOption PracticeModeOption!
     @menu\addOption MusicTypeOption!
     @menu\addOption MenuOption 'Start!', ->
       @takeInput = false
-      beholder.trigger 'go to game', @level
+      local speed
+      with @practiceModeOption
+        speed = 1 if .value == 1
+        speed = .75 if .value == 2
+        speed = 2/3 if .value == 3
+        speed = .5 if .value == 4
+      beholder.trigger 'go to game', @level, speed
       beholder.trigger 'menu select'
 
     beholder.group self, ->
