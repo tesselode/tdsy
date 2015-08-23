@@ -1,7 +1,7 @@
 export game
 
 game =
-  enter: (previous, @levelData) =>
+  enter: (previous, @levelData, @gameSpeed) =>
     @map = Map @levelData
     @playerInput = PlayerInput @map.fish
 
@@ -10,7 +10,7 @@ game =
     @levelComplete = false
     @jellyfishBounced = 0
     @time = 0
-    @gameSpeed = 1
+    @gameSpeed = @gameSpeed or .5
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -34,11 +34,12 @@ game =
       musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
-    hadDiamond = @levelData\getBestRank! == 1
-    newBest = @levelData\addTime @time
-    newDiamond = @levelData\getBestRank! == 1 and not hadDiamond
+    if @gameSpeed == 1
+      newBest = @levelData\addTime @time
+    else
+      newBest = false
 
-    beholder.trigger 'level complete', newBest, newDiamond
+    beholder.trigger 'level complete', newBest
     @levelComplete = true
     @playerInput.enabled = false
 
@@ -82,6 +83,7 @@ game =
         --love.graphics.draw image.titleSquare, WIDTH / 2, HEIGHT / 2, 0, 1, 1, image.titleSquare\getWidth! / 2, image.titleSquare\getHeight! / 2
 
     with love.graphics
+
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255
       .draw @canvas, .getWidth! / 2, .getHeight! / 2, 0, scaleFactor, scaleFactor, @canvas\getWidth! / 2, @canvas\getHeight! / 2

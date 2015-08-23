@@ -131,7 +131,10 @@ export class Hud
           .setColor 255, 255, 255, 255
           .printAligned 'Best', font.big, 20, 80, 'left', 'middle'
           .setColor color.rank[@state.levelData\getBestRank!]
-          .printAligned string.format('%0.2f', @state.levelData.best), font.timeBig, WIDTH - 20, 80, 'right', 'middle'
+          if @state.levelData.best
+            .printAligned string.format('%0.2f', @state.levelData.best), font.timeBig, WIDTH - 20, 80, 'right', 'middle'
+          else
+            .printAligned string.format('--'), font.timeBig, WIDTH - 20, 80, 'right', 'middle'
 
         --draw goal time (or "rank achieved!" messages)
         if @state.levelData\getBestRank! == 1
