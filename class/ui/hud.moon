@@ -55,6 +55,13 @@ export class Hud
                   gamestate.switch announcement, ->
                     gamestate.switch game, levelData[game.levelData.levelNum + 1]
 
+            if gameSpeed < 1
+              \addOption MenuOption 'Leave practice mode', ->
+                export gameSpeed = 1
+                gamestate.switch announcement, ->
+                  gamestate.switch game, game.levelData
+                beholder.trigger 'menu select'
+
             \addOption MenuOption 'Back to menu', ->
               beholder.trigger 'menu back'
               @menu.takeInput = false

@@ -14,6 +14,12 @@ pause =
         gamestate.pop!
         gamestate.switch game, game.levelData
         beholder.trigger 'menu select'
+      if gameSpeed < 1
+        \addOption MenuOption 'Leave practice mode', ->
+          export gameSpeed = 1
+          gamestate.pop!
+          gamestate.switch game, game.levelData
+          beholder.trigger 'menu select'
       \addOption MenuOption 'Back to menu', ->
         beholder.trigger 'menu back'
         @menu.takeInput = false
