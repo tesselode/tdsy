@@ -1,7 +1,7 @@
 export game
 
 game =
-  enter: (previous, @levelData, @gameSpeed) =>
+  enter: (previous, @levelData) =>
     @map = Map @levelData
     @playerInput = PlayerInput @map.fish
 
@@ -10,7 +10,6 @@ game =
     @levelComplete = false
     @jellyfishBounced = 0
     @time = 0
-    @gameSpeed = @gameSpeed or 1
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -34,7 +33,7 @@ game =
       musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
-    if @gameSpeed == 1
+    if gameSpeed == 1
       newBest = @levelData\addTime @time
     else
       newBest = false
@@ -50,11 +49,11 @@ game =
 
   update: (dt) =>
     @playerInput\update dt
-    @map\update dt * @gameSpeed
+    @map\update dt * gameSpeed
 
     --game flow
     if @levelStarted and not @levelComplete
-      @time += dt * @gameSpeed
+      @time += dt * gameSpeed
       if @jellyfishBounced == #@levelData.map.jellyfish
         @endLevel!
 

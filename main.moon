@@ -130,6 +130,8 @@ love.load =  ->
   soundManager = SoundManager!
   saveManager = SaveManager!
 
+  gameSpeed = 1
+
   with gamestate
     .switch announcement, ->
       .switch menu

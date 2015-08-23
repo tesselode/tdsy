@@ -46,7 +46,7 @@ export class Hud
               beholder.trigger 'menu select'
 
             nextLevel = levelData[@state.levelData.levelNum + 1]
-            if nextLevel and nextLevel.unlocked
+            if nextLevel and nextLevel.unlocked and gameSpeed == 1
               \addOption MenuOption 'Next level', ->
                 beholder.trigger 'menu select'
                 @menu.takeInput = false
@@ -157,10 +157,9 @@ export class Hud
         @menu\draw! if @menu
 
       --practice mode message
-      if @state.gameSpeed < 1
+      if gameSpeed < 1
         .setColor color.red
         .printAligned 'Practice mode', font.tiny, 5, 5, 'left', 'top'
-
 
       --draw fade out
       .setColor 0, 0, 0, @fadeAlpha

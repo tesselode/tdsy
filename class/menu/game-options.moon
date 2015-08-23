@@ -1,9 +1,24 @@
 export class PracticeModeOption extends MenuOption
   new: =>
-    @value = 1
+    @value = 1 if gameSpeed == 1
+    @value = 2 if gameSpeed == .75
+    @value = 3 if gameSpeed == 2/3
+    @value = 4 if gameSpeed == .5
 
-  previous: => @value = math.wrap @value - 1, 1, 4
-  next: => @value = math.wrap @value + 1, 1, 4
+  previous: =>
+    @value = math.wrap @value - 1, 1, 4
+    @setGameSpeed!
+
+  next: =>
+    @value = math.wrap @value + 1, 1, 4
+    @setGameSpeed!
+
+  setGameSpeed: =>
+    export gameSpeed
+    gameSpeed = 1 if @value == 1
+    gameSpeed = .75 if @value == 2
+    gameSpeed = 2/3 if @value == 3
+    gameSpeed = .5 if @value == 4
 
   draw: (x, y, selected) =>
     with love.graphics
@@ -56,13 +71,7 @@ export class GameOptions
     @menu\addOption MusicTypeOption!
     @menu\addOption MenuOption 'Start!', ->
       @takeInput = false
-      local speed
-      with @practiceModeOption
-        speed = 1 if .value == 1
-        speed = .75 if .value == 2
-        speed = 2/3 if .value == 3
-        speed = .5 if .value == 4
-      beholder.trigger 'go to game', @level, speed
+      beholder.trigger 'go to game', @level
       beholder.trigger 'menu select'
 
     beholder.group self, ->
