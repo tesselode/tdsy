@@ -48,31 +48,6 @@ export class SoundVolumeOption extends MenuOption
       .rectangle 'fill', WIDTH - 100, y - 1, 80, 2
       .rectangle 'fill', WIDTH - 100 + 80 * (@value / 10) - 1, y - 5, 2, 10
 
-export class MusicTypeOption extends MenuOption
-  new: =>
-    @value = saveManager.options.musicType or 1
-
-  previous: =>
-    @value = math.wrap @value - 1, 1, 3
-    beholder.trigger 'set music type', @value
-
-  next: =>
-    @value = math.wrap @value + 1, 1, 3
-    beholder.trigger 'set music type', @value
-
-  draw: (x, y, selected) =>
-    with love.graphics
-      if selected
-        .setColor @parent.highlightColor
-      else
-        .setColor @parent.color
-      .printAligned 'Music', @parent.font, 20, y, 'left', 'middle'
-      if @value == 1
-        .printAligned 'Default', @parent.font, WIDTH - 20, y, 'right', 'middle'
-      elseif @value == 2
-        .printAligned 'Type A', @parent.font, WIDTH - 20, y, 'right', 'middle'
-      elseif @value == 3
-        .printAligned 'Type B', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
 export class ScreenSizeOption extends MenuOption
   new: =>
@@ -130,7 +105,6 @@ export class Options
     @menu\addOption ScreenSizeOption!
     @menu\addOption MusicVolumeOption!
     @menu\addOption SoundVolumeOption!
-    @menu\addOption MusicTypeOption!
     @menu\addOption DeadzoneOption!
     @menu\addOption MenuOption 'Back', ->
       beholder.trigger 'go to title'

@@ -87,8 +87,8 @@ export class LevelSelect
         @selected = math.wrap @selected, 1, 15
 
       if control.primary.pressed and levelData[@selected].unlocked
-        @takeInput = false
-        beholder.trigger 'go to game', @levelButton[@selected].level
+        --@takeInput = false
+        beholder.trigger 'go to game options', @levelButton[@selected].level
         beholder.trigger 'menu select'
 
       if control.secondary.pressed

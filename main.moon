@@ -35,6 +35,7 @@ love.load =  ->
   require 'class.menu.level-select'
   require 'class.menu.title'
   require 'class.menu.options'
+  require 'class.menu.game-options'
   require 'class.menu.button-display'
   require 'class.level-data'
   require 'class.save-manager'

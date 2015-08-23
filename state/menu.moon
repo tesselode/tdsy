@@ -18,11 +18,18 @@ menu =
 
     --menus
     @title = Title!
+
     if previous == game
       @levelSelect = LevelSelect game.levelData.levelNum
     else
       @levelSelect = LevelSelect 1
+
+    @gameOptions = GameOptions!
+    @gameOptionsY = HEIGHT
+
     @options = Options!
+
+    --choose starting menu based on previous state
     if previous == game
       @focused = @levelSelect
       @translateVector = vector -WIDTH, 0
@@ -37,6 +44,10 @@ menu =
       beholder.observe 'go to level select', ->
         @focused = @levelSelect
         @tween\to(@translateVector, .5, {x: -WIDTH, y: 0})\ease('cubicout')
+        @tween\to(self, .5, {gameOptionsY: HEIGHT})
+      beholder.observe 'go to game options', ->
+        @focused = @gameOptions
+        @tween\to(self, .5, {gameOptionsY: 0})
       beholder.observe 'go to title', ->
         @focused = @title
         @tween\to(@translateVector, .5, {x: 0, y: 0})\ease('cubicout')
@@ -64,6 +75,7 @@ menu =
     @focused\update dt
 
   leave: =>
+    @gameOptions\leave!
     beholder.stopObserving self
 
   draw: =>
@@ -86,6 +98,10 @@ menu =
         .push!
         .translate WIDTH, 0
         @levelSelect\draw!
+        .push!
+        .translate 0, @gameOptionsY
+        @gameOptions\draw!
+        .pop!
         .pop!
 
         .push!
