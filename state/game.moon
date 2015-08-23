@@ -33,6 +33,7 @@ game =
       musicManager\playSong 'gameplay2', 1
 
   endLevel: =>
+    local newBest
     if gameSpeed == 1
       newBest = @levelData\addTime @time
     else

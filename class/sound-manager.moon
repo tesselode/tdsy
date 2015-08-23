@@ -25,11 +25,10 @@ export class SoundManager
           \play!
 
       beholder.observe 'level complete', (newBest) ->
-        @timer.add 0, ->
-          if newBest
-            @sound.fanfareBig\play!
-          else
-            @sound.fanfareSmall\play!
+        if newBest
+          @sound.fanfareBig\play!
+        else
+          @sound.fanfareSmall\play!
 
       beholder.observe 'announcement', ->
         with @sound.announcement
