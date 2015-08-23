@@ -156,6 +156,11 @@ export class Hud
         --draw menu
         @menu\draw! if @menu
 
+      --practice mode message
+      if @state.gameSpeed < 1
+        .setColor color.red
+        .printAligned 'Practice mode', font.tiny, 5, 5, 'left', 'top'
+
 
       --draw fade out
       .setColor 0, 0, 0, @fadeAlpha

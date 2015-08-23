@@ -10,7 +10,7 @@ game =
     @levelComplete = false
     @jellyfishBounced = 0
     @time = 0
-    @gameSpeed = @gameSpeed or .5
+    @gameSpeed = @gameSpeed or 1
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true

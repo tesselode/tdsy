@@ -58,6 +58,7 @@ love.load =  ->
   --load fonts
   font = {}
   with love.graphics
+    font.tiny    = .newImageFont 'font/buchTiny.png', ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?,.#'
     font.mini    = .newImageFont 'font/buchSmall.png', ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?,.#'
     font.big     = .newImageFont 'font/buchBig.png', ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?,.#'
     font.time    = .newFont 'font/kenpixel_blocks.ttf', 16
@@ -68,6 +69,7 @@ love.load =  ->
   color.white = {252, 255, 254, 255}
   color.gray = {150, 150, 150, 255}
   color.black = {8, 0, 8, 255}
+  color.red = {166, 65, 77, 255}
   color.rank = {}
   color.rank[1] = {132, 219, 252, 255}
   color.rank[2] = {242, 222, 112, 255}
