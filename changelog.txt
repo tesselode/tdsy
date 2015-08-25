@@ -1,0 +1,6 @@
+Version 1.1 - 8/25/15
+-Added practice mode!
+-Moved the music type option from the options screen to the new game options screen that appears before starting a level.
+-Changed tutorial text to be responsive to whether a controller is plugged in or not (also replaces the text with missing slashes from before)
+
+Version 1.0 - 8/20/15 - initial release!
