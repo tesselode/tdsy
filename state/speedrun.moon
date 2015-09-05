@@ -7,7 +7,7 @@ speedrun =
 
     @time = 0
 
-    @startLevel 1
+    @startLevel 16
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -40,11 +40,11 @@ speedrun =
       @startLevel @levelData.levelNum + 1
 
       --cosmetic stuff
-      @drawOldMap = true
-      @mapOld.enabled = false
-      @map.enabled = false
+      @drawOldMap          = true
+      @mapOld.enabled      = false
+      @map.enabled         = false
       @timer.add .5, ->
-        @map.enabled = true
+        @map.enabled         = true
 
       @timer.add .25, ->
         @drawOldMap = false
@@ -54,8 +54,8 @@ speedrun =
         pos: @mapOld.fish\getCenter! - @mapOld.camera.position
         rot: @mapOld.fish.sprite.rotation
       @tween\to @fakeFish.pos, .5, {
-        x: @map.fish\getCenter!.x
-        y: @map.fish\getCenter!.y
+        x: @map.fish\getCenter!.x - @map.camera.position.x
+        y: @map.fish\getCenter!.y - @map.camera.position.y
       }
       @tween\to @fakeFish, .5, {
         rot: @map.fish.sprite.rotation

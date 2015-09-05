@@ -1,6 +1,6 @@
 export class Camera
   new: (@fish, @width, @height) =>
-    @position = vector!
+    @update!
 
   update: (dt) =>
     --follow player
