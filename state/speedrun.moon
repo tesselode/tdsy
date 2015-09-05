@@ -45,10 +45,30 @@ speedrun =
     @levelComplete = true
     @playerInput.enabled = false
 
-    @timer.add 1, ->
+    @timer.add .5, ->
       @startLevel @levelData.levelNum + 1
+
+      --cosmetic stuff
+      @mapOld.disableFishDrawing = true
+      @map.disableFishDrawing = true
       @levelTransitionX = WIDTH
-      @tween\to self, .4, {levelTransitionX: 0}
+      @tween\to(self, 1, {levelTransitionX: 0})\ease 'backinout'
+      @timer.add 1, ->
+        @map.disableFishDrawing = false
+
+      --fancy fish transition
+      @fakeFish =
+        pos: @mapOld.fish\getCenter! - @mapOld.camera.position
+        rot: @mapOld.fish.sprite.rotation
+      @tween\to @fakeFish.pos, 1, {
+        x: @map.fish\getCenter!.x
+        y: @map.fish\getCenter!.y
+      }
+      @tween\to @fakeFish, 1, {
+        rot: @map.fish.sprite.rotation
+      }
+      @timer.add 1, ->
+        @fakeFish = false
 
   update: (dt) =>
     @timer.update dt
@@ -78,7 +98,7 @@ speedrun =
       \clear 0, 0, 0, 255
       \renderTo ->
         love.graphics.push!
-        love.graphics.translate @levelTransitionX, 0
+        love.graphics.translate lume.round(@levelTransitionX), 0
         if @mapOld
           love.graphics.push!
           love.graphics.translate -WIDTH, 0
@@ -86,6 +106,12 @@ speedrun =
           love.graphics.pop!
         @map\draw!
         love.graphics.pop!
+
+        --draw fake fish
+        if @fakeFish
+          love.graphics.setColor 255, 255, 255, 255
+          love.graphics.draw image.fish, @fakeFish.pos.x, @fakeFish.pos.y, @fakeFish.rot, 1, 1, image.fish\getWidth! / 2, image.fish\getHeight! / 2
+
         @hud\draw!
 
         love.graphics.setColor 255, 255, 255, 255
