@@ -15,21 +15,12 @@ speedrun =
 
     --cosmetic
     @hud = HudSpeedrun self
-    @levelTransitionX = 0
+    @drawOldMap = false
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
     --default music choice
-    if saveManager.options.musicType == 1
-      if @levelData.levelNum > 15
-        musicManager\playSong 'gameplay2', 1
-      else
-        musicManager\playSong 'gameplay1', 1
-    --user set music choice
-    elseif saveManager.options.musicType == 2
-      musicManager\playSong 'gameplay1', 1
-    elseif saveManager.options.musicType == 3
-      musicManager\playSong 'gameplay2', 1
+    musicManager\playSong 'gameplay1', 1
 
   startLevel: (levelNum) =>
     @levelData        = levelData[levelNum]
@@ -41,7 +32,7 @@ speedrun =
     @levelComplete    = false
 
   endLevel: =>
-    beholder.trigger 'level complete', newBest
+    beholder.trigger 'level complete'
     @levelComplete = true
     @playerInput.enabled = false
 
@@ -49,25 +40,27 @@ speedrun =
       @startLevel @levelData.levelNum + 1
 
       --cosmetic stuff
-      @mapOld.disableFishDrawing = true
-      @map.disableFishDrawing = true
-      @levelTransitionX = WIDTH
-      @tween\to(self, 1, {levelTransitionX: 0})\ease 'backinout'
-      @timer.add 1, ->
-        @map.disableFishDrawing = false
+      @drawOldMap = true
+      @mapOld.enabled = false
+      @map.enabled = false
+      @timer.add .5, ->
+        @map.enabled = true
+
+      @timer.add .25, ->
+        @drawOldMap = false
 
       --fancy fish transition
       @fakeFish =
         pos: @mapOld.fish\getCenter! - @mapOld.camera.position
         rot: @mapOld.fish.sprite.rotation
-      @tween\to @fakeFish.pos, 1, {
+      @tween\to @fakeFish.pos, .5, {
         x: @map.fish\getCenter!.x
         y: @map.fish\getCenter!.y
       }
-      @tween\to @fakeFish, 1, {
+      @tween\to @fakeFish, .5, {
         rot: @map.fish.sprite.rotation
       }
-      @timer.add 1, ->
+      @timer.add .5, ->
         @fakeFish = false
 
   update: (dt) =>
@@ -76,6 +69,7 @@ speedrun =
 
     @playerInput\update dt
     @map\update dt
+    @mapOld\update dt if @mapOld
 
     --game flow
     if @levelStarted and not @levelComplete
@@ -97,22 +91,17 @@ speedrun =
     with @canvas
       \clear 0, 0, 0, 255
       \renderTo ->
-        love.graphics.push!
-        love.graphics.translate lume.round(@levelTransitionX), 0
-        if @mapOld
-          love.graphics.push!
-          love.graphics.translate -WIDTH, 0
+        if @drawOldMap
           @mapOld\draw!
-          love.graphics.pop!
-        @map\draw!
-        love.graphics.pop!
+        else
+          @map\draw!
+
+        @hud\draw!
 
         --draw fake fish
         if @fakeFish
           love.graphics.setColor 255, 255, 255, 255
           love.graphics.draw image.fish, @fakeFish.pos.x, @fakeFish.pos.y, @fakeFish.rot, 1, 1, image.fish\getWidth! / 2, image.fish\getHeight! / 2
-
-        @hud\draw!
 
         love.graphics.setColor 255, 255, 255, 255
 

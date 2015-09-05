@@ -14,6 +14,11 @@ export class HudSpeedrun
       beholder.observe 'level start', ->
         @tween\to(self, .35, {goalDisplayY: -50})\ease 'linear'
         @tween\to(self, .35, {timerY: 10})\ease 'linear'
+      beholder.observe 'level complete', ->
+        @timer.add .5, ->
+          @tween\to self, .25, {bgFadeAlpha: 255}
+        @timer.add .75, ->
+          @tween\to self, .25, {bgFadeAlpha: 0}
 
   update: (dt) =>
     @timer.update dt

@@ -1,6 +1,7 @@
 export class Map
   new: (levelData) =>
     @loadLevel levelData
+    @enabled = true
 
   loadLevel: (levelData) =>
     @world = bump.newWorld!
@@ -36,6 +37,9 @@ export class Map
     --update scenery
     @background\update dt
 
+    if not @enabled
+      return false
+
     --update all objects
     for object in *@objects do
       object\update dt
@@ -65,7 +69,7 @@ export class Map
       --draw all objects
       table.sort @objects, (a, b) -> return a.drawDepth > b.drawDepth
       for object in *@objects do
-        if object.__class ~= Fish or not @disableFishDrawing
+        if object.__class ~= Fish or @enabled --don't draw the fish if disabled (this helps with a transition for speedrun mode)
           object\draw!
           object\drawDebug! if DEBUG
 
