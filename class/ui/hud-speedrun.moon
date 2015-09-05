@@ -5,14 +5,20 @@ export class HudSpeedrun
 
     --cosmetic stuff
     @goalDisplayY = 10
-    @timerY = -50
-    @fadeAlpha = 255
+    @timerY       = -50
+    @bgFadeAlpha  = 0
+    @fadeAlpha    = 255
     @tween\to self, .15, {fadeAlpha: 0}
 
     beholder.group self, ->
       beholder.observe 'level start', ->
         @tween\to(self, .35, {goalDisplayY: -50})\ease 'linear'
         @tween\to(self, .35, {timerY: 10})\ease 'linear'
+      beholder.observe 'level complete', ->
+        @timer.add .85, ->
+          @tween\to self, .15, {bgFadeAlpha: 255}
+        @timer.add 1, ->
+          @tween\to self, .15, {bgFadeAlpha: 0}
 
   update: (dt) =>
     @timer.update dt
@@ -23,6 +29,10 @@ export class HudSpeedrun
 
   draw: =>
     with love.graphics
+      --draw fade out
+      .setColor 0, 0, 0, @bgFadeAlpha
+      .rectangle 'fill', 0, 0, WIDTH, HEIGHT
+
       .setColor color.white
       --.printAligned 'Best: ', font.mini, WIDTH / 2, @goalDisplayY, 'right', 'middle'
       --.printAligned string.format('%0.2f', @state.levelData.best), font.time, WIDTH / 2, @goalDisplayY, 'left', 'middle'
