@@ -3,6 +3,8 @@ export class Title
     @menu = Menu font.mini, WIDTH * .5, HEIGHT * .7, color.gray, color.white
     @menu\addOption MenuOption 'Play!', ->
       beholder.trigger 'go to level select'
+    @menu\addOption MenuOption 'Speedrun mode', ->
+      beholder.trigger 'go to speedrun mode'
     @menu\addOption MenuOption 'Options', ->
       beholder.trigger 'go to options'
     @menu\addOption MenuOption 'Quit', ->

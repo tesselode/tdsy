@@ -47,6 +47,7 @@ love.load =  ->
   --load states
   require 'state.menu'
   require 'state.game'
+  require 'state.speedrun'
   require 'state.pause'
   require 'state.announcement'
 

@@ -58,6 +58,10 @@ menu =
         @tween\to self, .15, {fadeAlpha: 255}
         @timer.add .15, ->
           gamestate.switch game, level
+      beholder.observe 'go to speedrun mode', ->
+        @tween\to self, .15, {fadeAlpha: 255}
+        @timer.add .15, ->
+          gamestate.switch speedrun
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
