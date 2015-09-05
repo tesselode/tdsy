@@ -5,7 +5,7 @@ speedrun =
     @timer = timer.new!
     @tween = flux.group!
 
-    @time = 0    
+    @time = 0
 
     @startLevel 1
 
@@ -15,6 +15,7 @@ speedrun =
 
     --cosmetic
     @hud = HudSpeedrun self
+    @levelTransitionX = 0
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -32,6 +33,7 @@ speedrun =
 
   startLevel: (levelNum) =>
     @levelData        = levelData[levelNum]
+    @mapOld           = @map if @map
     @map              = Map @levelData
     @playerInput      = PlayerInput @map.fish
     @jellyfishBounced = 0
@@ -45,6 +47,8 @@ speedrun =
 
     @timer.add 1, ->
       @startLevel @levelData.levelNum + 1
+      @levelTransitionX = WIDTH
+      @tween\to self, .4, {levelTransitionX: 0}
 
   update: (dt) =>
     @timer.update dt
@@ -73,7 +77,15 @@ speedrun =
     with @canvas
       \clear 0, 0, 0, 255
       \renderTo ->
+        love.graphics.push!
+        love.graphics.translate @levelTransitionX, 0
+        if @mapOld
+          love.graphics.push!
+          love.graphics.translate -WIDTH, 0
+          @mapOld\draw!
+          love.graphics.pop!
         @map\draw!
+        love.graphics.pop!
         @hud\draw!
 
         love.graphics.setColor 255, 255, 255, 255
