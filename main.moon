@@ -30,6 +30,7 @@ love.load =  ->
   require 'class.physical.jellyfish'
   require 'class.physical.fish'
   require 'class.ui.hud'
+  require 'class.ui.hud-speedrun'
   require 'class.ui.level-button'
   require 'class.ui.menu'
   require 'class.menu.level-select'
@@ -49,6 +50,7 @@ love.load =  ->
   require 'state.game'
   require 'state.speedrun'
   require 'state.pause'
+  require 'state.pause-speedrun'
   require 'state.announcement'
 
   --load images

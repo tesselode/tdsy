@@ -2,22 +2,19 @@ export speedrun
 
 speedrun =
   enter: (previous) =>
-    @levelData = levelData[1]
-    @map = Map @levelData
-    @playerInput = PlayerInput @map.fish
+    @timer = timer.new!
+    @tween = flux.group!
 
-    --game flow
-    @levelStarted = false
-    @levelComplete = false
-    @jellyfishBounced = 0
-    @time = 0
+    @time = 0    
+
+    @startLevel 1
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
       beholder.observe 'jellyfish bounced', -> @jellyfishBounced += 1
 
     --cosmetic
-    @hud = Hud self
+    @hud = HudSpeedrun self
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -33,25 +30,28 @@ speedrun =
     elseif saveManager.options.musicType == 3
       musicManager\playSong 'gameplay2', 1
 
-  endLevel: =>
-    local newBest
-    if gameSpeed == 1
-      newBest = @levelData\addTime @time
-    else
-      newBest = false
+  startLevel: (levelNum) =>
+    @levelData        = levelData[levelNum]
+    @map              = Map @levelData
+    @playerInput      = PlayerInput @map.fish
+    @jellyfishBounced = 0
+    @levelStarted     = false
+    @levelComplete    = false
 
+  endLevel: =>
     beholder.trigger 'level complete', newBest
     @levelComplete = true
     @playerInput.enabled = false
 
-    --save data
-    saveManager\save!
-    saveManager\unlockLevels!
-    beholder.trigger 'show endslate', newBest
+    @timer.add 1, ->
+      @startLevel @levelData.levelNum + 1
 
   update: (dt) =>
+    @timer.update dt
+    @tween\update dt
+
     @playerInput\update dt
-    @map\update dt * gameSpeed
+    @map\update dt
 
     --game flow
     if @levelStarted and not @levelComplete
@@ -63,11 +63,7 @@ speedrun =
 
     --pause menu
     if not @levelComplete and control.pause.pressed
-      gamestate.push pause
-    --quick restart
-    if not @levelComplete and control.restart.pressed
-      gamestate.switch game, @levelData
-      beholder.trigger 'menu select'
+      gamestate.push pauseSpeedrun
 
   leave: =>
     @hud\destroy!
@@ -81,10 +77,8 @@ speedrun =
         @hud\draw!
 
         love.graphics.setColor 255, 255, 255, 255
-        --love.graphics.draw image.titleSquare, WIDTH / 2, HEIGHT / 2, 0, 1, 1, image.titleSquare\getWidth! / 2, image.titleSquare\getHeight! / 2
 
     with love.graphics
-
       scaleFactor = .getHeight! / HEIGHT
       .setColor 255, 255, 255, 255
       .draw @canvas, .getWidth! / 2, .getHeight! / 2, 0, scaleFactor, scaleFactor, @canvas\getWidth! / 2, @canvas\getHeight! / 2
