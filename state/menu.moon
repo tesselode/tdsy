@@ -35,6 +35,11 @@ menu =
       @translateVector = vector -WIDTH, 0
       @fadeAlpha = 255
       @tween\to self, .15, {fadeAlpha: 0}
+    elseif previous == speedrun
+      @focused = @title
+      @translateVector = vector!
+      @fadeAlpha = 255
+      @tween\to self, .15, {fadeAlpha: 0}
     else
       @focused = @title
       @translateVector = vector!
@@ -65,7 +70,7 @@ menu =
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
-    if previous == game
+    if previous == game or previous == speedrun
       musicManager\playSong 'title', 1
     else
       musicManager\playSong 'title'
