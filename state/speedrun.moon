@@ -5,6 +5,7 @@ speedrun =
     @timer = timer.new!
     @tween = flux.group!
 
+    @fakeFish         = nil
     @speedrunComplete = false
     @time             = 0
 
@@ -17,6 +18,7 @@ speedrun =
     --cosmetic
     @hud = HudSpeedrun self
     @drawOldMap = false
+    @fishRotationSpeed = 2
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
@@ -39,6 +41,7 @@ speedrun =
     if @levelData.levelNum == NUMLEVELS
       beholder.trigger 'speedrun complete'
       @speedrunComplete = true
+      musicManager\stopMusic!
 
       @timer.add .5, ->
         @map.enabled = false
@@ -48,7 +51,7 @@ speedrun =
           pos: @map.fish\getCenter! - @map.camera.position
           rot: @map.fish.sprite.rotation
           scale: 1
-        @tween\to @fakeFish.pos, 2, {
+        @tween\to @fakeFish.pos, 1, {
           x: WIDTH / 2
           y: HEIGHT / 2
         }
@@ -108,7 +111,8 @@ speedrun =
 
     --cosmetic
     if @speedrunComplete and @fakeFish
-      @fakeFish.rot += 2 * dt
+      @fishRotationSpeed += .1 * dt
+      @fakeFish.rot += @fishRotationSpeed * dt
 
   leave: =>
     @hud\destroy!
@@ -130,7 +134,7 @@ speedrun =
           love.graphics.setColor 255, 255, 255, 255
           love.graphics.draw image.fish, .pos.x, .pos.y, .rot, .scale, .scale, image.fish\getWidth! / 2, image.fish\getHeight! / 2
 
-      love.graphics.setColor 255, 255, 255, 255
+      @hud\drawTop!
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT

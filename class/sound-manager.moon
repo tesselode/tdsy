@@ -30,6 +30,9 @@ export class SoundManager
         else
           @sound.fanfareSmall\play!
 
+      beholder.observe 'speedrun complete', ->
+        @sound.fanfareBig\play!
+
       beholder.observe 'announcement', ->
         with @sound.announcement
           \play!
