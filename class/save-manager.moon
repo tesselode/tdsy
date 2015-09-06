@@ -82,11 +82,14 @@ export class SaveManager
       @options = love.filesystem.load(@optionsFilename)!
     else
       @options =
+        musicVolume: 10
+        soundVolume: 10
         soundBalance: 5
         musicType: 1
         screenSize: 2
         deadzone: 2
-    beholder.trigger 'set sound balance', @options.soundBalance
+    beholder.trigger 'set music volume', @options.musicVolume
+    beholder.trigger 'set sound volume', @options.soundVolume
     beholder.trigger 'set screen size', @options.screenSize
 
     @unlockLevels!
