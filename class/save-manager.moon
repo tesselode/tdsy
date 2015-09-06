@@ -72,22 +72,19 @@ export class SaveManager
         if levelData[i]
           levelData[i].best = data.bestTimes[i]
       @triggers = data.triggers
-    else
-      @triggers =
-        newLevels: {triggered: false, shown: false}
-        diamondTimes: {triggered: false, shown: false}
+    @triggers =
+      newLevels: @triggers.newLevels or {triggered: false, shown: false}
+      diamondTimes: @triggers.diamondTimes or {triggered: false, shown: false}
 
     --load options
     if love.filesystem.exists @optionsFilename
       @options = love.filesystem.load(@optionsFilename)!
-    else
-      @options =
-        musicVolume: 10
-        soundVolume: 10
-        soundBalance: 5
-        musicType: 1
-        screenSize: 2
-        deadzone: 2
+    @options =
+      musicVolume: @options.musicVolume or 10
+      soundVolume: @options.soundVolume or 10
+      musicType: @options.musicType or 1
+      screenSize: @options.screenSize or 2
+      deadzone: @options.deadzone or 2
     beholder.trigger 'set music volume', @options.musicVolume
     beholder.trigger 'set sound volume', @options.soundVolume
     beholder.trigger 'set screen size', @options.screenSize
