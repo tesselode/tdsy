@@ -19,6 +19,9 @@ export class HudSpeedrun
           @tween\to self, .25, {bgFadeAlpha: 255}
         @timer.add .75, ->
           @tween\to self, .25, {bgFadeAlpha: 0}
+      beholder.observe 'speedrun complete', ->
+        @timer.add .5, ->
+          @tween\to self, .25, {bgFadeAlpha: 255}
 
   update: (dt) =>
     @timer.update dt

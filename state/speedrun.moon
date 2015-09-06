@@ -5,9 +5,10 @@ speedrun =
     @timer = timer.new!
     @tween = flux.group!
 
-    @time = 0
+    @speedrunComplete = false
+    @time             = 0
 
-    @startLevel 16
+    @startLevel 20
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -32,36 +33,58 @@ speedrun =
     @levelComplete    = false
 
   endLevel: =>
-    beholder.trigger 'level complete'
     @levelComplete = true
     @playerInput.enabled = false
 
-    @timer.add .5, ->
-      @startLevel @levelData.levelNum + 1
+    if @levelData.levelNum == NUMLEVELS
+      beholder.trigger 'speedrun complete'
+      @speedrunComplete = true
 
-      --cosmetic stuff
-      @drawOldMap          = true
-      @mapOld.enabled      = false
-      @map.enabled         = false
       @timer.add .5, ->
-        @map.enabled         = true
+        @map.enabled = false
 
-      @timer.add .25, ->
-        @drawOldMap = false
+        --speedrun complete animation
+        @fakeFish =
+          pos: @map.fish\getCenter! - @map.camera.position
+          rot: @map.fish.sprite.rotation
+          scale: 1
+        @tween\to @fakeFish.pos, 2, {
+          x: WIDTH / 2
+          y: HEIGHT / 2
+        }
+        @tween\to @fakeFish, 2, {
+          scale: 4
+        }
+    else
+      beholder.trigger 'level complete'
 
-      --fancy fish transition
-      @fakeFish =
-        pos: @mapOld.fish\getCenter! - @mapOld.camera.position
-        rot: @mapOld.fish.sprite.rotation
-      @tween\to @fakeFish.pos, .5, {
-        x: @map.fish\getCenter!.x - @map.camera.position.x
-        y: @map.fish\getCenter!.y - @map.camera.position.y
-      }
-      @tween\to @fakeFish, .5, {
-        rot: @map.fish.sprite.rotation
-      }
       @timer.add .5, ->
-        @fakeFish = false
+        @startLevel @levelData.levelNum + 1
+
+        --cosmetic stuff
+        @drawOldMap          = true
+        @mapOld.enabled      = false
+        @map.enabled         = false
+        @timer.add .5, ->
+          @map.enabled         = true
+
+        @timer.add .25, ->
+          @drawOldMap = false
+
+        --fancy fish transition
+        @fakeFish =
+          pos: @mapOld.fish\getCenter! - @mapOld.camera.position
+          rot: @mapOld.fish.sprite.rotation
+          scale: 1
+        @tween\to @fakeFish.pos, .5, {
+          x: @map.fish\getCenter!.x - @map.camera.position.x
+          y: @map.fish\getCenter!.y - @map.camera.position.y
+        }
+        @tween\to @fakeFish, .5, {
+          rot: @map.fish.sprite.rotation
+        }
+        @timer.add .5, ->
+          @fakeFish = false
 
   update: (dt) =>
     @timer.update dt
@@ -83,27 +106,31 @@ speedrun =
     if not @levelComplete and control.pause.pressed
       gamestate.push pauseSpeedrun
 
+    --cosmetic
+    if @speedrunComplete and @fakeFish
+      @fakeFish.rot += 2 * dt
+
   leave: =>
     @hud\destroy!
     beholder.stopObserving self
 
   draw: =>
-    with @canvas
-      \clear 0, 0, 0, 255
-      \renderTo ->
-        if @drawOldMap
-          @mapOld\draw!
-        else
-          @map\draw!
+    @canvas\clear 0, 0, 0, 255
+    @canvas\renderTo ->
+      if @drawOldMap
+        @mapOld\draw!
+      else
+        @map\draw!
 
-        @hud\draw!
+      @hud\draw!
 
-        --draw fake fish
-        if @fakeFish
+      --draw fake fish
+      if @fakeFish
+        with @fakeFish
           love.graphics.setColor 255, 255, 255, 255
-          love.graphics.draw image.fish, @fakeFish.pos.x, @fakeFish.pos.y, @fakeFish.rot, 1, 1, image.fish\getWidth! / 2, image.fish\getHeight! / 2
+          love.graphics.draw image.fish, .pos.x, .pos.y, .rot, .scale, .scale, image.fish\getWidth! / 2, image.fish\getHeight! / 2
 
-        love.graphics.setColor 255, 255, 255, 255
+      love.graphics.setColor 255, 255, 255, 255
 
     with love.graphics
       scaleFactor = .getHeight! / HEIGHT
