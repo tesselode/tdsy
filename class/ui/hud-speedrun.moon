@@ -56,9 +56,6 @@ export class HudSpeedrun
     @timer.update dt
     @tween\update dt
 
-    @timer.update dt
-    @tween\update dt
-
     --menu input
     if @menu
       with @menu
