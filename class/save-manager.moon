@@ -59,10 +59,13 @@ export class SaveManager
         unlockLastLevel = false
     levelData[NUMLEVELS].unlocked = true if unlockLastLevel
 
-    --temporary - every level is unlocked
-    --for i = 1, NUMLEVELS do
-    --  if levelData[i]
-    --    levelData[i].unlocked = true
+  getAllLevelsUnlocked: =>
+    allLevelsUnlocked = true
+    for i = 1, NUMLEVELS
+      if not levelData[i].unlocked
+        allLevelsUnlocked = false
+        break
+    allLevelsUnlocked
 
   load: =>
     --load save data
