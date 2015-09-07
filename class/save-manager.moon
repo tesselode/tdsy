@@ -59,6 +59,13 @@ export class SaveManager
         unlockLastLevel = false
     levelData[NUMLEVELS].unlocked = true if unlockLastLevel
 
+  addSpeedrunTime: (time) =>
+    if not @bestSpeedrun or time < @bestSpeedrun
+      @bestSpeedrun = time
+      return true
+    else
+      return false
+
   getAllLevelsUnlocked: =>
     allLevelsUnlocked = true
     for i = 1, NUMLEVELS
@@ -74,12 +81,14 @@ export class SaveManager
       for i = 1, NUMLEVELS
         if levelData[i]
           levelData[i].best = data.bestTimes[i]
+      @bestSpeedrun = data.bestSpeedrun
       @triggers = data.triggers
 
     --default save data
     @triggers              = @triggers or {}
     @triggers.newLevels    = @triggers.newLevels or {triggered: false, shown: false}
     @triggers.diamondTimes = @triggers.diamondTimes or {triggered: false, shown: false}
+    @triggers.speedrunMode = @triggers.speedrunMode or {triggered: false, shown: false}
 
     --load options
     if love.filesystem.exists @optionsFilename
@@ -103,6 +112,7 @@ export class SaveManager
   save: =>
     data =
       bestTimes: {}
+      bestSpeedrun: @bestSpeedrun
       triggers: @triggers
     for i = 1, NUMLEVELS
       if levelData[i]

@@ -23,9 +23,9 @@ export class HudSpeedrun
         @timer.add .5, ->
           @showEndslate newBest
 
-  showEndslate: (newBest) =>
+  showEndslate: (best) =>
     @endSlate =
-      newBest: newBest
+      best: best
       bgAlpha: 0
       y: -100
 
@@ -91,6 +91,11 @@ export class HudSpeedrun
         .setColor color.white
         .printAligned 'Your time!', font.mini, 10, 20, 'left', 'middle'
         .printAligned string.format('%0.2f', @state.time), font.timeBig, WIDTH - 10, 20, 'right', 'middle'
+        if @endSlate.best
+          .printAligned 'New best time!', font.big, WIDTH / 2, 60, 'center', 'middle'
+        else
+          .printAligned 'Best', font.mini, 10, 60, 'left', 'middle'
+          .printAligned string.format('%0.2f', saveManager.bestSpeedrun), font.timeBig, WIDTH - 10, 60, 'right', 'middle'
 
         .pop!
 

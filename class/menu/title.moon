@@ -33,3 +33,13 @@ export class Title
       .draw image.title, WIDTH * .5, HEIGHT * .5 + math.sin(@uptime * 2) * 2, 0, 1, 1, image.title\getWidth! / 2, image.title\getHeight!
       @menu\draw!
       @buttonDisplay\draw!
+
+      if saveManager\getAllLevelsUnlocked! and @menu.selected == 2
+        .setColor color.white
+        .printAligned 'Best speedrun', font.mini, WIDTH / 2, 0
+        local bestTimeString
+        if saveManager.bestSpeedrun
+          bestTimeString = string.format('%0.2f', saveManager.bestSpeedrun)
+        else
+          bestTimeString = '--'
+        .printAligned bestTimeString, font.time, WIDTH / 2, 16

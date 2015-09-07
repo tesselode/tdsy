@@ -21,8 +21,11 @@ announcement =
       if levelData[i]\getBestRank! > 2
         diamondTimesRevealed = false
 
+    speedrunModeUnlocked = saveManager\getAllLevelsUnlocked!
+
     @checkTrigger saveManager.triggers.newLevels, newLevelsRevealed, 'New levels revealed!'
     @checkTrigger saveManager.triggers.diamondTimes, diamondTimesRevealed, 'Diamond times revealed!'
+    @checkTrigger saveManager.triggers.speedrunMode, speedrunModeUnlocked, 'Speedrun mode unlocked!'
 
     --if there's no message then skip this state
     if not @message

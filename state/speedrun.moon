@@ -9,7 +9,7 @@ speedrun =
     @speedrunComplete = false
     @time             = 0
 
-    @startLevel 1
+    @startLevel 20
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true
@@ -39,9 +39,11 @@ speedrun =
     @playerInput.enabled = false
 
     if @levelData.levelNum == NUMLEVELS
-      beholder.trigger 'speedrun complete'
       @speedrunComplete = true
+      best = saveManager\addSpeedrunTime @time
+      saveManager\save!
       musicManager\stopMusic!
+      beholder.trigger 'speedrun complete', best
 
       @timer.add .5, ->
         @map.enabled = false
@@ -53,7 +55,7 @@ speedrun =
           scale: 1
         @tween\to @fakeFish.pos, 1, {
           x: WIDTH / 2
-          y: HEIGHT / 2
+          y: HEIGHT * .55
         }
         @tween\to @fakeFish, 2, {
           scale: 4
