@@ -43,6 +43,7 @@ speedrun =
       best = saveManager\addSpeedrunTime @time
       saveManager\save!
       musicManager\stopMusic!
+      --@timer.add 5, -> musicManager\playSong 'results', 1
       beholder.trigger 'speedrun complete', best
 
       @timer.add .5, ->
