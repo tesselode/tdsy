@@ -23,7 +23,7 @@ speedrun =
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
     --default music choice
-    musicManager\playSong 'gameplay1', 1
+    musicManager\playSong 'speedrun', 1
 
   startLevel: (levelNum) =>
     @levelData        = levelData[levelNum]

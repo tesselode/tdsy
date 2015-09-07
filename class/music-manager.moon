@@ -9,6 +9,7 @@ export class MusicManager
         title: {volume: 1, source: .newSource 'music/lazy.mp3'}
         gameplay1: {volume: 1, source: .newSource 'music/type a.mp3'}
         gameplay2: {volume: 1, source: .newSource 'music/type b.mp3'}
+        speedrun: {volume: 1, source: .newSource 'music/speedrun.mp3'}
 
     for k, v in pairs @music
       v.source\setLooping true

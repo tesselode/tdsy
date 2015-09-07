@@ -32,6 +32,8 @@ export class SoundManager
 
       beholder.observe 'speedrun complete', ->
         @sound.fanfareBig\play!
+        @timer.add 1, ->
+          @sound.speedrunFanfareBig\play!
 
       beholder.observe 'announcement', ->
         with @sound.announcement
