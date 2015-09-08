@@ -17,7 +17,7 @@ export class HudSpeedrun
       beholder.observe 'level complete', ->
         @timer.add .5, ->
           @tween\to self, .25, {bgFadeAlpha: 255}
-        @timer.add .75, ->
+        @timer.add .85, ->
           @tween\to self, .25, {bgFadeAlpha: 0}
       beholder.observe 'speedrun complete', (newBest) ->
         @timer.add .5, ->
