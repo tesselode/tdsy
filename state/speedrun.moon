@@ -9,7 +9,7 @@ speedrun =
     @speedrunComplete = false
     @time             = 0
 
-    @startLevel 20
+    @startLevel 1
 
     beholder.group self, ->
       beholder.observe 'level start', -> @levelStarted = true

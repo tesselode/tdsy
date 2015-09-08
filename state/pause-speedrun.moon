@@ -5,11 +5,24 @@ pauseSpeedrun =
     @timer = timer.new!
     @tween = flux.group!
 
-    --menu options
+    @enterMainMenu!
+
+    --cosmetic
+    @fadeAlpha = 0
+    @buttonDisplay = ButtonDisplay 'Select', 'Back'
+
+    @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+
+  enterMainMenu: =>
+    @onMainMenu = true
+
     @menu = Menu font.mini, WIDTH / 2, HEIGHT / 2, {150, 150, 150, 255}, {255, 255, 255, 255}
     with @menu
       \addOption MenuOption 'Resume', ->
         gamestate.pop!
+      \addOption MenuOption 'Restart', ->
+        @enterConfirmationMenu!
+        beholder.trigger 'menu select'
       \addOption MenuOption 'Back to menu', ->
         beholder.trigger 'menu back'
         @menu.takeInput = false
@@ -18,11 +31,19 @@ pauseSpeedrun =
           gamestate.pop!
           gamestate.switch menu
 
-    --cosmetic
-    @fadeAlpha = 0
-    @buttonDisplay = ButtonDisplay 'Select', 'Back'
+  enterConfirmationMenu: =>
+    @onMainMenu = false
 
-    @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+    @menu = Menu font.mini, WIDTH / 2, HEIGHT / 2, {150, 150, 150, 255}, {255, 255, 255, 255}
+    with @menu
+      \addOption MenuOption 'Yes', ->
+        gamestate.pop!
+        gamestate.switch speedrun
+        beholder.trigger 'menu select'
+      \addOption MenuOption 'No', ->
+        @enterMainMenu!
+        beholder.trigger 'menu back'
+      .selected = 2
 
   update: (dt) =>
     @timer.update dt
@@ -47,7 +68,10 @@ pauseSpeedrun =
             .draw speedrun.canvas
 
           .setColor 255, 255, 255, 255
-          .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT * .4, 'center', 'bottom'
+          if @onMainMenu
+            .printAligned 'Pause', font.big, WIDTH / 2, HEIGHT * .4, 'center', 'bottom'
+          else
+            .printAligned 'Are you sure?', font.mini, WIDTH / 2, HEIGHT * .4, 'center', 'bottom'
 
           @menu\draw!
           @buttonDisplay\draw!
