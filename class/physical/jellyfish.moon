@@ -6,7 +6,7 @@ export class Jellyfish extends Physical
     @angle = angle or 0
 
     @bounced = false
-    
+
     --cosmetic
     g = anim8.newGrid 16, 17, image.jellyfish\getWidth!, image.jellyfish\getHeight!
     @sprite = AnimatedSprite image.jellyfish, anim8.newAnimation g('1-5', 1), love.math.random! * .4 + .8
@@ -24,6 +24,10 @@ export class Jellyfish extends Physical
       @tween\to(@sprite.offset, .1, {y: -2})\ease('quadout')
       @tween\to(@sprite.offset, .1, {y: 8})\ease('quadin')\delay(.1)
 
+      --checkmark (colorblind mode)
+      @checkmarkSprite = Sprite image.checkmark
+      @tween\to(@checkmarkSprite.offset, .2, {y: 20})\ease('quadout')
+
   update: (dt) =>
     super dt
     @sprite\update dt
@@ -32,3 +36,5 @@ export class Jellyfish extends Physical
     x, y = @getCenter!\unpack!
     x, y = lume.round(x), lume.round(y)
     @sprite\draw x, y
+    if @checkmarkSprite
+      @checkmarkSprite\draw x, y
