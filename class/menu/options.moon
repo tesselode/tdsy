@@ -99,13 +99,38 @@ export class DeadzoneOption extends MenuOption
       else
         .printAligned '50%', @parent.font, WIDTH - 20, y, 'right', 'middle'
 
+export class ColorblindOption extends MenuOption
+  new: =>
+    @value = saveManager.options.colorblind or 1
+
+  previous: =>
+    @value = math.wrap @value - 1, 1, 2
+    beholder.trigger 'set colorblind mode', @value
+
+  next: =>
+    @value = math.wrap @value + 1, 1, 2
+    beholder.trigger 'set colorblind mode', @value
+
+  draw: (x, y, selected) =>
+    with love.graphics
+      if selected
+        .setColor @parent.highlightColor
+      else
+        .setColor @parent.color
+      .printAligned 'Colorblind mode', @parent.font, 20, y, 'left', 'middle'
+      if @value == 1
+        .printAligned 'Off', @parent.font, WIDTH - 20, y, 'right', 'middle'
+      else
+        .printAligned 'On', @parent.font, WIDTH - 20, y, 'right', 'middle'
+
 export class Options
   new: =>
-    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .5, color.gray, color.white
+    @menu = Menu font.mini, WIDTH * .5, HEIGHT * .45, color.gray, color.white
     @menu\addOption ScreenSizeOption!
     @menu\addOption MusicVolumeOption!
     @menu\addOption SoundVolumeOption!
     @menu\addOption DeadzoneOption!
+    @menu\addOption ColorblindOption!
     @menu\addOption MenuOption 'Back', ->
       beholder.trigger 'go to title'
 

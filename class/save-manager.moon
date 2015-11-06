@@ -29,6 +29,9 @@ export class SaveManager
           .deadzone = .25 if value == 1
           .deadzone = .33 if value == 2
           .deadzone = .5 if value == 3
+      beholder.observe 'set colorblind mode', (value) ->
+        @options.colorblind = value
+        @save!
 
     @saveFilename = 'save'
     @optionsFilename = 'options'
@@ -95,12 +98,13 @@ export class SaveManager
       @options = love.filesystem.load(@optionsFilename)!
 
     --default options
-    @options = @options or {}
+    @options             = @options or {}
     @options.musicVolume = @options.musicVolume or 10
     @options.soundVolume = @options.soundVolume or 10
-    @options.musicType = @options.musicType or 1
-    @options.screenSize = @options.screenSize or 2
-    @options.deadzone = @options.deadzone or 2
+    @options.musicType   = @options.musicType or 1
+    @options.screenSize  = @options.screenSize or 2
+    @options.deadzone    = @options.deadzone or 2
+    @options.colorblind  = @options.colorblind or 1
 
     --set options
     beholder.trigger 'set music volume', @options.musicVolume

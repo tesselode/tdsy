@@ -36,5 +36,5 @@ export class Jellyfish extends Physical
     x, y = @getCenter!\unpack!
     x, y = lume.round(x), lume.round(y)
     @sprite\draw x, y
-    if @checkmarkSprite
+    if saveManager.options.colorblind == 2 and @checkmarkSprite
       @checkmarkSprite\draw x, y
